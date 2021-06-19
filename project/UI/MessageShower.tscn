@@ -1,0 +1,100 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://project/UI/MessageShower.gd" type="Script" id=1]
+[ext_resource path="res://project/UI/THEME/FONT/extra_font.tres" type="DynamicFont" id=2]
+
+[sub_resource type="Animation" id=1]
+resource_name = "message_hide"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/path = NodePath("MarginContainer:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 10.556, 1 ),
+"update": 0,
+"values": [ Vector2( 8, 8 ), Vector2( -240, 8 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "message_popup"
+tracks/0/type = "value"
+tracks/0/path = NodePath("MarginContainer:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 0.203063, 1 ),
+"update": 0,
+"values": [ Vector2( 256, 8 ), Vector2( 8, 8 ) ]
+}
+
+[node name="MessageShower" type="Control"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.0117647, 0.0117647, 0.0117647, 0.501961 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="Control" parent="."]
+anchor_left = 0.031
+anchor_top = 0.056
+anchor_right = 0.969
+anchor_bottom = 0.944
+margin_left = -1.06478
+margin_top = -0.0640001
+margin_right = -1.19267
+margin_bottom = 0.0639954
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BigText" type="Label" parent="MarginContainer"]
+pause_mode = 2
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 1.12878
+margin_top = -14.0
+margin_right = 1.12878
+grow_horizontal = 2
+text = "ACE CLAIMED"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AdditionalText" type="Label" parent="MarginContainer"]
+anchor_top = 0.625
+anchor_right = 1.0
+anchor_bottom = 0.625
+margin_left = 1.12878
+margin_top = -16.0
+margin_right = 1.12878
+grow_horizontal = 2
+custom_fonts/font = ExtResource( 2 )
+text = "by you"
+align = 1
+valign = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+pause_mode = 2
+anims/message_hide = SubResource( 1 )
+anims/message_popup = SubResource( 2 )

@@ -1,0 +1,12 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://project/systems/PauseController.gd" type="Script" id=1]
+[ext_resource path="res://project/sounds/pause_start.ogg" type="AudioStream" id=2]
+[ext_resource path="res://project/sounds/pause_end (resume).ogg" type="AudioStream" id=3]
+
+[node name="PauseController" type="Node" groups=[
+"PauseController",
+]]
+script = ExtResource( 1 )
+SOUND_PAUSE = ExtResource( 2 )
+SOUND_RESUME = ExtResource( 3 )

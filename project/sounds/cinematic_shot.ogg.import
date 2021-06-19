@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/cinematic_shot.ogg-b36313c488e41cc38d45d738c867a841.oggstr"
+
+[deps]
+
+source_file="res://project/sounds/cinematic_shot.ogg"
+dest_files=[ "res://.import/cinematic_shot.ogg-b36313c488e41cc38d45d738c867a841.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://project/weapons/moving hitboxes/bullets/BulletBase.tscn" type="PackedScene" id=1]
+[ext_resource path="res://project/weapons/moving hitboxes/MovingHitbox.gd" type="Script" id=2]
+[ext_resource path="res://project/weapons/moving hitboxes/tile_0114.png" type="Texture" id=3]
+
+[node name="MovingHitbox" groups=[
+"Projectile",
+] instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+damage = 10
+
+[node name="Sprite" parent="." index="0"]
+rotation = 0.0
+texture = ExtResource( 3 )

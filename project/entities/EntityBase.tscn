@@ -1,0 +1,93 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://project/entities/EntityBase.gd" type="Script" id=1]
+[ext_resource path="res://project/entities/cowboy_new.png" type="Texture" id=2]
+[ext_resource path="res://project/weapons/RevolverBase.tscn" type="PackedScene" id=3]
+[ext_resource path="res://project/weapons/moving hitboxes/hit/Hit.tscn" type="PackedScene" id=4]
+[ext_resource path="res://project/overlap/Hurtbox.tscn" type="PackedScene" id=5]
+[ext_resource path="res://project/overlap/PickupArea.tscn" type="PackedScene" id=6]
+[ext_resource path="res://project/entities/SmallShadow.png" type="Texture" id=7]
+[ext_resource path="res://project/sounds/hit.ogg" type="AudioStream" id=8]
+[ext_resource path="res://project/sounds/death.ogg" type="AudioStream" id=9]
+[ext_resource path="res://project/weapons/Revolver.png" type="Texture" id=10]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 3.5
+height = 0.0
+
+[sub_resource type="Animation" id=2]
+resource_name = "walk"
+
+[sub_resource type="CapsuleShape2D" id=3]
+radius = 3.4
+height = 2.0
+
+[sub_resource type="CircleShape2D" id=4]
+radius = 5.0
+
+[node name="EntityBase" type="KinematicBody2D" groups=[
+"Entity",
+]]
+collision_layer = 2
+collision_mask = 11
+script = ExtResource( 1 )
+HIT_SOUND = ExtResource( 8 )
+DEATH_SOUND = ExtResource( 9 )
+HIT_SCENE = ExtResource( 4 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+region_rect = Rect2( 99, 0, 8, 8 )
+
+[node name="Shadow" type="Sprite" parent="Sprite"]
+show_behind_parent = true
+position = Vector2( 0, 4.07432 )
+scale = Vector2( 1, 0.68 )
+texture = ExtResource( 7 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/walk = SubResource( 2 )
+
+[node name="EffectPlayer" type="AnimationPlayer" parent="."]
+
+[node name="ProjSpawnPivot" type="Position2D" parent="."]
+
+[node name="ProjectileSpawn" type="Position2D" parent="ProjSpawnPivot"]
+position = Vector2( 5, 0 )
+
+[node name="RevolverSprite" type="Sprite" parent="ProjSpawnPivot/ProjectileSpawn"]
+visible = false
+scale = Vector2( 0.6, 0.6 )
+texture = ExtResource( 10 )
+
+[node name="RevolverBase" parent="." instance=ExtResource( 3 )]
+bullets = 0
+
+[node name="Hurtbox" parent="." instance=ExtResource( 5 )]
+visible = false
+collision_mask = 4
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+shape = SubResource( 3 )
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 0.15
+one_shot = true
+
+[node name="PickupArea" parent="." instance=ExtResource( 6 )]
+visible = false
+
+[node name="CollisionShape2D" parent="PickupArea" index="0"]
+shape = SubResource( 4 )
+
+[connection signal="died" from="." to="." method="_on_EntityBase_died"]
+[connection signal="magazine_emptied" from="RevolverBase" to="." method="_on_RevolverBase_magazine_emptied"]
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
+[connection signal="area_entered" from="PickupArea" to="." method="_on_PickupArea_area_entered"]
+
+[editable path="Hurtbox"]
+[editable path="PickupArea"]

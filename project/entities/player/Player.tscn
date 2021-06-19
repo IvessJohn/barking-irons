@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://project/entities/EntityBase.tscn" type="PackedScene" id=1]
+[ext_resource path="res://project/entities/player/Player.gd" type="Script" id=2]
+[ext_resource path="res://project/entities/player/Arrow.png" type="Texture" id=3]
+
+[sub_resource type="Animation" id=1]
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6, 0.9 ),
+"transitions": PoolRealArray( 0.554785, 2.46229, 2.46229, 1 ),
+"update": 0,
+"values": [ Vector2( 0.700001, 0.380001 ), Vector2( 0.5, 0.5 ), Vector2( 0.5, 0.5 ), Vector2( 0.330002, 0.649999 ) ]
+}
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 3.2
+height = 2.0
+
+[node name="Player" groups=[
+"Player",
+] instance=ExtResource( 1 )]
+pause_mode = 2
+script = ExtResource( 2 )
+
+[node name="ArrowPointer" type="Sprite" parent="." index="5"]
+position = Vector2( 0, -9 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="ArrowAnimation" type="AnimationPlayer" parent="ArrowPointer" index="0"]
+autoplay = "scale"
+anims/scale = SubResource( 1 )
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+shape = SubResource( 2 )
+
+[connection signal="died" from="." to="." method="_on_Player_died"]
+[connection signal="got_hit" from="." to="." method="_on_Player_got_hit"]
+
+[editable path="Hurtbox"]
+[editable path="PickupArea"]

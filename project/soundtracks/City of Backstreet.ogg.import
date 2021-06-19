@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/City of Backstreet.ogg-bce42a6f3399d8dc6ad7f394a83fbc20.oggstr"
+
+[deps]
+
+source_file="res://project/soundtracks/City of Backstreet.ogg"
+dest_files=[ "res://.import/City of Backstreet.ogg-bce42a6f3399d8dc6ad7f394a83fbc20.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

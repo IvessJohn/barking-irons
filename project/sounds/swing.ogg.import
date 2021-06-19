@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/swing.ogg-46028d1b72b8114e8be8a8b1010edf61.oggstr"
+
+[deps]
+
+source_file="res://project/sounds/swing.ogg"
+dest_files=[ "res://.import/swing.ogg-46028d1b72b8114e8be8a8b1010edf61.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

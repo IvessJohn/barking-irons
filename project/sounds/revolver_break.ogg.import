@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/revolver_break.ogg-bfa3289220bf56ef2cba1d0b47eec129.oggstr"
+
+[deps]
+
+source_file="res://project/sounds/revolver_break.ogg"
+dest_files=[ "res://.import/revolver_break.ogg-bfa3289220bf56ef2cba1d0b47eec129.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0
