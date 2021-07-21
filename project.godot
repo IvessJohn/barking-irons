@@ -9,26 +9,38 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Resource",
+"class": "RandomItemResource",
+"language": "GDScript",
+"path": "res://project/utilities/RandomItemResource.gd"
+}, {
+"base": "Node",
+"class": "RandomPicker",
+"language": "GDScript",
+"path": "res://project/utilities/RandomPicker.gd"
+}, {
 "base": "Node",
 "class": "SFXPLAYER_CLASS",
 "language": "GDScript",
-"path": "res://project/systems/SFXPlayer.gd"
+"path": "res://project/utilities/SFXPlayer.gd"
 } ]
 _global_script_class_icons={
+"RandomItemResource": "",
+"RandomPicker": "",
 "SFXPLAYER_CLASS": ""
 }
 
 [application]
 
-config/name="Barking Irons Jam Version"
+config/name="Barking Irons"
 run/main_scene="res://project/UI/MainMenu.tscn"
 config/use_custom_user_dir=true
 config/icon="res://icon.png"
 
 [autoload]
 
-SfxPlayer="*res://project/systems/SFXPlayer.tscn"
-SoundtrackPlayer="*res://project/systems/SoundtrackPlayer.tscn"
+SfxPlayer="*res://project/utilities/SFXPlayer.tscn"
+SoundtrackPlayer="*res://project/utilities/SoundtrackPlayer.tscn"
 
 [display]
 

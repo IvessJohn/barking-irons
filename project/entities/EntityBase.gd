@@ -4,7 +4,7 @@ extends KinematicBody2D
 signal hp_changed(new_hp)
 signal got_hit(damage)
 signal hp_max_changed(new_hp_max)
-signal died
+signal died(object)
 signal picked_revolver
 
 
@@ -48,6 +48,7 @@ onready var revolver = $RevolverBase
 onready var effectPlayer = $EffectPlayer
 onready var projSpawn = $ProjSpawnPivot/ProjectileSpawn
 
+
 ### SETTERS AND GETTERS
 func set_hp_max(value):
 	if hp_max != value:
@@ -65,7 +66,7 @@ func set_hp(value):
 	emit_signal("hp_changed", hp)
 	if hp <= 0:
 		is_dead = true
-		emit_signal("died")
+		emit_signal("died", self)
 
 func get_hp():
 	return hp
@@ -110,6 +111,7 @@ func hit(hit_dir: Vector2):
 		var hit_object = spawn_object_at_position(HIT_SCENE, projSpawn.global_position)
 		hit_object.rotation = hit_dir.angle()
 		hit_object.damage = HIT_DAMAGE
+		hit_object.hit_owner = self
 
 func attack_in_direction(attack_direction: Vector2, melee_forced: bool = false):
 	if $AttackTimer.is_stopped():
@@ -159,5 +161,6 @@ func _on_RevolverBase_magazine_emptied():
 	$ProjSpawnPivot/ProjectileSpawn/RevolverSprite.hide()
 
 
-func _on_EntityBase_died():
+func _on_EntityBase_died(_entity):
 	die()
+

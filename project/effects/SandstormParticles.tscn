@@ -1,0 +1,74 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://project/effects/SandstormParticles.gd" type="Script" id=1]
+
+[node name="SandstormHandler" type="Node2D"]
+position = Vector2( 128, 72 )
+rotation = -0.0076896
+script = ExtResource( 1 )
+
+[node name="WeakSandstorm" type="CPUParticles2D" parent="." groups=[
+"SandstormParticles",
+]]
+visible = false
+modulate = Color( 1, 1, 1, 0.6 )
+position = Vector2( -70.2245, 0.265549 )
+amount = 512
+lifetime = 0.7
+preprocess = 1.4
+emission_shape = 2
+emission_rect_extents = Vector2( 80, 144 )
+spread = 5.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 250.0
+angular_velocity = 232.26
+angular_velocity_random = 1.0
+tangential_accel = 33.33
+tangential_accel_random = 1.0
+angle = 45.0
+angle_random = 1.0
+scale_amount = 1.2
+scale_amount_random = 1.0
+color = Color( 0.984314, 0.854902, 0, 1 )
+hue_variation = 0.12
+hue_variation_random = 1.0
+
+[node name="WeakTimer" type="Timer" parent="WeakSandstorm"]
+wait_time = 10.0
+one_shot = true
+
+[node name="StrongSandstorm" type="CPUParticles2D" parent="." groups=[
+"SandstormParticles",
+]]
+visible = false
+position = Vector2( -70.2245, 0.265549 )
+amount = 5128
+lifetime = 0.7
+preprocess = 1.4
+emission_shape = 2
+emission_rect_extents = Vector2( 80, 144 )
+spread = 5.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 400.0
+angular_velocity = 232.26
+angular_velocity_random = 1.0
+tangential_accel = 33.33
+tangential_accel_random = 1.0
+angle = 45.0
+angle_random = 1.0
+scale_amount = 4.0
+scale_amount_random = 1.0
+color = Color( 0.984314, 0.854902, 0, 1 )
+hue_variation = 0.12
+hue_variation_random = 1.0
+
+[node name="StrongTimer" type="Timer" parent="StrongSandstorm"]
+wait_time = 10.0
+one_shot = true
+
+[node name="StrongSandstormDimEffect" type="CanvasModulate" parent="."]
+visible = false
+color = Color( 0.184314, 0.12549, 0.0313726, 1 )
+
+[connection signal="timeout" from="WeakSandstorm/WeakTimer" to="." method="_on_WeakTimer_timeout"]
+[connection signal="timeout" from="StrongSandstorm/StrongTimer" to="." method="_on_StrongTimer_timeout"]

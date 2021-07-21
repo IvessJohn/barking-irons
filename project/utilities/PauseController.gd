@@ -31,7 +31,7 @@ func resume(play_sound: bool = true):
 #		get_node(pauseMenu).animPlayer.play("hide")
 		get_tree().set_deferred("paused", false)
 
-func trigger_damage_pause(pause_duration_ms: int = 35):
+func trigger_damage_pause(pause_duration_ms: int = 20):
 	pause(false, false)
 	yield(get_tree().create_timer(pause_duration_ms * 0.001), "timeout")
 	resume(false)

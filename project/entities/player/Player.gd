@@ -8,21 +8,22 @@ var moved_while_paused: bool = false
 
 
 func _physics_process(_delta):
-	### MOVEMENT
-	var input_direction = get_input_direction()
-	velocity = SPEED * SPEED_MODIFIER * input_direction
-	
-	if input_direction != Vector2.ZERO and get_tree().paused:
-		moved_while_paused = true
-	
-	### ATTACKING
-	if Input.is_action_just_pressed("shoot"):
-#		var shooting_vector = global_position.direction_to(get_global_mouse_position())
-		var attack_vector = get_local_mouse_position().normalized()
+	if can_move:
+		### MOVEMENT
+		var input_direction = get_input_direction()
+		velocity = SPEED * SPEED_MODIFIER * input_direction
 		
-		$ProjSpawnPivot.rotation = attack_vector.angle()
+		if input_direction != Vector2.ZERO and get_tree().paused:
+			moved_while_paused = true
 		
-		attack_in_direction(attack_vector, current_armed_state != ARMED_STATES.REVOLVER)
+		### ATTACKING
+		if Input.is_action_just_pressed("shoot"):
+	#		var shooting_vector = global_position.direction_to(get_global_mouse_position())
+			var attack_vector = get_local_mouse_position().normalized()
+			
+			$ProjSpawnPivot.rotation = attack_vector.angle()
+			
+			attack_in_direction(attack_vector, current_armed_state != ARMED_STATES.REVOLVER)
 	
 	apply_and_decrease_knockback()
 	move()
@@ -43,7 +44,7 @@ func _on_Player_got_hit(damage):
 
 func _on_Hurtbox_area_entered(hitbox):
 	if hitbox.is_in_group("Hitbox"):
-		if hitbox.is_in_group("PlayerBullet"):
+		if hitbox.hit_owner == self:
 			emit_signal("shot_himself")
 			has_shot_himself = true
 			print("shot_himself")
@@ -60,5 +61,5 @@ func _on_Hurtbox_area_entered(hitbox):
 		SfxPlayer.play_sfx(HIT_SOUND, get_tree().current_scene, Vector2(0.8, 1.1))
 	#	spawn_effect(EFFECT_HIT)
 
-func _on_Player_died():
+func _on_Player_died(_self):
 	die(false)

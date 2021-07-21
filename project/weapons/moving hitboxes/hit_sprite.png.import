@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/tile_0113.png-79f4c1b70d03f9c82a9486841f5c58be.stex"
+path="res://.import/hit_sprite.png-737b60ee191d525a1336a5dbaaa08860.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://project/kenney_microroguelike_1.2/Tiles/Colored/tile_0113.png"
-dest_files=[ "res://.import/tile_0113.png-79f4c1b70d03f9c82a9486841f5c58be.stex" ]
+source_file="res://project/weapons/moving hitboxes/hit_sprite.png"
+dest_files=[ "res://.import/hit_sprite.png-737b60ee191d525a1336a5dbaaa08860.stex" ]
 
 [params]
 

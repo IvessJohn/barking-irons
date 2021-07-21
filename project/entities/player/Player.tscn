@@ -41,6 +41,9 @@ anims/scale = SubResource( 1 )
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 shape = SubResource( 2 )
 
+[node name="Highlight" type="Light2D" parent="." index="10"]
+enabled = false
+
 [connection signal="died" from="." to="." method="_on_Player_died"]
 [connection signal="got_hit" from="." to="." method="_on_Player_got_hit"]
 

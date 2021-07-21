@@ -33,13 +33,7 @@ func shoot_in_direction(direction: Vector2, spawn_pos: Vector2 = $BulletPos.glob
 			bullet.global_position = spawn_pos
 			bullet.rotation = direction.angle()
 			
-			var bullet_group_name = "Bullet"
-			if get_parent().is_in_group("Player"):
-				bullet_group_name = "Player" + bullet_group_name
-			elif get_parent().is_in_group("Enemy"):
-				bullet_group_name = "Enemy" + bullet_group_name
-			bullet.add_to_group(bullet_group_name)
-			print("Bullet group: " + bullet_group_name)
+			bullet.hit_owner = get_parent()
 		
 		self.bullets -= 1
 		emit_signal("shot")

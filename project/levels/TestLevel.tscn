@@ -8,7 +8,8 @@
 [ext_resource path="res://project/objects/pickables/RevolverItem.tscn" type="PackedScene" id=6]
 [ext_resource path="res://project/levels/LevelUI.gd" type="Script" id=7]
 [ext_resource path="res://project/UI/MessageShower.tscn" type="PackedScene" id=8]
-[ext_resource path="res://project/systems/PauseController.tscn" type="PackedScene" id=9]
+[ext_resource path="res://project/utilities/PauseController.tscn" type="PackedScene" id=9]
+
 
 [node name="TestLevel" type="Node2D"]
 script = ExtResource( 3 )

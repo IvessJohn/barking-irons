@@ -26,12 +26,12 @@ onready var pathfinder = $Pathfinder
 
 func _ready():
 	yield(get_tree(), "idle_frame")
-	if get_tree().has_group("Player"):
-		player = get_tree().get_nodes_in_group("Player")[0]
-	if get_tree().has_group("RevolverItem"):
-		revolverItem = get_tree().get_nodes_in_group("RevolverItem")[0]
-	if get_tree().has_group("LevelNavigation"):
-		pathfinder.levelNav = get_tree().get_nodes_in_group("LevelNavigation")[0]
+	var tree_cur_scene = get_tree().current_scene
+	if tree_cur_scene.is_in_group("Level"):	
+		player = tree_cur_scene.return_player()
+		revolverItem = tree_cur_scene.return_revolverItem()
+		if get_tree().has_group("LevelNavigation"):
+			pathfinder.levelNav = get_tree().get_nodes_in_group("LevelNavigation")[0]
 	
 	if random_behavior:
 		CHOSEN_BEHAVIOR = BEHAVIORS.values()[randi() % BEHAVIORS.size()]
@@ -48,7 +48,7 @@ func _physics_process(_delta):
 		pathfinder.navigate()
 	
 	# Attacking
-	if player != null:
+	if can_move and player != null:
 		var direction_to_player = global_position.direction_to(player.global_position)
 		hitlos.rotation = direction_to_player.angle()
 		shootlos.rotation = direction_to_player.angle()
