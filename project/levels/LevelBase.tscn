@@ -12,7 +12,7 @@
 [ext_resource path="res://project/entities/player/Player.tscn" type="PackedScene" id=13]
 [ext_resource path="res://project/UI/MessageShower.tscn" type="PackedScene" id=14]
 [ext_resource path="res://project/objects/pickables/RevolverItem.tscn" type="PackedScene" id=15]
-[ext_resource path="res://project/levels/scenery/TileMap.tscn" type="PackedScene" id=16]
+[ext_resource path="res://project/levels/scenery/OldTileMap.tscn" type="PackedScene" id=16]
 [ext_resource path="res://project/levels/LevelScript.gd" type="Script" id=20]
 [ext_resource path="res://project/levels/scenery/LevelCamera.tscn" type="PackedScene" id=21]
 

@@ -1,0 +1,15 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[ext_resource path="res://project/shaders/WindSway.shader" type="Shader" id=1]
+
+[resource]
+shader = ExtResource( 1 )
+shader_param/speed = 1.0
+shader_param/minStrength = 0.294
+shader_param/maxStrength = 0.277
+shader_param/strengthScale = 32.0
+shader_param/interval = -1.0
+shader_param/detail = 10.0
+shader_param/distortion = 0.0
+shader_param/heightOffset = 0.872
+shader_param/offset = 0.0
