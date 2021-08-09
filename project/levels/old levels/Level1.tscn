@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://project/levels/LevelBase.tscn" type="PackedScene" id=1]
+
+[node name="Level1" instance=ExtResource( 1 )]
+enemies_disabled = true
+
+[node name="Player" parent="." index="4"]
+position = Vector2( 74.3778, 65.6837 )
+
+[node name="WeakSandstorm" parent="SandstormHandler" index="0"]
+visible = true
+
+[node name="Control" parent="SandstormHandler/WeakSandstorm" index="1"]
+rect_min_size = Vector2( 512, 288 )
+
+[node name="ColorRect" parent="SandstormHandler/WeakSandstorm/Control" index="0"]
+margin_left = 0.0
+margin_top = 0.0
+margin_right = 0.0
+margin_bottom = 0.0
+
+[node name="RandomEventGenerator" parent="." index="10"]
+CASUAL_EVENTS_CHANCES = {
+0: 0,
+1: 1,
+2: 1,
+3: 0,
+4: 0
+}
+
+[editable path="SandstormHandler"]
+[editable path="RandomEventGenerator"]

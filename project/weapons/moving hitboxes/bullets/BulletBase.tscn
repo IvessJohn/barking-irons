@@ -2,7 +2,7 @@
 
 [ext_resource path="res://project/overlap/Hitbox.tscn" type="PackedScene" id=1]
 [ext_resource path="res://project/weapons/moving hitboxes/bullets/BulletBase.gd" type="Script" id=2]
-[ext_resource path="res://project/weapons/moving hitboxes/bullets/bullet.png" type="Texture" id=3]
+[ext_resource path="res://project/graphics/tileset.png" type="Texture" id=3]
 [ext_resource path="res://project/sounds/impact.ogg" type="AudioStream" id=4]
 
 [sub_resource type="CapsuleShape2D" id=1]
@@ -18,8 +18,9 @@ damage = 100
 BREAK_SOUND = ExtResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="." index="0"]
-rotation = 0.785398
 texture = ExtResource( 3 )
+region_enabled = true
+region_rect = Rect2( 272, 64, 16, 16 )
 
 [node name="CollisionShape2D" parent="." index="1"]
 position = Vector2( 3, 0 )

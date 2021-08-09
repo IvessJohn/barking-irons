@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/eagles_crying.ogg-7253eddfe8d058245dd106962bbf54f5.oggstr"
+
+[deps]
+
+source_file="res://project/sounds/eagles_crying.ogg"
+dest_files=[ "res://.import/eagles_crying.ogg-7253eddfe8d058245dd106962bbf54f5.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

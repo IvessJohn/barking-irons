@@ -47,6 +47,7 @@ onready var hurtbox = $Hurtbox
 onready var revolver = $RevolverBase
 onready var effectPlayer = $EffectPlayer
 onready var projSpawn = $ProjSpawnPivot/ProjectileSpawn
+onready var statusEffectHandler = $EntityStatusEffectHandler
 
 
 ### SETTERS AND GETTERS
@@ -164,3 +165,21 @@ func _on_RevolverBase_magazine_emptied():
 func _on_EntityBase_died(_entity):
 	die()
 
+
+
+func _on_EntityStatusEffectHandler_received_fire_damage():
+	print("FIRE DAMAGE! FIRE DAMAGE!")
+
+
+func _on_EntityStatusEffectHandler_on_fire_changed(on_fire):
+	if on_fire:
+		modulate = Color.red
+		print(name + " catched fire")
+	else:
+		modulate = Color.white
+		print(name + " extinguished")
+
+
+func _on_CatchFireArea_area_entered(area):
+	if area.is_in_group("Fire"):
+		statusEffectHandler.catch_fire()
