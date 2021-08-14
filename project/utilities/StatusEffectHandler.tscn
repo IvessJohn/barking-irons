@@ -2,7 +2,7 @@
 
 [ext_resource path="res://project/utilities/StatusEffectHandler.gd" type="Script" id=1]
 
-[node name="EntityStatusEffectHandler" type="Node"]
+[node name="StatusEffectHandler" type="Node"]
 script = ExtResource( 1 )
 
 [node name="OnFireExtinguishTimer" type="Timer" parent="."]

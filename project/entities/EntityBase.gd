@@ -55,11 +55,8 @@ onready var weapons: Dictionary = {
 }
 onready var effectPlayer = $EffectPlayer
 onready var projSpawn = $ProjSpawnPivot/ProjectileSpawn
-<<<<<<< HEAD
-onready var statusEffectHandler = $EntityStatusEffectHandler
+onready var statusEffectHandler = $StatusEffectHandler
 onready var firePosition = $FirePosition
-=======
->>>>>>> parent of 62e6fef (Random Events + Status Effect systems)
 
 
 ### SETTERS AND GETTERS
@@ -192,7 +189,6 @@ func _on_weapon_magazine_emptied(weapon_type):
 func _on_EntityBase_died(_entity):
 	die()
 
-<<<<<<< HEAD
 
 
 func _on_EntityStatusEffectHandler_received_fire_damage(fire_damage):
@@ -246,5 +242,7 @@ func _on_GetWetArea_body_exited(body):
 	if body.is_in_group("ShallowWater"):
 		statusEffectHandler.exited_water()
 		
-=======
->>>>>>> parent of 62e6fef (Random Events + Status Effect systems)
+
+
+func _on_StatusEffectHandler_on_fire_changed(on_fire):
+	pass # Replace with function body.

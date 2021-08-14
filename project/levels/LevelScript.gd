@@ -10,12 +10,11 @@ enum LEVEL_TYPES {
 	LEVEL_DUEL,		# 1v1 battle
 	ARCADE_ARENA	# Every kill or gun pickup spawns a new enemy
 }
-export(LEVEL_TYPES) var level_type: int = LEVEL_TYPES.LEVEL_DUEL
+export(Global.GAME_MODES) var game_mode: int = Global.GAME_MODES.CASUAL
 
 export(PackedScene) var ENEMY_SCENE: PackedScene = null
 export(bool) var enemies_disabled: bool = false
 
-<<<<<<< HEAD
 export(Vector2) var WIND_DIRECTION: Vector2 = Vector2.RIGHT
 var aim_deviation_sandstorm: int setget , get_aim_deviation_sandstorm
 enum SANDSTORM_TYPES {
@@ -27,16 +26,8 @@ export(SANDSTORM_TYPES) var current_sandstorm: int = SANDSTORM_TYPES.NONE
 
 export(PackedScene) var TUMBLEWEED: PackedScene = preload("res://project/objects/Tumbleweed.tscn")
 export(PackedScene) var HORSE: PackedScene = preload("res://project/entities/other entities/RunningHorse.tscn")
-=======
-enum RANDOM_EVENTS {
-	RUNNING_HORSE,
-	EAGLE_SCREAMING
-}
->>>>>>> parent of 62e6fef (Random Events + Status Effect systems)
 
 export(bool) var show_additional_vfx: bool = true	# Sandstorm
-export(float, 0.0, 1.0) var chance_weakSandstorm = 0.3
-export(float, 0.0, 1.0) var chance_strongSandstorm = 0.1
 
 var player_shot_himself: bool = false
 
@@ -50,23 +41,27 @@ onready var randomEventGenerator = $RandomEventGenerator
 
 func _ready():
 	randomize()
+	yield(get_tree(), "idle_frame")
+	randomEventGenerator.is_generating = false
 	connect_ui_elements()
 	SoundtrackPlayer.play_soundtrack(SoundtrackPlayer.THEMES.BATTLE)
 	SoundtrackPlayer.streamPlayer.volume_db = 0
 	
-	if show_additional_vfx:
-		var sandstormHandler = $SandstormHandler
-		sandstormHandler.rotation_degrees = rand_range(0, 360)
-		if randf() < chance_weakSandstorm:
-			sandstormHandler.show()
-			sandstormHandler.get_child(0).show()
-			sandstormHandler.get_child(0).emitting = true
+#	if show_additional_vfx:
+#		var sandstormHandler = $SandstormHandler
+#		sandstormHandler.rotation_degrees = rand_range(0, 360)
+#		if randf() < chance_weakSandstorm:
+#			sandstormHandler.show()
+#			sandstormHandler.get_child(0).show()
+#			sandstormHandler.get_child(0).emitting = true
 	
-	match (level_type):
-		LEVEL_TYPES.LEVEL_DUEL:
+	match (game_mode):
+		Global.GAME_MODES.CASUAL:
 			spawn_enemy(enemySpawnPositionsArr[0].global_position)
-		LEVEL_TYPES.ARCADE_ARENA:
+		Global.GAME_MODES.ARENA:
 			$EnemySpawnTimer.start()
+	
+	randomEventGenerator.is_generating = true
 
 func connect_ui_elements():
 	# Revolver drum
@@ -87,9 +82,13 @@ func _on_RevolverItem_picked(picker_object: Node2D):
 	messageShower.show_message("ROD CLAIMED", "by " + picker_name)
 
 func game_end():
-	var entities = get_tree().get_nodes_in_group("Entity")
-	for e in entities:
-		e.set_deferred("can_move", false)
+	var stopped_objects = []
+	stopped_objects.append_array(get_tree().get_nodes_in_group("Cowboy"))
+#	stopped_objects.append_array(get_tree().get_nodes_in_group("Entity"))
+#	stopped_objects.append_array(get_tree().get_nodes_in_group("Tumbleweed"))
+	for o in stopped_objects:
+		o.set_deferred("can_move", false)
+#	randomEventGenerator.stop_generating_events()
 
 #func _on_Player_shot_himself():
 #	finalScreen.show_screen(finalScreen.FINAL_POSSIBILITY.DEFEAT, "You have just shot yourself. Genius.")
@@ -122,21 +121,21 @@ func _on_CheatBorders_body_entered(body):
 
 
 func _on_RevolverItem_destroyed():
-	match (level_type):
-		LEVEL_TYPES.LEVEL_DUEL:
+	match (game_mode):
+		Global.GAME_MODES.CASUAL:
 			finalScreen.show_screen(finalScreen.FINAL_POSSIBILITY.VICTORY, "Gun broken. No gun - no fight.")
 			game_end()
 
 
 func _on_EnemyBase_died(enemy_object: KinematicBody2D):
-	match (level_type):
-		LEVEL_TYPES.LEVEL_DUEL:
+	match (game_mode):
+		Global.GAME_MODES.CASUAL:
 			if player != null and !player.moved_while_paused:
 				finalScreen.show_screen(finalScreen.FINAL_POSSIBILITY.VICTORY, "Fair win.")
 			else:
 				finalScreen.show_screen(finalScreen.FINAL_POSSIBILITY.VICTORY, "You didn't control time, did you?")
 			game_end()
-		LEVEL_TYPES.ARCADE_ARENA:
+		Global.GAME_MODES.ARENA:
 			$EnemySpawnTimer.start()
 	
 	enemy_object.disconnect("died", self, "_on_EnemyBase_died")
@@ -176,7 +175,6 @@ func return_player():
 
 func return_revolverItem():
 	return get_tree().get_nodes_in_group("RevolverItem")[0]
-<<<<<<< HEAD
 
 func get_aim_deviation_sandstorm() -> int:
 	var aim_deviation: int = 0
@@ -228,5 +226,3 @@ func _on_RandomEventGenerator_event_happened(event_num):
 
 func _on_BordersTurnOnTimer_timeout():
 	$CheatBorders.monitoring = true
-=======
->>>>>>> parent of 62e6fef (Random Events + Status Effect systems)

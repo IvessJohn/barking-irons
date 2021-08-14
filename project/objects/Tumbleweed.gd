@@ -1,6 +1,7 @@
 extends Node2D
 
-const RIGHT = Vector2.RIGHT
+export(bool) var can_move = true setget set_can_move
+var DIRECTION = Vector2.RIGHT
 export(int) var SPEED: int = 40
 
 onready var sprite = $Sprite
@@ -8,16 +9,24 @@ onready var statusEffectHandler = $StatusEffectHandler
 onready var firePosition = $FirePosition
 
 
+func set_can_move(value):
+	if can_move != value:
+		can_move = value
+		$AnimationPlayer.playback_active = can_move
+
+
 func _physics_process(delta):
-	var movement = RIGHT.rotated(rotation) * SPEED * delta
-	global_position += movement
-	sprite.rotation_degrees += SPEED * 2 * delta
+	if can_move:
+		var movement = DIRECTION * SPEED * delta
+		global_position += movement
+		sprite.rotation_degrees += SPEED * 2 * delta * sign(DIRECTION.x)
 
 func destroy():
 	queue_free()
 
 func _on_VisibilityNotifier2D_screen_exited():
-	queue_free()
+	if $AllowFreeTimer.is_stopped():
+		queue_free()
 
 
 func _on_Hurtbox_area_entered(_area):

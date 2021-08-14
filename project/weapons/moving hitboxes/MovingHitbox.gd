@@ -3,6 +3,8 @@ extends "res://project/overlap/Hitbox.gd"
 const RIGHT = Vector2.RIGHT
 export(int) var SPEED: int = 200
 
+var hit_owner: Node2D = null
+
 
 func _physics_process(delta):
 	var movement = RIGHT.rotated(rotation) * SPEED * delta

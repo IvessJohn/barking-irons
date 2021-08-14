@@ -219,8 +219,8 @@ __meta__ = {
 [node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer"]
 margin_left = 6.0
 margin_top = 6.0
-margin_right = 250.0
-margin_bottom = 138.0
+margin_right = 506.0
+margin_bottom = 282.0
 custom_constants/separation = 10
 alignment = 1
 
@@ -240,17 +240,17 @@ __meta__ = {
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer2"]
 modulate = Color( 1, 1, 1, 0 )
-margin_top = 63.0
-margin_right = 244.0
-margin_bottom = 68.0
+margin_top = 135.0
+margin_right = 500.0
+margin_bottom = 140.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="PressAnyKey" type="Label" parent="MarginContainer/VBoxContainer2/VBoxContainer"]
 modulate = Color( 1, 1, 1, 0.587274 )
-margin_left = 64.0
-margin_right = 180.0
+margin_left = 192.0
+margin_right = 308.0
 margin_bottom = 5.0
 size_flags_horizontal = 4
 custom_fonts/font = ExtResource( 5 )
@@ -260,9 +260,9 @@ align = 1
 [node name="Credits" type="Label" parent="MarginContainer"]
 visible = false
 margin_left = 6.0
-margin_top = 123.0
-margin_right = 250.0
-margin_bottom = 138.0
+margin_top = 267.0
+margin_right = 506.0
+margin_bottom = 282.0
 grow_vertical = 0
 size_flags_horizontal = 9
 size_flags_vertical = 8

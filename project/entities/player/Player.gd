@@ -23,7 +23,7 @@ func _physics_process(_delta):
 			
 			$ProjSpawnPivot.rotation = attack_vector.angle()
 			
-			attack_in_direction(attack_vector, current_armed_state == ARMED_STATES.UNARMED)
+			attack_in_direction(attack_vector, current_armed_state != ARMED_STATES.REVOLVER)
 	
 	apply_and_decrease_knockback()
 	move()

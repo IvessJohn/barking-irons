@@ -11,7 +11,7 @@ func _ready():
 		RUNNING_DIR = Vector2.LEFT
 		sprite.scale.x = -1
 
-func _physics_process(_delta):
+func _physics_process(delta):
 	velocity = RUNNING_DIR * SPEED
 	move()
 

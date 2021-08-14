@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://project/objects/Tumbleweed.gd" type="Script" id=1]
-[ext_resource path="res://project/objects/tumbleweed.png" type="Texture" id=2]
+[ext_resource path="res://project/graphics/tileset.png" type="Texture" id=2]
 [ext_resource path="res://project/overlap/Hurtbox.tscn" type="PackedScene" id=3]
 [ext_resource path="res://project/utilities/StatusEffectHandler.tscn" type="PackedScene" id=4]
 
@@ -38,18 +38,17 @@ tracks/1/keys = {
 radius = 6.0
 height = 0.0
 
-[node name="Tumbleweed" type="Node2D"]
+[node name="Tumbleweed" type="Node2D" groups=[
+"Object",
+"Tumbleweed",
+]]
 script = ExtResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
-<<<<<<< HEAD
 position = Vector2( 0, -7 )
-=======
-self_modulate = Color( 4.04, 0.58, 0, 1 )
-position = Vector2( 2.38419e-09, -0.06 )
-rotation = -2.40072
->>>>>>> parent of 62e6fef (Random Events + Status Effect systems)
 texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 304, 96, 16, 16 )
 
 [node name="FirePosition" type="RemoteTransform2D" parent="."]
 position = Vector2( 0, -3 )
@@ -67,7 +66,6 @@ autoplay = "default"
 playback_speed = 0.5
 anims/default = SubResource( 1 )
 
-<<<<<<< HEAD
 [node name="AllowFreeTimer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
@@ -87,7 +85,3 @@ shape = SubResource( 2 )
 [connection signal="area_entered" from="Hurtbox" to="Sprite" method="_on_Hurtbox_area_entered"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
 [connection signal="area_entered" from="CatchFireArea" to="." method="_on_CatchFireArea_area_entered"]
-=======
-[connection signal="area_entered" from="Hurtbox" to="Sprite" method="_on_Hurtbox_area_entered"]
-[connection signal="screen_exited" from="VisibilityNotifier2D" to="Sprite" method="_on_VisibilityNotifier2D_screen_exited"]
->>>>>>> parent of 62e6fef (Random Events + Status Effect systems)
