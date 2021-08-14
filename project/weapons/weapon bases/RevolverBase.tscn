@@ -1,0 +1,9 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://project/weapons/moving hitboxes/bullets/BulletBase.tscn" type="PackedScene" id=1]
+[ext_resource path="res://project/sounds/revolver_shot.ogg" type="AudioStream" id=2]
+[ext_resource path="res://project/weapons/weapon bases/WeaponBase.tscn" type="PackedScene" id=3]
+
+[node name="RevolverBase" instance=ExtResource( 3 )]
+PROJ_BASIC = ExtResource( 1 )
+SHOOT_SOUND = ExtResource( 2 )

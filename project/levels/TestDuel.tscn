@@ -33,6 +33,11 @@ tile_data = PoolIntArray( 131081, 7, 0, 131082, 7, 1, 131083, 7, 2, 196612, 7, 0
 
 [node name="ExplosiveBarrel" parent="LevelNavigation" index="2" instance=ExtResource( 3 )]
 position = Vector2( 96, 48 )
+DAMAGE_EFFECT = null
+DESTROY_EFFECT = null
+DAMAGE_SOUND = null
+DESTROY_SOUND = null
+invincible = false
 
 [node name="Right" parent="CheatBorders" index="3"]
 shape = SubResource( 1 )

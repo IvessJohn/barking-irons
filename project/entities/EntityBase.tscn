@@ -1,8 +1,8 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://project/entities/EntityBase.gd" type="Script" id=1]
 [ext_resource path="res://project/entities/cowboy_Remaster.png" type="Texture" id=2]
-[ext_resource path="res://project/weapons/RevolverBase.tscn" type="PackedScene" id=3]
+[ext_resource path="res://project/weapons/weapon bases/RevolverBase.tscn" type="PackedScene" id=3]
 [ext_resource path="res://project/weapons/moving hitboxes/hit/Hit.tscn" type="PackedScene" id=4]
 [ext_resource path="res://project/overlap/Hurtbox.tscn" type="PackedScene" id=5]
 [ext_resource path="res://project/overlap/PickupArea.tscn" type="PackedScene" id=6]
@@ -10,6 +10,7 @@
 [ext_resource path="res://project/sounds/hit.ogg" type="AudioStream" id=8]
 [ext_resource path="res://project/sounds/death.ogg" type="AudioStream" id=9]
 [ext_resource path="res://project/weapons/Revolver.png" type="Texture" id=10]
+[ext_resource path="res://project/weapons/weapon bases/TorchBase.tscn" type="PackedScene" id=11]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 5.3
@@ -67,10 +68,11 @@ texture = ExtResource( 10 )
 visible = false
 position = Vector2( -5, 0 )
 
-[node name="WeaponBases" type="Node" parent="."]
+[node name="WeaponBases" type="Node2D" parent="."]
 
 [node name="RevolverBase" parent="WeaponBases" instance=ExtResource( 3 )]
-bullets = 0
+
+[node name="TorchBase" parent="WeaponBases" instance=ExtResource( 11 )]
 
 [node name="Hurtbox" parent="." instance=ExtResource( 5 )]
 position = Vector2( 0, -4 )
@@ -91,6 +93,8 @@ shape = SubResource( 4 )
 
 [node name="StatusEffectHandler" parent="." instance=ExtResource( 7 )]
 
+[node name="FirePosition" type="RemoteTransform2D" parent="."]
+
 [node name="CatchFireArea" type="Area2D" parent="."]
 visible = false
 position = Vector2( 0, -4 )
@@ -101,8 +105,16 @@ collision_mask = 32
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CatchFireArea"]
 shape = SubResource( 5 )
 
+[node name="GetWetArea" type="Area2D" parent="."]
+monitorable = false
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GetWetArea"]
+
 [connection signal="died" from="." to="." method="_on_EntityBase_died"]
-[connection signal="magazine_emptied" from="WeaponBases/RevolverBase" to="." method="_on_RevolverBase_magazine_emptied"]
+[connection signal="magazine_emptied" from="WeaponBases/RevolverBase" to="." method="_on_weapon_magazine_emptied"]
+[connection signal="magazine_emptied" from="WeaponBases/TorchBase" to="." method="_on_weapon_magazine_emptied"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
 [connection signal="area_entered" from="PickupArea" to="." method="_on_PickupArea_area_entered"]
 [connection signal="on_fire_changed" from="StatusEffectHandler" to="." method="_on_EntityStatusEffectHandler_on_fire_changed"]

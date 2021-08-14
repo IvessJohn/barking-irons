@@ -206,7 +206,7 @@ func _on_EntityStatusEffectHandler_on_fire_changed(on_fire):
 			var fire_object = get_tree().current_scene.get_node(firePosition.remote_path)
 			if fire_object:
 				fire_object.queue_free()
-				firePosition.remote_path = ""
+			firePosition.remote_path = ""
 		
 		$CatchFireArea/CollisionShape2D.set_deferred("disabled", true)
 		$CatchFireArea/CollisionShape2D.set_deferred("disabled", false)
@@ -242,7 +242,3 @@ func _on_GetWetArea_body_exited(body):
 	if body.is_in_group("ShallowWater"):
 		statusEffectHandler.exited_water()
 		
-
-
-func _on_StatusEffectHandler_on_fire_changed(on_fire):
-	pass # Replace with function body.
