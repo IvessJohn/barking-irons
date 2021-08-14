@@ -20,8 +20,8 @@ func _physics_process(_delta):
 	pass
 
 func _input(event):
-	if interactable and event is InputEventKey and event.pressed:
-#	if false:
+#	if interactable and event is InputEventKey and event.pressed:
+	if false:
 		animPlayer.play("fade_in")
 		SfxPlayer.play_sfx(SOUND_START, self)
 		yield(animPlayer, "animation_finished")

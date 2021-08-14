@@ -24,7 +24,6 @@ radius = 3.2
 height = 2.0
 
 [node name="Player" groups=[
-"Cowboy",
 "Player",
 ] instance=ExtResource( 1 )]
 pause_mode = 2

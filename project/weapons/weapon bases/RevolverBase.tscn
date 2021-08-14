@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://project/sounds/revolver_shot.ogg" type="AudioStream" id=1]
+
+[node name="RevolverBase"]
+PROJ_BASIC = null
+SHOOT_SOUND = ExtResource( 1 )

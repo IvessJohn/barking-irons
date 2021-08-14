@@ -24,7 +24,7 @@ func show_screen(final: int, additional_text: String = ""):
 	# Start the animation
 	$AnimationPlayer.play("message_popup")
 
-func _process(delta):
+func _process(_delta):
 	if visible and $AnimationPlayer.current_animation != "message_hide":
 		if Input.is_action_just_pressed("menu_restartRound"):
 			emit_signal("request_new_level")

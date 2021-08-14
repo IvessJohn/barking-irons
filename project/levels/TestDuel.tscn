@@ -1,22 +1,57 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://project/levels/DuelLevelBase.tscn" type="PackedScene" id=1]
 [ext_resource path="res://project/objects/Fire.tscn" type="PackedScene" id=2]
+[ext_resource path="res://project/objects/structures/ExplosiveBarrel.tscn" type="PackedScene" id=3]
+[ext_resource path="res://project/entities/other entities/RunningHorse.tscn" type="PackedScene" id=4]
+[ext_resource path="res://project/objects/pickables/TorchItem.tscn" type="PackedScene" id=5]
+[ext_resource path="res://project/objects/structures/Table.tscn" type="PackedScene" id=6]
+[ext_resource path="res://project/objects/Tumbleweed.tscn" type="PackedScene" id=7]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 40, 200 )
 
 [node name="TestDuel" instance=ExtResource( 1 )]
 enemies_disabled = true
 
-[node name="RandomEventGenerator" parent="." index="10"]
+[node name="RandomEventGenerator" parent="." index="2"]
 CASUAL_EVENTS_CHANCES = {
-0: 5,
+0: 1,
 1: 1,
-2: 3,
+2: 0,
 3: 0,
-4: 0
+4: 1,
+5: 10
 }
+
+[node name="EventTimer" parent="RandomEventGenerator" index="0"]
+wait_time = 1.0
+
+[node name="ShallowWaterTilemap" parent="LevelNavigation" index="1"]
+collision_use_kinematic = true
+tile_data = PoolIntArray( 131081, 7, 0, 131082, 7, 1, 131083, 7, 2, 196612, 7, 0, 196613, 7, 2, 196617, 7, 65536, 196618, 7, 65537, 196619, 7, 65538, 262148, 7, 131072, 262149, 7, 131074, 262153, 7, 65536, 262154, 7, 65537, 262155, 7, 65538, 327681, 11, 65541, 327689, 7, 65536, 327690, 7, 65537, 327691, 7, 65538, 393225, 7, 131072, 393226, 7, 131073, 393227, 7, 131074 )
+
+[node name="ExplosiveBarrel" parent="LevelNavigation" index="2" instance=ExtResource( 3 )]
+position = Vector2( 96, 48 )
+
+[node name="Right" parent="CheatBorders" index="3"]
+shape = SubResource( 1 )
 
 [node name="Fire" parent="." index="11" instance=ExtResource( 2 )]
 position = Vector2( 80, 104 )
+extinguishable = false
 
-[editable path="SandstormHandler"]
+[node name="RunningHorse" parent="." index="12" instance=ExtResource( 4 )]
+position = Vector2( -24, 112 )
+
+[node name="TorchItem" parent="." index="13" instance=ExtResource( 5 )]
+position = Vector2( 48, 88 )
+
+[node name="Table" parent="." index="14" instance=ExtResource( 6 )]
+position = Vector2( 120, 32 )
+
+[node name="Tumbleweed" parent="." index="15" instance=ExtResource( 7 )]
+position = Vector2( 24, 104 )
+
 [editable path="RandomEventGenerator"]
+[editable path="SandstormHandler"]

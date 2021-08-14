@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://project/objects/structures/ExplosiveBarrel.gd" type="Script" id=1]
+[ext_resource path="res://project/objects/structures/StructureBase.tscn" type="PackedScene" id=2]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 5.5
+
+[node name="ExplosiveBarrel" instance=ExtResource( 2 )]
+script = ExtResource( 1 )
+hp_max = 50
+hp = 50
+
+[node name="Sprite" parent="." index="0"]
+position = Vector2( -0.5, -3 )
+region_rect = Rect2( 336, 16, 16, 16 )
+
+[node name="CollisionShape2D" parent="." index="2"]
+position = Vector2( 0, 0 )
+
+[node name="Hurtbox" parent="." index="3"]
+position = Vector2( 0, -2 )
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2( 0, -0.5 )
+shape = SubResource( 1 )
+
+[node name="StatusEffectHandler" parent="." index="4"]
+extinguishable = false
+
+[node name="CatchFireArea" parent="." index="5"]
+position = Vector2( 0, -3 )
+
+[node name="CollisionShape2D" parent="CatchFireArea" index="0"]
+position = Vector2( 0, 1 )
+
+[connection signal="destroyed" from="." to="." method="_on_ExplosionBarrel_destroyed"]
+
+[editable path="Hurtbox"]

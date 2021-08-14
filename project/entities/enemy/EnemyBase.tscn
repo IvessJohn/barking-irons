@@ -9,7 +9,6 @@ radius = 3.37562
 height = 0.573063
 
 [node name="EnemyBase" groups=[
-"Cowboy",
 "Enemy",
 ] instance=ExtResource( 1 )]
 script = ExtResource( 3 )

@@ -4,82 +4,45 @@
 
 extends Node
 
-signal event_happened(event_num)
-
-export(bool) var is_generating: bool = true setget set_is_generating
-
-export(AudioStream) var EAGLE_SFX: AudioStream = preload("res://project/sounds/eagles_crying.ogg")
-export(PackedScene) var HORSE: PackedScene = preload("res://project/entities/other entities/RunningHorse.tscn")
+signal event_happened(event)
 
 
 enum EVENTS {
 	TUMBLEWEED,			# A tumbleweed going across the field with moderate speed
 	HORSE_RUNNING,		# An animal running through the field with high speed, pushes players
+#	REVOLVERS_SPAWNED	# Spawns a bunch of revolvers on the map
 	EAGLE_SCREAMING,
-	SANDSTORM_WEAK,
-	SANDSTORM_STRONG,
-	NOTHING
+	SANDSTRM_WEAK,
+	SANDSTRM_STRONG
 }
-export(Dictionary) var CASUAL_EVENTS_CHANCES: Dictionary = {
-	EVENTS.TUMBLEWEED: 5,
-	EVENTS.HORSE_RUNNING: 1,
-	EVENTS.EAGLE_SCREAMING: 1,
-	EVENTS.SANDSTORM_WEAK: 0,
-	EVENTS.SANDSTORM_STRONG: 0,
-	EVENTS.NOTHING: 20
+var EVENTS_CHANCES = {
+	EVENTS.TUMBLEWEED: 0,
+	EVENTS.HORSE_RUNNING: 0,
+	EVENTS.EAGLE_SCREAMING: 0,
+#	EVENTS.REVOLVERS_SPAWNED: 0,
+	EVENTS.SANDSTRM_WEAK: 0,
+	EVENTS.SANDSTRM_STRONG: 0
 }
 
 
-onready var eventTimer = $EventTimer
+onready var tickTimer = $TickTimer
 onready var cooldownTimer = $CooldownTimer
 
 
-func set_is_generating(value: bool):
-	is_generating = value
-	if is_generating:
-		eventTimer.start()
-	else:
-		eventTimer.stop()
-		cooldownTimer.stop()
-
-func _ready():
-	randomize()
-#	print(EVENTS.keys()[1])	# Prints out the name of the event from the events enumeration
-	cooldownTimer.paused = false
-	eventTimer.paused = false
-	eventTimer.start()
+func generate_event():
+	tickTimer.stop()
+	cooldownTimer.start()
 	
-	generate_event(Global.GAME_MODES.CASUAL)
-
-
-func generate_event(game_mode_number):
-	var chances_dictionary: Dictionary = {}
-	match (game_mode_number):
-		Global.GAME_MODES.CASUAL:
-			chances_dictionary =  CASUAL_EVENTS_CHANCES
-		Global.GAME_MODES.ARENA:
-			pass
-		Global.GAME_MODES.LAN_MULTIPLAYER:
-			pass
-	
-	var random_picker = RandomPicker.new()
-	var chosen_event = random_picker.pick_random_enum(EVENTS, chances_dictionary)
-	
-	print(chosen_event)
-	emit_signal("event_happened", chosen_event)
+	pass
 
 func stop_generating_events():
-	self.is_generating = false
+	cooldownTimer.stop()
+	tickTimer.stop()
 
 func _on_RandomEventTimer_timeout():
-	if is_generating:
-	#	generate_event(Global.current_game_mode)
-		generate_event(Global.GAME_MODES.CASUAL)
-		
-		cooldownTimer.start()
+	generate_event()
 
 func _on_CooldownTimer_timeout():
-	if is_generating:
-		eventTimer.start()
+	cooldownTimer.start()
 
 

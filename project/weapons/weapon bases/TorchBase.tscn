@@ -1,0 +1,8 @@
+[gd_scene format=2]
+
+[node name="TorchBase"]
+WEAPON_TYPE = 1
+PROJ_BASIC = null
+AMMO_DEFAULT = 2
+ammo = 2
+shake_camera_when_shot = false

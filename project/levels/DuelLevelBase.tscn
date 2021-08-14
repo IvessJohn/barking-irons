@@ -13,14 +13,5 @@ position = Vector2( 0, 192 )
 [node name="Right" parent="CheatBorders" index="3"]
 position = Vector2( 304, 0 )
 
-[node name="RandomEventGenerator" parent="." index="10"]
-CASUAL_EVENTS_CHANCES = {
-0: 5,
-1: 1,
-2: 3,
-3: 0,
-4: 0
-}
-
-[editable path="SandstormHandler"]
 [editable path="RandomEventGenerator"]
+[editable path="SandstormHandler"]
