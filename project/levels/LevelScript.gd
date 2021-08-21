@@ -37,6 +37,7 @@ onready var messageShower = $UI/MessageShower
 onready var finalScreen = $UI/FinalScreen
 onready var enemySpawnPositionsArr = $EnemySpawnPositions.get_children()
 onready var randomEventGenerator = $RandomEventGenerator
+onready var aceTimeController = $AceTimeController
 
 
 func _ready():
@@ -62,6 +63,10 @@ func _ready():
 			$EnemySpawnTimer.start()
 	
 	randomEventGenerator.is_generating = true
+
+func _input(event):
+	if Input.is_action_just_pressed("ability_acetime"):
+		aceTimeController.request_acetime_change()
 
 func connect_ui_elements():
 	# Revolver drum
@@ -226,3 +231,7 @@ func _on_RandomEventGenerator_event_happened(event_num):
 
 func _on_BordersTurnOnTimer_timeout():
 	$CheatBorders.monitoring = true
+
+
+func _on_AceTimeController_acetime_active_changed(new_acetime):
+	pass # Replace with function body.

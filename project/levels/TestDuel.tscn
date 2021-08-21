@@ -14,7 +14,7 @@ extents = Vector2( 40, 200 )
 [node name="TestDuel" instance=ExtResource( 1 )]
 enemies_disabled = true
 
-[node name="RandomEventGenerator" parent="." index="2"]
+[node name="RandomEventGenerator" parent="." index="3"]
 CASUAL_EVENTS_CHANCES = {
 0: 1,
 1: 1,
@@ -33,14 +33,6 @@ tile_data = PoolIntArray( 131081, 7, 0, 131082, 7, 1, 131083, 7, 2, 196612, 7, 0
 
 [node name="ExplosiveBarrel" parent="LevelNavigation" index="2" instance=ExtResource( 3 )]
 position = Vector2( 96, 48 )
-DAMAGE_EFFECT = null
-DESTROY_EFFECT = null
-DAMAGE_SOUND = null
-DESTROY_SOUND = null
-invincible = false
-
-[node name="Right" parent="CheatBorders" index="3"]
-shape = SubResource( 1 )
 
 [node name="Fire" parent="." index="11" instance=ExtResource( 2 )]
 position = Vector2( 80, 104 )
@@ -57,6 +49,9 @@ position = Vector2( 120, 32 )
 
 [node name="Tumbleweed" parent="." index="15" instance=ExtResource( 7 )]
 position = Vector2( 24, 104 )
+
+[node name="Right" parent="CheatBorders" index="3"]
+shape = SubResource( 1 )
 
 [editable path="RandomEventGenerator"]
 [editable path="SandstormHandler"]

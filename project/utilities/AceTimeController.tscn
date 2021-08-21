@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://project/utilities/AceTimeController.gd" type="Script" id=1]
+
+[node name="AceTimeController" type="Node"]
+script = ExtResource( 1 )
+
+[node name="DurationTimer" type="Timer" parent="."]
+
+[node name="Tween" type="Tween" parent="."]
+
+[connection signal="timeout" from="DurationTimer" to="." method="_on_DurationTimer_timeout"]

@@ -87,9 +87,11 @@ func apply_and_decrease_knockback():
 
 func move():
 	if can_move:
-		velocity += current_wind_dir * STRONG_WIND_STRENGTH
-		if statusEffectHandler.in_water:
+		if !statusEffectHandler.in_water:
+			velocity += current_wind_dir * STRONG_WIND_STRENGTH
+		else:
 			velocity *= SPEED_MOD_IN_WATER
+		
 		
 		velocity = move_and_slide(velocity)
 
@@ -241,4 +243,3 @@ func _on_GetWetArea_body_entered(body):
 func _on_GetWetArea_body_exited(body):
 	if body.is_in_group("ShallowWater"):
 		statusEffectHandler.exited_water()
-		
