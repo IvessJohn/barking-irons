@@ -25,7 +25,7 @@ CASUAL_EVENTS_CHANCES = {
 }
 
 [node name="EventTimer" parent="RandomEventGenerator" index="0"]
-wait_time = 1.0
+wait_time = 4.0
 
 [node name="ShallowWaterTilemap" parent="LevelNavigation" index="1"]
 collision_use_kinematic = true
@@ -33,6 +33,10 @@ tile_data = PoolIntArray( 131081, 7, 0, 131082, 7, 1, 131083, 7, 2, 196612, 7, 0
 
 [node name="ExplosiveBarrel" parent="LevelNavigation" index="2" instance=ExtResource( 3 )]
 position = Vector2( 96, 48 )
+
+[node name="Player" parent="." index="6"]
+hp_max = 1000
+hp = 1000
 
 [node name="Fire" parent="." index="11" instance=ExtResource( 2 )]
 position = Vector2( 80, 104 )

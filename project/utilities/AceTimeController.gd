@@ -35,9 +35,11 @@ func request_acetime_change():
 func enter_acetime():	# A brief moment of entering Ace time (animation)
 	if acetime_allowed:
 		if can_change_acetime_active:
+			# Slow down the game
 			tween.interpolate_property(Engine, "time_scale", Engine.time_scale,
 					desired_time_modifier, time_entering,
 					Tween.TRANS_BACK, Tween.EASE_IN_OUT)
+			# Slow down the soundtrack
 			tween.interpolate_property(SoundtrackPlayer.streamPlayer, "pitch_scale", SoundtrackPlayer.streamPlayer.pitch_scale,
 					0.5, time_entering,
 					Tween.TRANS_BACK, Tween.EASE_IN_OUT)
@@ -60,9 +62,11 @@ func acetime_stop():	# The actual stop of Ace time
 
 func exit_acetime():	# A brief moment of exiting Ace time (animation)
 	if can_change_acetime_active:
+			# Speed up the game
 		tween.interpolate_property(Engine, "time_scale", Engine.time_scale,
 				1.0, time_leaving,
 				Tween.TRANS_BACK, Tween.EASE_OUT)
+			# Speed up the soundtrack
 		tween.interpolate_property(SoundtrackPlayer.streamPlayer, "pitch_scale", SoundtrackPlayer.streamPlayer.pitch_scale,
 				1, time_entering,
 				Tween.TRANS_BACK, Tween.EASE_OUT)

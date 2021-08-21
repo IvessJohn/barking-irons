@@ -195,6 +195,7 @@ func _on_EntityBase_died(_entity):
 
 func _on_EntityStatusEffectHandler_received_fire_damage(fire_damage):
 	print("FIRE DAMAGE! FIRE DAMAGE!")
+	ignite_self()
 	receive_damage(fire_damage)
 
 
@@ -216,6 +217,15 @@ func _on_EntityStatusEffectHandler_on_fire_changed(on_fire):
 
 func _on_CatchFireArea_area_entered(area):
 	if area.get_path() != firePosition.remote_path and area.is_in_group("Fire"):
+	# i.e. if this fire is not the one you are currently burning with
+		if !statusEffectHandler.can_catch_fire:
+			statusEffectHandler.collided_with_fire()
+		else:
+			statusEffectHandler.catch_fire()
+
+func ignite_self():
+	if !statusEffectHandler.in_water:
+		statusEffectHandler.dried()
 		statusEffectHandler.catch_fire()
 		
 		if firePosition.remote_path == "":
@@ -223,8 +233,8 @@ func _on_CatchFireArea_area_entered(area):
 			fire_object.extinguishable = statusEffectHandler.extinguishable
 			get_tree().current_scene.add_child(fire_object)
 			firePosition.remote_path = fire_object.get_path()
-
-
+		else:
+			get_node(firePosition.remote_path).extinguishTimer.start()
 
 func _on_EntityStatusEffectHandler_wet_changed(wet):
 	if wet:

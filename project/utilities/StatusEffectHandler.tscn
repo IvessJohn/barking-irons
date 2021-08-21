@@ -17,6 +17,13 @@ one_shot = true
 wait_time = 3.0
 one_shot = true
 
+[node name="CatchingFireTimer" type="Timer" parent="."]
+wait_time = 0.15
+one_shot = true
+
+[node name="HeatTween" type="Tween" parent="."]
+
 [connection signal="timeout" from="OnFireExtinguishTimer" to="." method="_on_OnFireExtinguishTimer_timeout"]
 [connection signal="timeout" from="FireDamageTimer" to="." method="_on_FireDamageTimer_timeout"]
 [connection signal="timeout" from="DryTimer" to="." method="_on_DryTimer_timeout"]
+[connection signal="timeout" from="CatchingFireTimer" to="." method="_on_CatchingFireTimer_timeout"]

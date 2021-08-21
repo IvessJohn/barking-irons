@@ -4,10 +4,12 @@ var attached_to: String = ""
 
 export(bool) var extinguishable: bool = true
 
+onready var extinguishTimer = $ExtinguishTimer
+
 
 func _ready():
 	if extinguishable:
-		$ExtinguishTimer.start()
+		extinguishTimer.start()
 
 func _on_ExtinguishTimer_timeout():
 	if extinguishable:
