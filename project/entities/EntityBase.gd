@@ -110,7 +110,7 @@ func receive_damage(received_damage):
 
 func die(free_self: bool = true):
 	if firePosition.remote_path != "":
-		get_node(firePosition.remote_path).queue_free()
+		get_node(firePosition.remote_path).extinguishable = statusEffectHandler.fire_extinguishable
 	
 	Global.spawn_object_at_position(DEATH_EFFECT, global_position)
 	SfxPlayer.play_sfx(DEATH_SOUND)
@@ -226,15 +226,18 @@ func _on_CatchFireArea_area_entered(area):
 func ignite_self():
 	if !statusEffectHandler.in_water:
 		statusEffectHandler.dried()
-		statusEffectHandler.catch_fire()
+#		statusEffectHandler.catch_fire()
 		
 		if firePosition.remote_path == "":
 			var fire_object: Node2D = Global.FIRE_SCENE.instance()
-			fire_object.extinguishable = statusEffectHandler.extinguishable
+			fire_object.extinguishable = (statusEffectHandler.fire_extinguishable and statusEffectHandler.extinguishes)
 			get_tree().current_scene.add_child(fire_object)
 			firePosition.remote_path = fire_object.get_path()
 		else:
 			get_node(firePosition.remote_path).extinguishTimer.start()
+
+func fall_off_a_cliff():
+	die()
 
 func _on_EntityStatusEffectHandler_wet_changed(wet):
 	if wet:
@@ -253,3 +256,8 @@ func _on_GetWetArea_body_entered(body):
 func _on_GetWetArea_body_exited(body):
 	if body.is_in_group("ShallowWater"):
 		statusEffectHandler.exited_water()
+
+
+func _on_CliffDetectionArea_body_entered(body):
+	if body.is_in_group("Cliff"):
+		die()

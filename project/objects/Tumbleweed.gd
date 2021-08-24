@@ -39,6 +39,6 @@ func _on_CatchFireArea_area_entered(area):
 		
 		if firePosition.remote_path == "":
 			var fire_object: Node2D = Global.FIRE_SCENE.instance()
-			fire_object.extinguishable = statusEffectHandler.extinguishable
+			fire_object.extinguishable = statusEffectHandler.extinguishes
 			get_tree().current_scene.add_child(fire_object)
 			firePosition.remote_path = fire_object.get_path()

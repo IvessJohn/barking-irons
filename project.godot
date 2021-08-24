@@ -144,6 +144,7 @@ ability_acetime={
 2d_physics/layer_4="Pickables"
 2d_physics/layer_5="Water"
 2d_physics/layer_6="Fire"
+2d_physics/layer_7="Cliffs"
 
 [physics]
 

@@ -14,11 +14,14 @@ export(bool) var in_wind: bool = false setget set_in_wind
 export(bool) var can_burn: bool = true			# Constant, defines the ability to burn at all 
 												 # (don't confuse with the can_catch_fire)
 export(bool) var can_catch_fire: bool = true	# Variable, defines if the object can catch fire right now
-export(bool) var extinguishable: bool = true
+export(bool) var extinguishes: bool = true		# Defines if the object can auto-extinguish
+export(bool) var fire_extinguishable: bool = true	# Defines if the fire will stay forever after the host
+													 # died 
 export(bool) var in_water: bool = false
 
 #export(float, 0.0, 1.0) var heat_determiner: float = 0.0 setget set_heat_determiner	# Must be filled to be burning
 
+export(float) var catching_fire_time: float = 0.15
 export(int) var fire_damage: int = 5
 
 onready var extinguishTimer = $OnFireExtinguishTimer
@@ -54,6 +57,9 @@ func set_in_wind(value):
 
 ### FUNCTIONS
 
+func _ready():
+	catchingFireTimer.wait_time = catching_fire_time
+
 func collided_with_fire():
 	if catchingFireTimer.is_stopped():
 		dried()
@@ -65,7 +71,7 @@ func catch_fire(can_extinguish: bool = true):
 		can_catch_fire = true
 		
 		fireDamageTimer.start()
-		if extinguishable:
+		if extinguishes:
 			extinguishTimer.start()
 
 func extinguish():
@@ -102,7 +108,7 @@ func _on_FireDamageTimer_timeout():
 
 
 func _on_OnFireExtinguishTimer_timeout():
-	if extinguishable:
+	if extinguishes:
 		extinguish()
 
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://project/entities/EntityBase.gd" type="Script" id=1]
 [ext_resource path="res://project/entities/cowboy_Remaster.png" type="Texture" id=2]
@@ -34,6 +34,10 @@ height = 4.0
 [sub_resource type="CircleShape2D" id=6]
 radius = 7.0
 
+[sub_resource type="CapsuleShape2D" id=7]
+radius = 1.0
+height = 6.0
+
 [node name="EntityBase" type="KinematicBody2D" groups=[
 "Entity",
 ]]
@@ -50,6 +54,7 @@ texture = ExtResource( 2 )
 region_rect = Rect2( 99, 0, 8, 8 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2( 0, -4 )
 shape = SubResource( 1 )
 
@@ -84,6 +89,7 @@ region_rect = Rect2( 240, 96, 16, 16 )
 [node name="TorchBase" parent="WeaponBases" instance=ExtResource( 11 )]
 
 [node name="Hurtbox" parent="." instance=ExtResource( 5 )]
+visible = false
 position = Vector2( 0, -4 )
 collision_mask = 4
 
@@ -115,6 +121,7 @@ collision_mask = 32
 shape = SubResource( 5 )
 
 [node name="GetWetArea" type="Area2D" parent="."]
+visible = false
 position = Vector2( 0, -2 )
 monitorable = false
 collision_layer = 0
@@ -122,6 +129,16 @@ collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GetWetArea"]
 shape = SubResource( 6 )
+
+[node name="CliffDetectionArea" type="Area2D" parent="."]
+position = Vector2( 0, 1.5 )
+monitorable = false
+collision_layer = 2
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CliffDetectionArea"]
+rotation = 1.5708
+shape = SubResource( 7 )
 
 [connection signal="died" from="." to="." method="_on_EntityBase_died"]
 [connection signal="magazine_emptied" from="WeaponBases/RevolverBase" to="." method="_on_weapon_magazine_emptied"]
@@ -134,6 +151,7 @@ shape = SubResource( 6 )
 [connection signal="area_entered" from="CatchFireArea" to="." method="_on_CatchFireArea_area_entered"]
 [connection signal="body_entered" from="GetWetArea" to="." method="_on_GetWetArea_body_entered"]
 [connection signal="body_exited" from="GetWetArea" to="." method="_on_GetWetArea_body_exited"]
+[connection signal="body_entered" from="CliffDetectionArea" to="." method="_on_CliffDetectionArea_body_entered"]
 
 [editable path="Hurtbox"]
 [editable path="PickupArea"]

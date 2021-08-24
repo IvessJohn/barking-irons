@@ -10,12 +10,13 @@ height = 2.00001
 radius = 3.3
 height = 2.00001
 
-[node name="Table" groups=[
-"Table",
+[node name="Cacti" groups=[
+"Cacti",
 ] instance=ExtResource( 1 )]
 
 [node name="Sprite" parent="." index="0"]
-region_rect = Rect2( 352, 16, 16, 16 )
+position = Vector2( -1, -3 )
+region_rect = Rect2( 320, 32, 16, 16 )
 
 [node name="CollisionShape2D" parent="." index="2"]
 position = Vector2( 0, -1.5 )
@@ -23,10 +24,9 @@ shape = SubResource( 1 )
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 position = Vector2( 0, -1.5 )
-rotation = 1.5708
 shape = SubResource( 2 )
 
-[node name="StatusEffectHandler" parent="." index="4"]
-catching_fire_time = 1.0
+[node name="CatchFireArea" parent="." index="5"]
+position = Vector2( 0, -3 )
 
 [editable path="Hurtbox"]
