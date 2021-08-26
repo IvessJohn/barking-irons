@@ -8,7 +8,7 @@ signal event_happened(event_num)
 
 export(bool) var is_generating: bool = true setget set_is_generating
 
-export(AudioStream) var EAGLE_SFX: AudioStream = preload("res://project/sounds/eagles_crying.ogg")
+export(PackedScene) var EAGLE: PackedScene = preload("res://project/objects/not interactable/Eagle.tscn")
 export(PackedScene) var HORSE: PackedScene = preload("res://project/entities/other entities/RunningHorse.tscn")
 
 

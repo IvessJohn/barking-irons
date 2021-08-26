@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://project/graphics/tileset.png" type="Texture" id=1]
+[ext_resource path="res://project/objects/not interactable/Eagle.gd" type="Script" id=2]
+[ext_resource path="res://project/sounds/eagles_crying.ogg" type="AudioStream" id=3]
+
+[sub_resource type="Animation" id=1]
+resource_name = "flying"
+length = 0.9
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ Rect2( 256, 64, 16, 16 ), Rect2( 272, 64, 16, 16 ), Rect2( 256, 64, 16, 16 ) ]
+}
+
+[node name="Eagle" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 256, 64, 16, 16 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "flying"
+anims/flying = SubResource( 1 )
+
+[node name="EagleScream" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+autoplay = true
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+
+[node name="AllowFreeTimer" type="Timer" parent="VisibilityNotifier2D"]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[node name="AutoFreeTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="AutoFreeTimer" to="." method="queue_free"]

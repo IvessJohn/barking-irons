@@ -25,7 +25,6 @@ enum SANDSTORM_TYPES {
 export(SANDSTORM_TYPES) var current_sandstorm: int = SANDSTORM_TYPES.NONE
 
 export(PackedScene) var TUMBLEWEED: PackedScene = preload("res://project/objects/Tumbleweed.tscn")
-export(PackedScene) var HORSE: PackedScene = preload("res://project/entities/other entities/RunningHorse.tscn")
 
 export(bool) var show_additional_vfx: bool = true	# Sandstorm
 
@@ -203,7 +202,16 @@ func _on_RandomEventGenerator_event_happened(event_num):
 			tumbleweed.global_position = spawn_position
 		
 		"EAGLE_SCREAMING":
-			SfxPlayer.play_sfx(randomEventGenerator.EAGLE_SFX)
+			var eagle = randomEventGenerator.EAGLE.instance()
+			var spawn_position = Vector2(-10, rand_range(40,260))
+			
+			get_tree().current_scene.add_child(eagle)
+			var left_facing: bool = (randi() % 2 == 0)
+			if left_facing:
+				spawn_position = Vector2(530, rand_range(40,260))
+				eagle.sprite.scale.x = -1
+			
+			eagle.global_position = spawn_position
 		
 		"HORSE_RUNNING":
 			var horse = randomEventGenerator.HORSE.instance()
@@ -212,7 +220,7 @@ func _on_RandomEventGenerator_event_happened(event_num):
 			get_tree().current_scene.add_child(horse)
 			var left_facing: bool = (randi() % 2 == 0)
 			if left_facing:
-				spawn_position = Vector2(270, rand_range(20,260))
+				spawn_position = Vector2(530, rand_range(20,260))
 				horse.sprite.scale.x = -1
 				horse.RUNNING_DIR = Vector2.LEFT
 			

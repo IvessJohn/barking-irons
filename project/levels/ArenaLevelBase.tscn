@@ -5,5 +5,5 @@
 [node name="ArenaLevelBase" instance=ExtResource( 1 )]
 game_mode = 2
 
-[editable path="SandstormHandler"]
 [editable path="RandomEventGenerator"]
+[editable path="SandstormHandler"]

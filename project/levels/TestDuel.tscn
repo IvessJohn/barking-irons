@@ -20,23 +20,26 @@ enemies_disabled = true
 CASUAL_EVENTS_CHANCES = {
 0: 1,
 1: 1,
-2: 0,
-3: 0,
+2: 10,
+3: 1,
 4: 1,
 5: 10
 }
 
 [node name="EventTimer" parent="RandomEventGenerator" index="0"]
-wait_time = 4.0
+wait_time = 1.0
 
-[node name="ShallowWaterTilemap" parent="LevelNavigation" index="1"]
+[node name="CooldownTimer" parent="RandomEventGenerator" index="1"]
+wait_time = 1.0
+
+[node name="ShallowWaterTilemap" parent="LevelNavigation" index="2"]
 tile_data = PoolIntArray( 131081, 7, 0, 131082, 7, 1, 131083, 7, 2, 196612, 7, 0, 196613, 7, 2, 196617, 7, 65536, 196618, 7, 65537, 196619, 7, 65538, 262148, 7, 131072, 262149, 7, 131074, 262153, 7, 65536, 262154, 7, 65537, 262155, 7, 65538, 327681, 11, 65541, 327689, 7, 65536, 327690, 7, 65537, 327691, 7, 65538, 393225, 7, 131072, 393226, 7, 131073, 393227, 7, 131074 )
-
-[node name="CliffTileset" parent="LevelNavigation" index="2"]
-tile_data = PoolIntArray( -65535, 12, 0, -65534, 12, 1, -65533, 12, 2, 1, 12, 65536, 2, 12, 65537, 3, 12, 65538, 65537, 12, 131072, 65538, 12, 131073, 65539, 12, 131074, 327681, 11, 65541 )
 
 [node name="ExplosiveBarrel" parent="LevelNavigation" index="3" instance=ExtResource( 3 )]
 position = Vector2( 96, 48 )
+
+[node name="CliffTileset" parent="LevelNavigation" index="4"]
+tile_data = PoolIntArray( -65535, 12, 0, -65534, 12, 1, -65533, 12, 2, 1, 12, 65536, 2, 12, 65537, 3, 12, 65538, 65537, 12, 131072, 65538, 12, 131073, 65539, 12, 131074, 327681, 11, 65541 )
 
 [node name="Player" parent="." index="6"]
 hp_max = 1000
@@ -69,6 +72,9 @@ position = Vector2( 142, 43 )
 
 [node name="Tumbleweed" parent="." index="19" instance=ExtResource( 7 )]
 position = Vector2( 24, 104 )
+
+[node name="Top" parent="CheatBorders" index="1"]
+position = Vector2( 256, -48 )
 
 [node name="Right" parent="CheatBorders" index="3"]
 shape = SubResource( 1 )

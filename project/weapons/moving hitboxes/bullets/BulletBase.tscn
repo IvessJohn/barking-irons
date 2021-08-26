@@ -18,9 +18,10 @@ damage = 100
 BREAK_SOUND = ExtResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="." index="0"]
+position = Vector2( 0, -0.5 )
 texture = ExtResource( 3 )
 region_enabled = true
-region_rect = Rect2( 272, 64, 16, 16 )
+region_rect = Rect2( 272, 96, 16, 16 )
 
 [node name="CollisionShape2D" parent="." index="1"]
 position = Vector2( 3, 0 )
