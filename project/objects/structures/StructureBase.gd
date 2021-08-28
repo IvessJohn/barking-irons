@@ -19,6 +19,7 @@ var is_dead: bool = false
 
 onready var statusEffectHandler = $StatusEffectHandler
 onready var firePosition = $FirePosition
+onready var hurtbox = $Hurtbox
 
 
 ### SETTERS AND GETTERS

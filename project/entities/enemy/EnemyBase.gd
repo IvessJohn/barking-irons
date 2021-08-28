@@ -21,6 +21,7 @@ export(bool) var random_behavior: bool = false
 
 onready var hitlos = $HitLOS
 onready var shootlos = $ShootLOS
+onready var throwlos = $ThrowLOS
 onready var pathfinder = $Pathfinder
 
 
@@ -51,13 +52,19 @@ func _physics_process(_delta):
 	if can_move and player != null:
 		var direction_to_player = global_position.direction_to(player.global_position)
 		hitlos.rotation = direction_to_player.angle()
-		shootlos.rotation = direction_to_player.angle()
+		shootlos.rotation = hitlos.rotation
+		throwlos.rotation = hitlos.rotation
 		$ProjSpawnPivot.rotation = direction_to_player.angle()
 		
 		if check_player_in_detection(hitlos):
 			attack_in_direction(direction_to_player, true)
-		elif check_player_in_detection(shootlos):
-			attack_in_direction(direction_to_player, false)
+		elif current_armed_state != ARMED_STATES.UNARMED:
+			var checking_los: RayCast2D = shootlos
+			if current_armed_state == ARMED_STATES.TORCH:
+				checking_los = throwlos
+				
+			if check_player_in_detection(checking_los):
+				attack_in_direction(direction_to_player, false)
 	
 	apply_and_decrease_knockback()
 	move()
