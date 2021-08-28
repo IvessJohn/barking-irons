@@ -14,14 +14,22 @@ height = 2.00001
 [node name="Table" groups=[
 "Table",
 ] instance=ExtResource( 1 )]
+position = Vector2( 4, 0 )
 script = ExtResource( 2 )
 
 [node name="Sprite" parent="." index="0"]
+position = Vector2( -4, -3 )
 region_rect = Rect2( 352, 16, 16, 16 )
 
+[node name="FirePosition" parent="." index="1"]
+position = Vector2( -4, 0 )
+
 [node name="CollisionShape2D" parent="." index="2"]
-position = Vector2( 0, -1.5 )
+position = Vector2( -4, -1.5 )
 shape = SubResource( 1 )
+
+[node name="Hurtbox" parent="." index="3"]
+position = Vector2( -4, 0 )
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 position = Vector2( 0, -1.5 )
@@ -31,6 +39,9 @@ disabled = true
 
 [node name="StatusEffectHandler" parent="." index="4"]
 catching_fire_time = 1.0
+
+[node name="CatchFireArea" parent="." index="5"]
+position = Vector2( -4, -4 )
 
 [node name="FlipTween" type="Tween" parent="." index="6"]
 
