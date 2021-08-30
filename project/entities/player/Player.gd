@@ -6,6 +6,8 @@ export(bool) var has_shot_himself: bool = false
 
 var moved_while_paused: bool = false
 
+var available_interactive_areas: Array = []
+
 
 func _physics_process(_delta):
 	if can_move:
@@ -24,9 +26,25 @@ func _physics_process(_delta):
 			$ProjSpawnPivot.rotation = attack_vector.angle()
 			
 			attack_in_direction(attack_vector, current_armed_state == ARMED_STATES.UNARMED)
+		
+		### INTERACTING
+		if Input.is_action_just_pressed("action_interact"):
+			interact_with_closest_object()
 	
 	apply_and_decrease_knockback()
 	move()
+
+func interact_with_closest_object():
+	if available_interactive_areas.size() > 0:
+		var closest_area: InteractiveArea = available_interactive_areas[0]
+		
+		if available_interactive_areas.size() > 1:
+			for area in available_interactive_areas:
+				if global_position.distance_to(area.global_position) < global_position.distance_to(closest_area.global_position):
+					closest_area = area
+		
+		closest_area.interact(self)
+
 
 func get_input_direction() -> Vector2:
 	var input_dir: Vector2 = Vector2.ZERO
@@ -63,3 +81,10 @@ func _on_Hurtbox_area_entered(hitbox):
 
 func _on_Player_died(_self):
 	die(false)
+
+
+func _on_InteractingArea_area_entered(area):
+	available_interactive_areas.append(area)
+
+func _on_InteractingArea_area_exited(area):
+	available_interactive_areas.erase(area)

@@ -1,9 +1,8 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://project/levels/DuelLevelBase.tscn" type="PackedScene" id=1]
 [ext_resource path="res://project/objects/Fire.tscn" type="PackedScene" id=2]
 [ext_resource path="res://project/objects/structures/ExplosiveBarrel.tscn" type="PackedScene" id=3]
-[ext_resource path="res://project/entities/other entities/RunningHorse.tscn" type="PackedScene" id=4]
 [ext_resource path="res://project/objects/pickables/TorchItem.tscn" type="PackedScene" id=5]
 [ext_resource path="res://project/objects/structures/Table.tscn" type="PackedScene" id=6]
 [ext_resource path="res://project/objects/Tumbleweed.tscn" type="PackedScene" id=7]
@@ -33,7 +32,7 @@ wait_time = 1.0
 wait_time = 1.0
 
 [node name="ShallowWaterTilemap" parent="LevelNavigation" index="2"]
-tile_data = PoolIntArray( 131081, 7, 0, 131082, 7, 1, 131083, 7, 2, 196612, 7, 0, 196613, 7, 2, 196617, 7, 65536, 196618, 7, 65537, 196619, 7, 65538, 262148, 7, 131072, 262149, 7, 131074, 262153, 7, 65536, 262154, 7, 65537, 262155, 7, 65538, 327681, 11, 65541, 327689, 7, 65536, 327690, 7, 65537, 327691, 7, 65538, 393225, 7, 131072, 393226, 7, 131073, 393227, 7, 131074 )
+tile_data = PoolIntArray( 196612, 7, 0, 196613, 7, 2, 262148, 7, 131072, 262149, 7, 131074, 327681, 11, 65541 )
 
 [node name="ExplosiveBarrel" parent="LevelNavigation" index="3" instance=ExtResource( 3 )]
 position = Vector2( 96, 48 )
@@ -42,7 +41,7 @@ position = Vector2( 96, 48 )
 tile_data = PoolIntArray( -65535, 12, 0, -65534, 12, 1, -65533, 12, 2, 1, 12, 65536, 2, 12, 65537, 3, 12, 65538, 65537, 12, 131072, 65538, 12, 131073, 65539, 12, 131074, 327681, 11, 65541 )
 
 [node name="Player" parent="." index="6"]
-position = Vector2( 115, 66 )
+position = Vector2( 176, 48 )
 hp_max = 1000
 hp = 1000
 
@@ -53,37 +52,34 @@ position = Vector2( 106, 78 )
 position = Vector2( 80, 104 )
 extinguishable = false
 
-[node name="RunningHorse" parent="." index="12" instance=ExtResource( 4 )]
-position = Vector2( -24, 112 )
-
-[node name="TorchItem" parent="." index="13" instance=ExtResource( 5 )]
+[node name="TorchItem" parent="." index="12" instance=ExtResource( 5 )]
 position = Vector2( 48, 88 )
 
-[node name="Table" parent="." index="14" instance=ExtResource( 6 )]
-position = Vector2( 120, 32 )
+[node name="Table" parent="." index="13" instance=ExtResource( 6 )]
+position = Vector2( 160, 72 )
 
-[node name="Table2" parent="." index="15" instance=ExtResource( 6 )]
-position = Vector2( 131, 32 )
+[node name="Table2" parent="." index="14" instance=ExtResource( 6 )]
+position = Vector2( 160, 96 )
 
-[node name="Table3" parent="." index="16" instance=ExtResource( 6 )]
-position = Vector2( 142, 32 )
+[node name="Table3" parent="." index="15" instance=ExtResource( 6 )]
+position = Vector2( 200, 72 )
 
-[node name="Table4" parent="." index="17" instance=ExtResource( 6 )]
-position = Vector2( 154, 32 )
+[node name="Table4" parent="." index="16" instance=ExtResource( 6 )]
+position = Vector2( 200, 96 )
 
-[node name="Table5" parent="." index="18" instance=ExtResource( 6 )]
-position = Vector2( 142, 43 )
+[node name="Table5" parent="." index="17" instance=ExtResource( 6 )]
+position = Vector2( 200, 48 )
 
-[node name="Tumbleweed" parent="." index="19" instance=ExtResource( 7 )]
+[node name="Tumbleweed" parent="." index="18" instance=ExtResource( 7 )]
 position = Vector2( 24, 104 )
 
 [node name="Right" parent="CheatBorders" index="3"]
 shape = SubResource( 1 )
 
-[node name="Cacti" parent="." index="21" instance=ExtResource( 9 )]
+[node name="Cacti" parent="." index="20" instance=ExtResource( 9 )]
 position = Vector2( 84, 33 )
 
-[node name="Cacti2" parent="." index="22" instance=ExtResource( 8 )]
+[node name="Cacti2" parent="." index="21" instance=ExtResource( 8 )]
 position = Vector2( 105, 41 )
 
 [editable path="RandomEventGenerator"]
