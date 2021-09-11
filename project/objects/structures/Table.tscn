@@ -22,7 +22,8 @@ position = Vector2( -4, -3 )
 region_rect = Rect2( 352, 16, 16, 16 )
 
 [node name="FirePosition" parent="." index="1"]
-position = Vector2( -4, 0 )
+position = Vector2( -4, -3 )
+update_scale = false
 
 [node name="CollisionShape2D" parent="." index="2"]
 position = Vector2( -4, -2 )
