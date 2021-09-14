@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://project/UI/FinalScreen.gd" type="Script" id=1]
+[ext_resource path="res://project/UI/menus/FinalScreen.gd" type="Script" id=1]
 [ext_resource path="res://project/UI/THEME/FONT/extra_font.tres" type="DynamicFont" id=2]
 [ext_resource path="res://project/UI/THEME/FONT/extrasmall_font.tres" type="DynamicFont" id=3]
 

@@ -19,6 +19,8 @@ enum BEHAVIORS {
 export(BEHAVIORS) var CHOSEN_BEHAVIOR = BEHAVIORS.NORMAL
 export(bool) var random_behavior: bool = false
 
+var cur_target: Node2D = null
+
 onready var hitlos = $HitLOS
 onready var shootlos = $ShootLOS
 onready var throwlos = $ThrowLOS
@@ -42,9 +44,9 @@ func _physics_process(_delta):
 	if FOLLOWS_PATH and pathfinder:
 		if CHOSEN_BEHAVIOR != BEHAVIORS.BERSERK and revolverItem and current_armed_state != ARMED_STATES.REVOLVER:
 			# If the revolver is available on the map
-			pathfinder.generate_path_to_target(revolverItem)
+			cur_target = revolverItem
 		else:
-			pathfinder.generate_path_to_target(player)
+			cur_target = player
 		
 		pathfinder.navigate()
 	

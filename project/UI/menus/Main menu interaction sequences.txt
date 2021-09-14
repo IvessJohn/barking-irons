@@ -1,0 +1,8 @@
+START:
+A black screen with a blinking "Press any key to start" label.
+Pressing any key causes the LAUNCH sequence
+
+LAUNCH SEQUENCE:
+- Revolver clocks and quickly shoots
+- On the shot, the screen flashes and the BG and the rest of menu is shown
+- The soundtrack starts playing

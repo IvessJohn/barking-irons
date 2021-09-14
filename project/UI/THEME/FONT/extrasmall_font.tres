@@ -3,6 +3,6 @@
 [ext_resource path="res://project/UI/THEME/FONT/BarcadeBrawlRegular-plYD.ttf" type="DynamicFontData" id=1]
 
 [resource]
-size = 3
+size = 6
 use_filter = true
 font_data = ExtResource( 1 )

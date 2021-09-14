@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://project/overlap/InteractiveArea.gd"
 }, {
+"base": "Node",
+"class": "PathfindManager",
+"language": "GDScript",
+"path": "res://project/utilities/PathfindManager.gd"
+}, {
 "base": "Resource",
 "class": "RandomEventResource",
 "language": "GDScript",
@@ -36,6 +41,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "InteractiveArea": "",
+"PathfindManager": "",
 "RandomEventResource": "",
 "RandomItemResource": "",
 "RandomPicker": "",
@@ -45,7 +51,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Barking Irons"
-run/main_scene="res://project/UI/MainMenuOld.tscn"
+run/main_scene="res://project/UI/menus/MainMenuOld.tscn"
 config/use_custom_user_dir=true
 config/icon="res://icon.png"
 

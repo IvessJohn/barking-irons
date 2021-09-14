@@ -2,7 +2,7 @@
 
 [ext_resource path="res://project/sounds/hawk_eagle_cry.ogg" type="AudioStream" id=1]
 [ext_resource path="res://project/sounds/cinematic_shot.ogg" type="AudioStream" id=2]
-[ext_resource path="res://project/UI/MainMenuOld.gd" type="Script" id=3]
+[ext_resource path="res://project/UI/menus/MainMenuOld.gd" type="Script" id=3]
 [ext_resource path="res://project/weapons/Revolver.png" type="Texture" id=4]
 [ext_resource path="res://project/shaders/WindSwingTestMaterial.tres" type="Material" id=5]
 [ext_resource path="res://project/entities/cowboy_new.png" type="Texture" id=6]
@@ -240,18 +240,18 @@ __meta__ = {
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer2"]
 modulate = Color( 1, 1, 1, 0 )
-margin_top = 135.0
+margin_top = 134.0
 margin_right = 500.0
-margin_bottom = 140.0
+margin_bottom = 142.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="PressAnyKey" type="Label" parent="MarginContainer/VBoxContainer2/VBoxContainer"]
 modulate = Color( 1, 1, 1, 0.587274 )
-margin_left = 192.0
-margin_right = 308.0
-margin_bottom = 5.0
+margin_left = 159.0
+margin_right = 340.0
+margin_bottom = 8.0
 size_flags_horizontal = 4
 custom_fonts/font = ExtResource( 7 )
 text = "Press any key to start"
@@ -260,7 +260,7 @@ align = 1
 [node name="Credits" type="Label" parent="MarginContainer"]
 visible = false
 margin_left = 6.0
-margin_top = 267.0
+margin_top = 258.0
 margin_right = 506.0
 margin_bottom = 282.0
 grow_vertical = 0
