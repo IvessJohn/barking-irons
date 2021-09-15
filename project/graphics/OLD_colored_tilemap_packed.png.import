@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/colored_tilemap_packed.png-07dcec956c4ec65fcd574460ce11aecb.stex"
+path="res://.import/OLD_colored_tilemap_packed.png-af45a4f1ea4fd28d7d2bb1d6fafd5624.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://project/levels/scenery/colored_tilemap_packed.png"
-dest_files=[ "res://.import/colored_tilemap_packed.png-07dcec956c4ec65fcd574460ce11aecb.stex" ]
+source_file="res://project/graphics/OLD_colored_tilemap_packed.png"
+dest_files=[ "res://.import/OLD_colored_tilemap_packed.png-af45a4f1ea4fd28d7d2bb1d6fafd5624.stex" ]
 
 [params]
 
