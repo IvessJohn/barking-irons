@@ -17,7 +17,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "PathfindManager",
 "language": "GDScript",
-"path": "res://project/utilities/PathfindManager.gd"
+"path": "res://project/utilities/PathfindManagerObsolete.gd"
 }, {
 "base": "Resource",
 "class": "RandomEventResource",

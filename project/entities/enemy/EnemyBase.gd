@@ -48,6 +48,8 @@ func _physics_process(_delta):
 		else:
 			cur_target = player
 		
+		pathfinder.generate_path_to_target(cur_target)
+#		pathfinder.request_path()
 		pathfinder.navigate()
 	
 	# Attacking

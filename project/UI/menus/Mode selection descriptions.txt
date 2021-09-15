@@ -1,0 +1,9 @@
+STORY
+Become the #1 outlaw by completing missions
+
+DUEL
+Fight 1v1 with an AI
+
+ARENA
+Stay for as long as possible
+against the approaching outlaws!

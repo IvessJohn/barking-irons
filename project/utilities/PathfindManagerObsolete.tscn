@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://project/utilities/PathfindManagerObsolete.gd" type="Script" id=1]
+
+[node name="PathfindManager" type="Node" groups=[
+"PathfindManager",
+]]
+script = ExtResource( 1 )

@@ -11,6 +11,7 @@ enum LEVEL_TYPES {
 	ARCADE_ARENA	# Every kill or gun pickup spawns a new enemy
 }
 export(Global.GAME_MODES) var game_mode: int = Global.GAME_MODES.CASUAL
+var game_finished: bool = false
 
 export(PackedScene) var ENEMY_SCENE: PackedScene = null
 export(bool) var enemies_disabled: bool = false
@@ -86,10 +87,13 @@ func _on_RevolverItem_picked(picker_object: Node2D):
 	messageShower.show_message("ROD CLAIMED", "by " + picker_name)
 
 func game_end():
+	game_finished = true
+	
 	var stopped_objects = []
 	stopped_objects.append_array(get_tree().get_nodes_in_group("Cowboy"))
 #	stopped_objects.append_array(get_tree().get_nodes_in_group("Entity"))
 #	stopped_objects.append_array(get_tree().get_nodes_in_group("Tumbleweed"))
+	
 	for o in stopped_objects:
 		o.set_deferred("can_move", false)
 #	randomEventGenerator.stop_generating_events()
@@ -99,29 +103,31 @@ func game_end():
 #	game_end()
 
 func _on_Player_died(_player):
-	player.can_move = false
-	player.hide()
-	
-	var enemies = get_tree().get_nodes_in_group("Enemy")
-	for e in enemies:
-		e.set_deferred("player", null)
-#		e.set_deferred("FOLLOWS_PATH", false)
-		e.set_deferred("can_move", false)
-	
-	if !player_shot_himself:
-		finalScreen.show_screen(finalScreen.FINAL_POSSIBILITY.DEFEAT, "You were killed.")
-	else:
-		finalScreen.show_screen(finalScreen.FINAL_POSSIBILITY.DEFEAT, "You have just killed yourself. Genius.")
-	game_end()
+	if !game_finished:
+		player.can_move = false
+		player.hide()
+		
+		var enemies = get_tree().get_nodes_in_group("Enemy")
+		for e in enemies:
+			e.set_deferred("player", null)
+	#		e.set_deferred("FOLLOWS_PATH", false)
+			e.set_deferred("can_move", false)
+		
+		if !player_shot_himself:
+			finalScreen.show_screen(finalScreen.FINAL_POSSIBILITY.DEFEAT, "You were killed.")
+		else:
+			finalScreen.show_screen(finalScreen.FINAL_POSSIBILITY.DEFEAT, "You have just killed yourself. Genius.")
+		game_end()
 
 
 func _on_CheatBorders_body_entered(body):
-	if body.is_in_group("Player"):
-		finalScreen.show_screen(finalScreen.FINAL_POSSIBILITY.VICTORY, "You have fled from the battlefield - not a bug, it's a feature.")
-		game_end()
-	elif body.is_in_group("Enemy"):
-		finalScreen.show_screen(finalScreen.FINAL_POSSIBILITY.VICTORY, "You have literally pushed him out!")
-		game_end()
+	if !game_finished:
+		if body.is_in_group("Player"):
+			finalScreen.show_screen(finalScreen.FINAL_POSSIBILITY.VICTORY, "You have fled from the battlefield - not a bug, it's a feature.")
+			game_end()
+		elif body.is_in_group("Enemy"):
+			finalScreen.show_screen(finalScreen.FINAL_POSSIBILITY.VICTORY, "You have literally pushed him out!")
+			game_end()
 
 
 func _on_RevolverItem_destroyed():
@@ -132,17 +138,18 @@ func _on_RevolverItem_destroyed():
 
 
 func _on_EnemyBase_died(enemy_object: KinematicBody2D):
-	match (game_mode):
-		Global.GAME_MODES.CASUAL:
-			if player != null and !player.moved_while_paused:
-				finalScreen.show_screen(finalScreen.FINAL_POSSIBILITY.VICTORY, "Fair win.")
-			else:
-				finalScreen.show_screen(finalScreen.FINAL_POSSIBILITY.VICTORY, "You didn't control time, did you?")
-			game_end()
-		Global.GAME_MODES.ARENA:
-			$EnemySpawnTimer.start()
-	
-	enemy_object.disconnect("died", self, "_on_EnemyBase_died")
+	if !game_finished:
+		match (game_mode):
+			Global.GAME_MODES.CASUAL:
+				if player != null and !player.moved_while_paused:
+					finalScreen.show_screen(finalScreen.FINAL_POSSIBILITY.VICTORY, "Fair win.")
+				else:
+					finalScreen.show_screen(finalScreen.FINAL_POSSIBILITY.VICTORY, "You didn't control time, did you?")
+				game_end()
+			Global.GAME_MODES.ARENA:
+				$EnemySpawnTimer.start()
+		
+		enemy_object.disconnect("died", self, "_on_EnemyBase_died")
 
 func start_new_level():
 	randomize()

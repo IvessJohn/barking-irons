@@ -7,6 +7,10 @@ enum MENU_STATES {
 var cur_menu_state = MENU_STATES.WAITING
 
 
+onready var animPlayer = $AnimationPlayer
+onready var camera = $Camera2D
+
+
 func _process(delta):
 	if cur_menu_state == MENU_STATES.WAITING:
 #		if Input.is_action_just_pressed()

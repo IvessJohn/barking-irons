@@ -13,8 +13,7 @@ func _ready():
 
 func set_extinguishable(value: bool):
 	extinguishable = value
-	if extinguishable:
-		if $ExtinguishTimer.is_stopped():
+	if extinguishable and $ExtinguishTimer.is_stopped():
 			$ExtinguishTimer.start()
 
 func _on_ExtinguishTimer_timeout():

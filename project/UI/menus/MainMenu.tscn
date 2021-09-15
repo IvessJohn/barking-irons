@@ -79,7 +79,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="Screens" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="General" type="MarginContainer" parent="Screens"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_constants/margin_right = 20
@@ -90,14 +97,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Screens/General"]
 margin_left = 20.0
 margin_top = 20.0
 margin_right = 492.0
 margin_bottom = 268.0
 alignment = 1
 
-[node name="Title" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="Title" type="Label" parent="Screens/General/VBoxContainer"]
 margin_left = 94.0
 margin_top = 82.0
 margin_right = 378.0
@@ -109,35 +116,210 @@ custom_fonts/font = ExtResource( 2 )
 text = "BARKING IRONS"
 align = 1
 
-[node name="Space" type="Control" parent="MarginContainer/VBoxContainer"]
+[node name="Space" type="Control" parent="Screens/General/VBoxContainer"]
 margin_top = 123.0
 margin_right = 472.0
 margin_bottom = 123.0
 size_flags_vertical = 6
 
-[node name="Menu" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="Menu" type="VBoxContainer" parent="Screens/General/VBoxContainer"]
 margin_left = 192.0
 margin_top = 145.0
 margin_right = 279.0
-margin_bottom = 201.0
+margin_bottom = 225.0
 size_flags_horizontal = 4
 size_flags_vertical = 2
 size_flags_stretch_ratio = 3.0
 alignment = 1
 
-[node name="ButPlay" type="Button" parent="MarginContainer/VBoxContainer/Menu"]
+[node name="ButPlay" type="Button" parent="Screens/General/VBoxContainer/Menu"]
 margin_right = 87.0
-margin_bottom = 16.0
+margin_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 80, 24 )
 text = "PLAY"
 
-[node name="ButCredits" type="Button" parent="MarginContainer/VBoxContainer/Menu"]
-margin_top = 20.0
+[node name="ButCredits" type="Button" parent="Screens/General/VBoxContainer/Menu"]
+margin_top = 28.0
 margin_right = 87.0
-margin_bottom = 36.0
+margin_bottom = 52.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 80, 24 )
 text = "Credits"
 
-[node name="ButQuit" type="Button" parent="MarginContainer/VBoxContainer/Menu"]
-margin_top = 40.0
+[node name="ButQuit" type="Button" parent="Screens/General/VBoxContainer/Menu"]
+margin_top = 56.0
 margin_right = 87.0
-margin_bottom = 56.0
+margin_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 80, 24 )
 text = "Quit"
+
+[node name="GameSelection" type="MarginContainer" parent="Screens"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 512.0
+margin_right = 512.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="Modes" type="VBoxContainer" parent="Screens/GameSelection"]
+margin_left = 216.0
+margin_top = 78.0
+margin_right = 296.0
+margin_bottom = 210.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Story" type="Button" parent="Screens/GameSelection/Modes"]
+margin_right = 80.0
+margin_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 80, 24 )
+size_flags_stretch_ratio = 2.0
+text = "Story"
+
+[node name="Duel" type="Button" parent="Screens/GameSelection/Modes"]
+margin_top = 28.0
+margin_right = 80.0
+margin_bottom = 52.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 80, 24 )
+size_flags_stretch_ratio = 2.0
+text = "Duel"
+
+[node name="Arena" type="Button" parent="Screens/GameSelection/Modes"]
+margin_top = 56.0
+margin_right = 80.0
+margin_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 80, 24 )
+size_flags_stretch_ratio = 2.0
+text = "Arena"
+
+[node name="Control" type="Control" parent="Screens/GameSelection/Modes"]
+margin_top = 84.0
+margin_right = 80.0
+margin_bottom = 104.0
+rect_min_size = Vector2( 0, 20 )
+
+[node name="Back" type="Button" parent="Screens/GameSelection/Modes"]
+margin_top = 108.0
+margin_right = 80.0
+margin_bottom = 132.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 80, 24 )
+size_flags_stretch_ratio = 2.0
+text = "Back"
+
+[node name="ModeDescription" type="VBoxContainer" parent="Screens/GameSelection"]
+margin_left = 35.0
+margin_top = 244.0
+margin_right = 477.0
+margin_bottom = 268.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 8
+alignment = 2
+
+[node name="Mode" type="Label" parent="Screens/GameSelection/ModeDescription"]
+margin_right = 442.0
+margin_bottom = 10.0
+text = "STORY"
+align = 1
+
+[node name="Description" type="Label" parent="Screens/GameSelection/ModeDescription"]
+margin_top = 14.0
+margin_right = 442.0
+margin_bottom = 24.0
+text = "Become the #1 outlaw by completing missions"
+align = 1
+
+[node name="Credits" type="MarginContainer" parent="Screens"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 288.0
+margin_bottom = 288.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Screens/Credits"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 492.0
+margin_bottom = 268.0
+alignment = 1
+
+[node name="Credits" type="Label" parent="Screens/Credits/VBoxContainer"]
+margin_top = 72.0
+margin_right = 472.0
+margin_bottom = 82.0
+text = "A game by John Ivess. All rights reserved."
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Screens/Credits/VBoxContainer"]
+margin_left = 47.0
+margin_top = 86.0
+margin_right = 425.0
+margin_bottom = 148.0
+size_flags_horizontal = 4
+size_flags_vertical = 5
+
+[node name="Task" type="Label" parent="Screens/Credits/VBoxContainer/HBoxContainer"]
+margin_right = 127.0
+margin_bottom = 62.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Programming
+Game Design
+Level Design
+
+"
+
+[node name="Worker" type="Label" parent="Screens/Credits/VBoxContainer/HBoxContainer"]
+margin_left = 131.0
+margin_right = 378.0
+margin_bottom = 62.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "John Ivess
+John Ivess, apaleblueeye
+John Ivess, Artindi"
+
+[node name="Back" type="Button" parent="Screens/Credits/VBoxContainer"]
+margin_left = 196.0
+margin_top = 152.0
+margin_right = 276.0
+margin_bottom = 176.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 80, 24 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Back"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+current = true
+smoothing_enabled = true
+smoothing_speed = 3.0
