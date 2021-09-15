@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/revolvercocking_cut.ogg-25c6b810a0b1e0979ebc382efbd81647.oggstr"
+
+[deps]
+
+source_file="res://project/sounds/menu/revolvercocking_cut.ogg"
+dest_files=[ "res://.import/revolvercocking_cut.ogg-25c6b810a0b1e0979ebc382efbd81647.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

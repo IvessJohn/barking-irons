@@ -22,7 +22,7 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "RandomEventResource",
 "language": "GDScript",
-"path": "res://project/RandomEventResource.gd"
+"path": "res://project/utilities/RandomEventResource.gd"
 }, {
 "base": "Resource",
 "class": "RandomItemResource",
