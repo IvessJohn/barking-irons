@@ -44,6 +44,7 @@ func pick_random_enum(enumeration, chances_dictionary: Dictionary):
 		# 3. Pick a random item
 		var offset: int = 0
 		for event in enumeration:
+			print(event)
 			if chances_dictionary[int(event)] > 0:
 				if random_number < chances_dictionary[int(event)] + offset:
 					chosen_value = event
@@ -51,5 +52,4 @@ func pick_random_enum(enumeration, chances_dictionary: Dictionary):
 				else:
 					offset += chances_dictionary[int(event)]
 	# 4. Return the value
-	print(chosen_value)
 	return chosen_value

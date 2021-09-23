@@ -48,6 +48,7 @@ func _physics_process(_delta):
 		else:
 			cur_target = player
 		
+#		pathfinder.set_deferred("path", pathfinder.get_path_to_target(cur_target))
 		pathfinder.generate_path_to_target(cur_target)
 #		pathfinder.request_path()
 		pathfinder.navigate()
@@ -82,3 +83,10 @@ func check_player_in_detection(wanted_los: RayCast2D) -> bool:
 
 func null_revolverItem():
 	revolverItem = null
+
+
+func _on_WeaponDetectionArea_area_entered(area):
+	if area.is_in_group("WeaponItem"):
+		var path_to_the_weapon = pathfinder.get_path_to_target(area)
+		var path_dist = pathfinder.calculate_path_distance(path_to_the_weapon)
+		print("Distance to the weapon " + area.name + ": " + str(path_dist))

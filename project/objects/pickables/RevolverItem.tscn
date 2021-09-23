@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://project/objects/pickables/PickableItem.tscn" type="PackedScene" id=1]
-[ext_resource path="res://project/weapons/Revolver.png" type="Texture" id=2]
+[ext_resource path="res://project/weapons/revolver1.png" type="Texture" id=2]
 [ext_resource path="res://project/sounds/revolver_pickup.ogg" type="AudioStream" id=3]
 [ext_resource path="res://project/overlap/Hurtbox.tscn" type="PackedScene" id=4]
 
@@ -13,6 +13,7 @@ extents = Vector2( 3, 3 )
 
 [node name="RevolverItem" groups=[
 "RevolverItem",
+"WeaponItem",
 ] instance=ExtResource( 1 )]
 PICKABLE_TYPE = "revolver"
 PICK_SOUND = ExtResource( 3 )

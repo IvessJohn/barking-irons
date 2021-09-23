@@ -11,12 +11,13 @@ height = 2.0
 [node name="TorchProjectile" instance=ExtResource( 2 )]
 collision_mask = 3
 script = ExtResource( 3 )
-SPEED = 90
+SPEED = 140
+ANGULAR_SPEED = 150
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 1 )
 region_enabled = true
-region_rect = Rect2( 240, 96, 16, 16 )
+region_rect = Rect2( 240, 128, 16, 16 )
 
 [node name="CollisionShape2D" parent="." index="1"]
 position = Vector2( 1, -1 )

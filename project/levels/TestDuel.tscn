@@ -10,22 +10,25 @@
 [ext_resource path="res://project/objects/structures/Cacti2.tscn" type="PackedScene" id=8]
 [ext_resource path="res://project/objects/structures/Cacti1.tscn" type="PackedScene" id=9]
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 304, 40 )
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 40, 200 )
 
 [node name="TestDuel" instance=ExtResource( 1 )]
+
+[node name="PauseController" parent="." index="1"]
+pause_allowed = false
 
 [node name="RandomEventGenerator" parent="." index="3"]
 CASUAL_EVENTS_CHANCES = {
 0: 1,
 1: 1,
-2: 10,
+2: 1,
 3: 1,
 4: 1,
-5: 10
+5: 1
 }
 
 [node name="EventTimer" parent="RandomEventGenerator" index="0"]
@@ -50,12 +53,12 @@ tile_data = PoolIntArray( 0, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 
 navigation_node_path = NodePath("../LevelNavigation")
 
 [node name="Player" parent="." index="7"]
-position = Vector2( 176, 48 )
+position = Vector2( 32, 120 )
 hp_max = 1000
 hp = 1000
 
 [node name="RevolverItem" parent="." index="10"]
-position = Vector2( 106, 78 )
+position = Vector2( 24, 72 )
 
 [node name="Fire" parent="." index="11" instance=ExtResource( 2 )]
 position = Vector2( 80, 104 )
@@ -71,7 +74,7 @@ position = Vector2( 160, 96 )
 position = Vector2( 200, 96 )
 
 [node name="Table5" parent="." index="15" instance=ExtResource( 6 )]
-position = Vector2( 200, 48 )
+position = Vector2( 208, 16 )
 
 [node name="Tumbleweed" parent="." index="16" instance=ExtResource( 7 )]
 position = Vector2( 24, 104 )
@@ -83,10 +86,10 @@ position = Vector2( 84, 33 )
 position = Vector2( 105, 41 )
 
 [node name="Bottom" parent="CheatBorders" index="2"]
-shape = SubResource( 3 )
+shape = SubResource( 1 )
 
 [node name="Right" parent="CheatBorders" index="3"]
-shape = SubResource( 4 )
+shape = SubResource( 2 )
 
 [editable path="RandomEventGenerator"]
 [editable path="SandstormHandler"]

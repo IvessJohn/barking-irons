@@ -51,7 +51,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Barking Irons"
-run/main_scene="res://project/UI/menus/MainMenuOld.tscn"
+run/main_scene="res://project/UI/menus/MainMenu.tscn"
 config/use_custom_user_dir=true
 config/icon="res://icon.png"
 

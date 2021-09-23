@@ -46,7 +46,7 @@ export(float) var RECOIL_HIT: float = 0.15
 export(float) var RECOIL_SHOOT: float = 0.15
 
 onready var sprite = $Sprite
-onready var animPlayer = $AnimationPlayer
+onready var animPlayer = $EntityAnimPlayer
 onready var collShape = $CollisionShape2D
 onready var hurtbox = $Hurtbox
 onready var weapons: Dictionary = {

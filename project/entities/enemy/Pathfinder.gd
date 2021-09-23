@@ -12,7 +12,31 @@ func navigate():	# Define the next position to go to
 		if get_parent().global_position == path[0]:
 			path.pop_front()
 
+func get_path_to_target(target: Node2D):	# It's obvious
+	if levelNav and target:
+		$Line2D.points = path
+		return levelNav.get_simple_path(get_parent().global_position, target.global_position, false)
+
 func generate_path_to_target(target: Node2D):	# It's obvious
 	if levelNav and target:
 		path = levelNav.get_simple_path(get_parent().global_position, target.global_position, false)
 #		line2d.points = path
+
+func set_path_to_target(target: Node2D):
+	var new_path = null
+	
+	new_path = get_path_to_target(target)
+	
+	if new_path:
+		path = new_path
+
+func calculate_path_distance(path_points: Array):
+	var dist: float = 0
+	
+	if path_points.size() > 1:
+		for i in path_points.size():
+			if i == 0:
+				continue
+			dist += path_points[i-1].distance_to(path_points[i])
+	
+	return dist

@@ -13,6 +13,7 @@ extents = Vector2( 3, 3 )
 
 [node name="TorchItem" groups=[
 "TorchItem",
+"WeaponItem",
 ] instance=ExtResource( 1 )]
 PICKABLE_TYPE = "torch"
 PICK_SOUND = ExtResource( 3 )
@@ -21,7 +22,7 @@ PICK_SOUND = ExtResource( 3 )
 position = Vector2( -1, -1 )
 texture = ExtResource( 2 )
 region_enabled = true
-region_rect = Rect2( 240, 96, 16, 16 )
+region_rect = Rect2( 240, 128, 16, 16 )
 
 [node name="CollisionShape2D" parent="." index="1"]
 visible = false

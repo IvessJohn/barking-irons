@@ -1,6 +1,7 @@
 extends Node
 
 
+export(bool) var pause_allowed: bool = true
 var can_toggle_pause: bool = true
 export(bool) var show_pauseMenu: bool = true
 export(NodePath) var pauseMenu = null
@@ -10,7 +11,7 @@ export(AudioStream) var SOUND_RESUME: AudioStream = null
 
 
 func _input(_delta):
-	if can_toggle_pause and Input.is_action_just_pressed("menu_pause"):
+	if pause_allowed and can_toggle_pause and Input.is_action_just_pressed("menu_pause"):
 		var tree_paused = get_tree().paused
 		if !tree_paused:
 			pause()
@@ -31,7 +32,8 @@ func resume(play_sound: bool = true):
 #		get_node(pauseMenu).animPlayer.play("hide")
 		get_tree().set_deferred("paused", false)
 
-func trigger_damage_pause(pause_duration_ms: int = 20):
-	pause(false, false)
-	yield(get_tree().create_timer(pause_duration_ms * 0.001), "timeout")
-	resume(false)
+func trigger_damage_pause(pause_duration_ms: int = 0):
+	if pause_duration_ms > 4:
+		pause(false, false)
+		yield(get_tree().create_timer(pause_duration_ms * 0.001), "timeout")
+		resume(false)

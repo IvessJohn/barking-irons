@@ -53,20 +53,44 @@ func _ready():
 
 
 func generate_event(game_mode_number):
-	var chances_dictionary: Dictionary = {}
+	var chances_dictionary: Dictionary = CASUAL_EVENTS_CHANCES
 	match (game_mode_number):
-		Global.GAME_MODES.CASUAL:
-			chances_dictionary =  CASUAL_EVENTS_CHANCES
 		Global.GAME_MODES.ARENA:
 			pass
 		Global.GAME_MODES.LAN_MULTIPLAYER:
 			pass
 	
-	var random_picker = RandomPicker.new()
-	var chosen_event = random_picker.pick_random_enum(EVENTS, chances_dictionary)
-	
+#	var random_picker = RandomPicker.new()
+#	var chosen_event = random_picker.pick_random_enum(EVENTS, chances_dictionary)
+	var chosen_event = pick_random_event(chances_dictionary)
 	print(chosen_event)
+	
 	emit_signal("event_happened", chosen_event)
+
+func pick_random_event(chances_dictionary: Dictionary):
+	if chances_dictionary.size() > 0:
+		# 1. Calculate the sum
+		var total_sum: int = 0
+		for chance in chances_dictionary.values():
+			total_sum += chance
+		
+		# 2. Generate a random number
+		var rand_num = randi() % total_sum
+		
+		# 3. Pick a value
+		var offset: int = 0
+		var chosen_value
+		
+		for event in chances_dictionary.keys():
+			if chances_dictionary[event] + offset < rand_num:
+				chosen_value = event
+			else:
+				offset += chances_dictionary[event]
+		
+		# 4. Return the value
+		return chosen_value
+	else:
+		return null
 
 func stop_generating_events():
 	self.is_generating = false
