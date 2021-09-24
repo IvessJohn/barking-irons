@@ -1,16 +1,21 @@
 extends Node2D
 
-export(Array) var LEVELS_ARRAY: Array = [
-	"res://project/levels/Level1.tscn",
-	"res://project/levels/Level2.tscn",
-	"res://project/levels/Level3.tscn"
-]
+var LEVEL_ARRAYS_DICT: Dictionary = {
+	Global.GAME_MODES.CASUAL_DUEL: [
+		"res://project/levels/small_maps/SmallDesert.tscn",
+		"res://project/levels/small_maps/SmallTown.tscn",
+		"res://project/levels/small_maps/ATonOfExplosives.tscn"
+	],
+	Global.GAME_MODES.ARENA: [
+		
+	]
+}
 
 enum LEVEL_TYPES {
 	LEVEL_DUEL,		# 1v1 battle
 	ARCADE_ARENA	# Every kill or gun pickup spawns a new enemy
 }
-export(Global.GAME_MODES) var game_mode: int = Global.GAME_MODES.CASUAL
+export(Global.GAME_MODES) var game_mode: int = Global.GAME_MODES.CASUAL_DUEL
 var game_finished: bool = false
 
 export(PackedScene) var ENEMY_SCENE: PackedScene = null
@@ -57,7 +62,7 @@ func _ready():
 #			sandstormHandler.get_child(0).emitting = true
 	
 	match (game_mode):
-		Global.GAME_MODES.CASUAL:
+		Global.GAME_MODES.CASUAL_DUEL:
 			spawn_enemy(enemySpawnPositionsArr[0].global_position)
 		Global.GAME_MODES.ARENA:
 			$EnemySpawnTimer.start()
@@ -132,7 +137,7 @@ func _on_CheatBorders_body_entered(body):
 
 func _on_RevolverItem_destroyed():
 	match (game_mode):
-		Global.GAME_MODES.CASUAL:
+		Global.GAME_MODES.CASUAL_DUEL:
 			finalScreen.show_screen(finalScreen.FINAL_POSSIBILITY.VICTORY, "Gun broken. No gun - no fight.")
 			game_end()
 
@@ -140,7 +145,7 @@ func _on_RevolverItem_destroyed():
 func _on_EnemyBase_died(enemy_object: KinematicBody2D):
 	if !game_finished:
 		match (game_mode):
-			Global.GAME_MODES.CASUAL:
+			Global.GAME_MODES.CASUAL_DUEL:
 				if player != null and !player.moved_while_paused:
 					finalScreen.show_screen(finalScreen.FINAL_POSSIBILITY.VICTORY, "Fair win.")
 				else:
@@ -154,8 +159,8 @@ func _on_EnemyBase_died(enemy_object: KinematicBody2D):
 func start_new_level():
 	randomize()
 	var found_next_level = false
-	if LEVELS_ARRAY.size() > 0:
-		var next_level: String = LEVELS_ARRAY[randi() % LEVELS_ARRAY.size()]
+	if LEVEL_ARRAYS_DICT[game_mode].size() > 0:
+		var next_level: String = LEVEL_ARRAYS_DICT[game_mode][randi() % LEVEL_ARRAYS_DICT[game_mode].size()]
 		if next_level != "":
 # warning-ignore:return_value_discarded
 			get_tree().change_scene(next_level)

@@ -49,7 +49,7 @@ func _ready():
 	eventTimer.paused = false
 	eventTimer.start()
 	
-	generate_event(Global.GAME_MODES.CASUAL)
+	generate_event(Global.GAME_MODES.CASUAL_DUEL)
 
 
 func generate_event(game_mode_number):
@@ -98,7 +98,7 @@ func stop_generating_events():
 func _on_RandomEventTimer_timeout():
 	if is_generating:
 	#	generate_event(Global.current_game_mode)
-		generate_event(Global.GAME_MODES.CASUAL)
+		generate_event(Global.GAME_MODES.CASUAL_DUEL)
 		
 		cooldownTimer.start()
 
