@@ -10,7 +10,13 @@ var cur_menu_state = MENU_STATES.WAITING
 onready var animPlayer = $AnimationPlayer
 onready var camera = $Camera2D
 onready var camTween = $Camera2D/Tween
+var cur_camTween_targetpos: Vector2 = Vector2.ZERO
 onready var gameSelNode = $Screens/GameSelection
+onready var CAM_POSITIONS: Dictionary = {
+	"MAIN": $Screens/Main/Center.global_position,
+	"GAME_SELECTION": $Screens/GameSelection/Center.global_position,
+	"CREDITS": $Screens/Credits/Center.global_position
+}
 
 
 func _ready():
@@ -58,16 +64,13 @@ func start_game(gamemode: int):
 
 
 func move_camera_to(new_cam_pos: Vector2):
-	camTween.stop_all()
-	camTween.interpolate_property(camera, "global_position", camera.global_position,
-			new_cam_pos, 0.2, Tween.TRANS_CIRC, Tween.EASE_IN_OUT, 0.05)
-	camTween.start()
-
-
-func _on_ButPlay_pressed():
-	var center = gameSelNode.find_node("Center")
-	if is_instance_valid(center):
-		move_camera_to(center.global_position)
+	if new_cam_pos != cur_camTween_targetpos:
+		cur_camTween_targetpos = new_cam_pos
+	
+		camTween.stop_all()
+		camTween.interpolate_property(camera, "global_position", camera.global_position,
+				cur_camTween_targetpos, 0.1, Tween.TRANS_CIRC, Tween.EASE_IN_OUT, 0.025)
+		camTween.start()
 
 
 func _on_TESTTimer_timeout():

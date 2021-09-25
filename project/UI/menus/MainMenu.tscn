@@ -4,7 +4,7 @@
 [ext_resource path="res://project/UI/THEME/FONT/title_font.tres" type="DynamicFont" id=2]
 [ext_resource path="res://project/sounds/menu/cinematic_shot2_nococking.ogg" type="AudioStream" id=3]
 [ext_resource path="res://project/sounds/menu/revolvercocking_cut.ogg" type="AudioStream" id=4]
-[ext_resource path="res://project/UI/menus/GameSelection.gd" type="Script" id=5]
+[ext_resource path="res://project/UI/menus/Screens.gd" type="Script" id=6]
 
 [sub_resource type="Animation" id=1]
 resource_name = "launch"
@@ -102,13 +102,13 @@ tracks/7/loop_wrap = true
 tracks/7/imported = false
 tracks/7/enabled = true
 tracks/7/keys = {
-"times": PoolRealArray( 0, 0.4 ),
+"times": PoolRealArray( 0, 1.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ true, true ]
+"values": [ false, true ]
 }
 tracks/8/type = "value"
-tracks/8/path = NodePath("Screens/General/VBoxContainer/Menu:modulate")
+tracks/8/path = NodePath("Screens/Main/VBoxContainer/Menu:modulate")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/imported = false
@@ -130,10 +130,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.6 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.3, 1.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ false, true ]
+"values": [ false, true, false ]
 }
 
 [node name="MainMenu" type="Control"]
@@ -149,15 +149,30 @@ __meta__ = {
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/launch = SubResource( 1 )
 
-[node name="Screens" type="Control" parent="."]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="Title" type="Label" parent="."]
+margin_left = 114.0
+margin_top = 102.0
+margin_right = 398.0
+margin_bottom = 122.0
+size_flags_horizontal = 4
+size_flags_vertical = 10
+size_flags_stretch_ratio = 3.0
+custom_fonts/font = ExtResource( 2 )
+text = "BARKING IRONS"
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="General" type="MarginContainer" parent="Screens"]
+[node name="Screens" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Main" type="MarginContainer" parent="Screens"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_constants/margin_right = 20
@@ -168,20 +183,20 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Center" type="Position2D" parent="Screens/General"]
-position = Vector2( 256, 144 )
+[node name="Center" type="Position2D" parent="Screens/Main"]
 __meta__ = {
 "_gizmo_extents_": 50.0
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Screens/General"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Screens/Main"]
 margin_left = 20.0
 margin_top = 20.0
 margin_right = 492.0
 margin_bottom = 268.0
 alignment = 1
 
-[node name="Title" type="Label" parent="Screens/General/VBoxContainer"]
+[node name="TitlePlace" type="Label" parent="Screens/Main/VBoxContainer"]
+modulate = Color( 1, 1, 1, 0 )
 margin_left = 94.0
 margin_top = 82.0
 margin_right = 378.0
@@ -193,13 +208,13 @@ custom_fonts/font = ExtResource( 2 )
 text = "BARKING IRONS"
 align = 1
 
-[node name="Space" type="Control" parent="Screens/General/VBoxContainer"]
+[node name="Space" type="Control" parent="Screens/Main/VBoxContainer"]
 margin_top = 123.0
 margin_right = 472.0
 margin_bottom = 123.0
 size_flags_vertical = 6
 
-[node name="Menu" type="VBoxContainer" parent="Screens/General/VBoxContainer"]
+[node name="Menu" type="VBoxContainer" parent="Screens/Main/VBoxContainer"]
 margin_left = 192.0
 margin_top = 145.0
 margin_right = 279.0
@@ -209,30 +224,41 @@ size_flags_vertical = 2
 size_flags_stretch_ratio = 3.0
 alignment = 1
 
-[node name="ButPlay" type="Button" parent="Screens/General/VBoxContainer/Menu"]
+[node name="ButPlay" type="Button" parent="Screens/Main/VBoxContainer/Menu"]
 margin_right = 87.0
 margin_bottom = 24.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_min_size = Vector2( 80, 24 )
+focus_neighbour_top = NodePath("../ButQuit")
+focus_neighbour_bottom = NodePath("../ButCredits")
+focus_next = NodePath("../ButCredits")
 text = "PLAY"
 
-[node name="ButCredits" type="Button" parent="Screens/General/VBoxContainer/Menu"]
+[node name="ButCredits" type="Button" parent="Screens/Main/VBoxContainer/Menu"]
 margin_top = 28.0
 margin_right = 87.0
 margin_bottom = 52.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_min_size = Vector2( 80, 24 )
+focus_neighbour_top = NodePath("../ButPlay")
+focus_neighbour_bottom = NodePath("../ButQuit")
+focus_next = NodePath("../ButQuit")
+focus_previous = NodePath("../ButPlay")
 text = "Credits"
 
-[node name="ButQuit" type="Button" parent="Screens/General/VBoxContainer/Menu"]
+[node name="ButQuit" type="Button" parent="Screens/Main/VBoxContainer/Menu"]
 margin_top = 56.0
 margin_right = 87.0
 margin_bottom = 80.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_min_size = Vector2( 80, 24 )
+focus_neighbour_top = NodePath("../ButCredits")
+focus_neighbour_bottom = NodePath("../ButPlay")
+focus_next = NodePath("../ButPlay")
+focus_previous = NodePath("../ButCredits")
 text = "Quit"
 
 [node name="GameSelection" type="MarginContainer" parent="Screens"]
@@ -244,14 +270,12 @@ custom_constants/margin_right = 20
 custom_constants/margin_top = 20
 custom_constants/margin_left = 20
 custom_constants/margin_bottom = 20
-script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false,
 "_editor_description_": ""
 }
 
 [node name="Center" type="Position2D" parent="Screens/GameSelection"]
-position = Vector2( 256, 144 )
 __meta__ = {
 "_gizmo_extents_": 50.0
 }
@@ -265,22 +289,15 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 alignment = 1
 
-[node name="Story" type="Button" parent="Screens/GameSelection/Modes"]
-visible = false
-margin_right = 80.0
-margin_bottom = 24.0
-grow_horizontal = 2
-grow_vertical = 2
-rect_min_size = Vector2( 80, 24 )
-size_flags_stretch_ratio = 2.0
-text = "Story"
-
 [node name="Duel" type="Button" parent="Screens/GameSelection/Modes"]
 margin_right = 80.0
 margin_bottom = 24.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_min_size = Vector2( 80, 24 )
+focus_neighbour_top = NodePath("../Back")
+focus_neighbour_bottom = NodePath("../Arena")
+focus_next = NodePath("../Arena")
 size_flags_stretch_ratio = 2.0
 text = "Duel"
 
@@ -307,13 +324,17 @@ margin_bottom = 104.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_min_size = Vector2( 80, 24 )
+focus_neighbour_top = NodePath("../Arena")
+focus_neighbour_bottom = NodePath("../Duel")
+focus_next = NodePath("../Duel")
+focus_previous = NodePath("../Arena")
 size_flags_stretch_ratio = 2.0
 text = "Back"
 
 [node name="ModeDescription" type="VBoxContainer" parent="Screens/GameSelection"]
-margin_left = 35.0
+margin_left = 46.0
 margin_top = 244.0
-margin_right = 477.0
+margin_right = 466.0
 margin_bottom = 268.0
 grow_horizontal = 2
 grow_vertical = 0
@@ -322,16 +343,16 @@ size_flags_vertical = 8
 alignment = 2
 
 [node name="Mode" type="Label" parent="Screens/GameSelection/ModeDescription"]
-margin_right = 442.0
+margin_right = 420.0
 margin_bottom = 10.0
-text = "STORY"
+text = "Headline"
 align = 1
 
 [node name="Description" type="Label" parent="Screens/GameSelection/ModeDescription"]
 margin_top = 14.0
-margin_right = 442.0
+margin_right = 420.0
 margin_bottom = 24.0
-text = "Become the #1 outlaw by completing missions"
+text = "GAME MODE DESCRIPTION HERE. And only here."
 align = 1
 
 [node name="Credits" type="MarginContainer" parent="Screens"]
@@ -349,7 +370,6 @@ __meta__ = {
 }
 
 [node name="Center" type="Position2D" parent="Screens/Credits"]
-position = Vector2( 256, 144 )
 __meta__ = {
 "_gizmo_extents_": 50.0
 }
@@ -362,16 +382,18 @@ margin_bottom = 268.0
 alignment = 1
 
 [node name="Credits" type="Label" parent="Screens/Credits/VBoxContainer"]
-margin_top = 72.0
+margin_top = 60.0
 margin_right = 472.0
-margin_bottom = 82.0
-text = "A game by John Ivess. All rights reserved."
+margin_bottom = 80.0
+rect_min_size = Vector2( 0, 20 )
+text = "A game by John Ivess."
+align = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Screens/Credits/VBoxContainer"]
 margin_left = 47.0
-margin_top = 86.0
+margin_top = 84.0
 margin_right = 425.0
-margin_bottom = 148.0
+margin_bottom = 146.0
 size_flags_horizontal = 4
 size_flags_vertical = 5
 
@@ -396,11 +418,21 @@ text = "John Ivess
 John Ivess, apaleblueeye
 John Ivess"
 
+[node name="RightsReserved" type="Label" parent="Screens/Credits/VBoxContainer"]
+margin_top = 150.0
+margin_right = 472.0
+margin_bottom = 160.0
+text = "All rights reserved."
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Back" type="Button" parent="Screens/Credits/VBoxContainer"]
 margin_left = 196.0
-margin_top = 152.0
+margin_top = 164.0
 margin_right = 276.0
-margin_bottom = 176.0
+margin_bottom = 188.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_min_size = Vector2( 80, 24 )
@@ -453,9 +485,13 @@ stream = ExtResource( 4 )
 stream = ExtResource( 3 )
 
 [node name="FlashScreen" type="ColorRect" parent="."]
+visible = false
 modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 512.0
+margin_bottom = 288.0
+mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -470,7 +506,18 @@ smoothing_speed = 3.0
 
 [node name="TESTTimer" type="Timer" parent="."]
 
-[connection signal="pressed" from="Screens/General/VBoxContainer/Menu/ButPlay" to="." method="_on_ButPlay_pressed"]
-[connection signal="pressed" from="Screens/GameSelection/Modes/Duel" to="Screens/GameSelection" method="_on_Duel_pressed"]
-[connection signal="pressed" from="Screens/GameSelection/Modes/Arena" to="Screens/GameSelection" method="_on_Arena_pressed"]
+[connection signal="pressed" from="Screens/Main/VBoxContainer/Menu/ButPlay" to="Screens" method="_on_ButPlay_pressed"]
+[connection signal="pressed" from="Screens/Main/VBoxContainer/Menu/ButPlay" to="." method="_on_ButPlay_pressed"]
+[connection signal="pressed" from="Screens/Main/VBoxContainer/Menu/ButCredits" to="Screens" method="_on_ButCredits_pressed"]
+[connection signal="focus_entered" from="Screens/GameSelection/Modes/Duel" to="Screens" method="update_mode_description" binds= [ "DUEL" ]]
+[connection signal="mouse_entered" from="Screens/GameSelection/Modes/Duel" to="Screens" method="update_mode_description" binds= [ "DUEL" ]]
+[connection signal="mouse_exited" from="Screens/GameSelection/Modes/Duel" to="Screens" method="update_mode_description" binds= [ "EMPTY" ]]
+[connection signal="pressed" from="Screens/GameSelection/Modes/Duel" to="Screens" method="_on_Duel_pressed"]
+[connection signal="focus_entered" from="Screens/GameSelection/Modes/Arena" to="Screens" method="update_mode_description" binds= [ "ARENA" ]]
+[connection signal="mouse_entered" from="Screens/GameSelection/Modes/Arena" to="Screens" method="update_mode_description" binds= [ "ARENA" ]]
+[connection signal="mouse_exited" from="Screens/GameSelection/Modes/Arena" to="Screens" method="update_mode_description" binds= [ "EMPTY" ]]
+[connection signal="pressed" from="Screens/GameSelection/Modes/Arena" to="Screens" method="_on_Arena_pressed"]
+[connection signal="focus_entered" from="Screens/GameSelection/Modes/Back" to="Screens" method="update_mode_description" binds= [ "EMPTY" ]]
+[connection signal="pressed" from="Screens/GameSelection/Modes/Back" to="Screens" method="return_to_main_menu"]
+[connection signal="pressed" from="Screens/Credits/VBoxContainer/Back" to="Screens" method="return_to_main_menu"]
 [connection signal="timeout" from="TESTTimer" to="." method="_on_TESTTimer_timeout"]
