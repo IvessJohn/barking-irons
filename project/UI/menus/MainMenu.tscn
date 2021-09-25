@@ -506,8 +506,8 @@ smoothing_speed = 3.0
 
 [node name="TESTTimer" type="Timer" parent="."]
 
-[connection signal="pressed" from="Screens/Main/VBoxContainer/Menu/ButPlay" to="Screens" method="_on_ButPlay_pressed"]
 [connection signal="pressed" from="Screens/Main/VBoxContainer/Menu/ButPlay" to="." method="_on_ButPlay_pressed"]
+[connection signal="pressed" from="Screens/Main/VBoxContainer/Menu/ButPlay" to="Screens" method="_on_ButPlay_pressed"]
 [connection signal="pressed" from="Screens/Main/VBoxContainer/Menu/ButCredits" to="Screens" method="_on_ButCredits_pressed"]
 [connection signal="focus_entered" from="Screens/GameSelection/Modes/Duel" to="Screens" method="update_mode_description" binds= [ "DUEL" ]]
 [connection signal="mouse_entered" from="Screens/GameSelection/Modes/Duel" to="Screens" method="update_mode_description" binds= [ "DUEL" ]]

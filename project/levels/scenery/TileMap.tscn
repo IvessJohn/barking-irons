@@ -1,5 +1,6 @@
-[gd_scene load_steps=84 format=2]
+[gd_scene load_steps=85 format=2]
 
+[ext_resource path="res://project/levels/scenery/Tilemap.gd" type="Script" id=1]
 [ext_resource path="res://project/graphics/tileset.png" type="Texture" id=2]
 
 [sub_resource type="NavigationPolygon" id=1]
@@ -603,7 +604,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 9/texture = ExtResource( 2 )
 9/tex_offset = Vector2( 0, 0 )
 9/modulate = Color( 1, 1, 1, 1 )
-9/region = Rect2( 304, 0, 112, 16 )
+9/region = Rect2( 304, 0, 144, 16 )
 9/tile_mode = 2
 9/autotile/icon_coordinate = Vector2( 0, 0 )
 9/autotile/tile_size = Vector2( 16, 16 )
@@ -624,7 +625,7 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 10/texture = ExtResource( 2 )
 10/tex_offset = Vector2( 0, 0 )
 10/modulate = Color( 1, 1, 1, 1 )
-10/region = Rect2( 304, 16, 64, 80 )
+10/region = Rect2( 304, 32, 48, 48 )
 10/tile_mode = 2
 10/autotile/icon_coordinate = Vector2( 0, 0 )
 10/autotile/tile_size = Vector2( 16, 16 )
@@ -905,6 +906,41 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 13/shape_one_way_margin = 0.0
 13/shapes = [  ]
 13/z_index = 0
+14/name = "Greenery"
+14/texture = ExtResource( 2 )
+14/tex_offset = Vector2( 0, 0 )
+14/modulate = Color( 1, 1, 1, 1 )
+14/region = Rect2( 352, 32, 64, 32 )
+14/tile_mode = 2
+14/autotile/icon_coordinate = Vector2( 0, 0 )
+14/autotile/tile_size = Vector2( 8, 8 )
+14/autotile/spacing = 0
+14/autotile/occluder_map = [  ]
+14/autotile/navpoly_map = [  ]
+14/autotile/priority_map = [  ]
+14/autotile/z_index_map = [  ]
+14/occluder_offset = Vector2( 0, 0 )
+14/navigation_offset = Vector2( 0, 0 )
+14/shape_offset = Vector2( 0, 0 )
+14/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+14/shape_one_way = false
+14/shape_one_way_margin = 0.0
+14/shapes = [  ]
+14/z_index = 0
+15/name = "Explosive barrel"
+15/texture = ExtResource( 2 )
+15/tex_offset = Vector2( 0, 0 )
+15/modulate = Color( 1, 1, 1, 1 )
+15/region = Rect2( 336, 16, 16, 16 )
+15/tile_mode = 0
+15/occluder_offset = Vector2( 0, 0 )
+15/navigation_offset = Vector2( 0, 0 )
+15/shape_offset = Vector2( 0, 0 )
+15/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+15/shape_one_way = false
+15/shape_one_way_margin = 0.0
+15/shapes = [  ]
+15/z_index = 0
 
 [node name="Tilemap" type="TileMap"]
 tile_set = SubResource( 82 )
@@ -912,3 +948,4 @@ cell_size = Vector2( 16, 16 )
 collision_mask = 6
 format = 1
 tile_data = PoolIntArray( 327681, 11, 65541 )
+script = ExtResource( 1 )

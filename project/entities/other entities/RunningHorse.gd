@@ -5,11 +5,18 @@ export(Vector2) var RUNNING_DIR: Vector2 = Vector2.RIGHT
 
 export(AudioStream) var NEIGH_SOUND: AudioStream = null
 
+export(float) var change_skin_chance: float = 0.3
+
 
 func _ready():
 	if randomly_choosing_direction and (randi() % 2 == 0):
 		RUNNING_DIR = Vector2.LEFT
 		sprite.scale.x = -1
+	
+	if randf() < change_skin_chance:
+		var texture_region = sprite.region_rect
+		texture_region.position.x += (randi() % 3) * 16
+		sprite.region_rect = texture_region
 
 func _physics_process(_delta):
 	velocity = RUNNING_DIR * SPEED

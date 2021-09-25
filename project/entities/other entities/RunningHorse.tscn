@@ -10,6 +10,7 @@ hp_max = 1
 hp = 1
 DEATH_SOUND = null
 HIT_SCENE = null
+change_skin_chance = 1.0
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 2 )
