@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://project/utilities/RandomItemResource.gd" type="Script" id=1]
+[ext_resource path="res://project/objects/pickables/RevolverItem.tscn" type="PackedScene" id=2]
+
+[resource]
+script = ExtResource( 1 )
+item_name = "Revolver"
+item_scene = ExtResource( 2 )
+item_drop_chance = 1.0

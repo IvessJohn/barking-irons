@@ -27,6 +27,28 @@ func pick_random_item(items_array: Array = items_list):
 	# 4. Return the value
 	return chosen_value
 
+func pick_random_item_dict(items_dict: Dictionary):
+	var chosen_key = null
+	if items_dict.size() > 0:
+		# 1. Calculate the overall chance
+		var overall_chance: int = 0
+		for val in items_dict.values():
+			overall_chance += val
+		
+		# 2. Generate a random number
+		var random_number = randi() % overall_chance
+		
+		# 3. Pick a random item
+		var offset: int = 0
+		for item in items_dict.keys:
+			if random_number < items_dict[item] + offset:
+				chosen_key = item
+				break
+			else:
+				offset += items_dict[item]
+	# 4. Return the value
+	return chosen_key
+
 func pick_random_enum(enumeration, chances_dictionary: Dictionary):
 	var chosen_value = null
 #	if enumeration.size() > 0 and chances_dictionary.keys().size() > 0:
