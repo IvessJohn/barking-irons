@@ -233,6 +233,7 @@ rect_min_size = Vector2( 80, 24 )
 focus_neighbour_top = NodePath("../ButQuit")
 focus_neighbour_bottom = NodePath("../ButCredits")
 focus_next = NodePath("../ButCredits")
+focus_previous = NodePath("../ButQuit")
 text = "PLAY"
 
 [node name="ButCredits" type="Button" parent="Screens/Main/VBoxContainer/Menu"]
@@ -298,6 +299,7 @@ rect_min_size = Vector2( 80, 24 )
 focus_neighbour_top = NodePath("../Back")
 focus_neighbour_bottom = NodePath("../Arena")
 focus_next = NodePath("../Arena")
+focus_previous = NodePath("../Back")
 size_flags_stretch_ratio = 2.0
 text = "Duel"
 
@@ -506,7 +508,6 @@ smoothing_speed = 3.0
 
 [node name="TESTTimer" type="Timer" parent="."]
 
-[connection signal="pressed" from="Screens/Main/VBoxContainer/Menu/ButPlay" to="." method="_on_ButPlay_pressed"]
 [connection signal="pressed" from="Screens/Main/VBoxContainer/Menu/ButPlay" to="Screens" method="_on_ButPlay_pressed"]
 [connection signal="pressed" from="Screens/Main/VBoxContainer/Menu/ButCredits" to="Screens" method="_on_ButCredits_pressed"]
 [connection signal="focus_entered" from="Screens/GameSelection/Modes/Duel" to="Screens" method="update_mode_description" binds= [ "DUEL" ]]

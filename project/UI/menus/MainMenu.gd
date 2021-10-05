@@ -6,17 +6,23 @@ enum MENU_STATES {
 }
 var cur_menu_state = MENU_STATES.WAITING
 
+enum MENUS {
+	MAIN,
+	PLAY,
+	CREDITS
+}
+var current_menu = MENUS.MAIN setget set_current_menu
+onready var CAM_POSITIONS: Dictionary = {
+	"MAIN": $Screens/Main/Center.global_position,
+	"GAME_SELECTION": $Screens/GameSelection/Center.global_position,
+	"CREDITS": $Screens/Credits/Center.global_position
+}
 
 onready var animPlayer = $AnimationPlayer
 onready var camera = $Camera2D
 onready var camTween = $Camera2D/Tween
 var cur_camTween_targetpos: Vector2 = Vector2.ZERO
 onready var gameSelNode = $Screens/GameSelection
-onready var CAM_POSITIONS: Dictionary = {
-	"MAIN": $Screens/Main/Center.global_position,
-	"GAME_SELECTION": $Screens/GameSelection/Center.global_position,
-	"CREDITS": $Screens/Credits/Center.global_position
-}
 
 
 func _ready():
@@ -59,9 +65,43 @@ func start_game(gamemode: int):
 			return
 		else:
 			print("level array size = 0")
-	
 
 
+func set_current_menu(new_menu: int):
+	match new_menu:
+		MENUS.MAIN:
+			# Main screen
+			$Screens/Main/VBoxContainer/Menu/ButPlay.set_disabled(false)
+			$Screens/Main/VBoxContainer/Menu/ButCredits.set_disabled(false)
+			$Screens/Main/VBoxContainer/Menu/ButQuit.set_disabled(false)
+			# Game selection screen
+			$Screens/GameSelection/Modes/Duel.set_disabled(true)
+			$Screens/GameSelection/Modes/Arena.set_disabled(true)
+			$Screens/GameSelection/Modes/Back.set_disabled(true)
+			# Credits screen
+			$Screens/Credits/VBoxContainer/Back.set_disabled(true)
+		MENUS.PLAY:
+			# Main screen
+			$Screens/Main/VBoxContainer/Menu/ButPlay.set_disabled(true)
+			$Screens/Main/VBoxContainer/Menu/ButCredits.set_disabled(true)
+			$Screens/Main/VBoxContainer/Menu/ButQuit.set_disabled(true)
+			# Game selection screen
+			$Screens/GameSelection/Modes/Duel.set_disabled(false)
+			$Screens/GameSelection/Modes/Arena.set_disabled(false)
+			$Screens/GameSelection/Modes/Back.set_disabled(false)
+			# Credits screen
+			$Screens/Credits/VBoxContainer/Back.set_disabled(true)
+		MENUS.CREDITS:
+			# Main screen
+			$Screens/Main/VBoxContainer/Menu/ButPlay.set_disabled(true)
+			$Screens/Main/VBoxContainer/Menu/ButCredits.set_disabled(true)
+			$Screens/Main/VBoxContainer/Menu/ButQuit.set_disabled(true)
+			# Game selection screen
+			$Screens/GameSelection/Modes/Duel.set_disabled(true)
+			$Screens/GameSelection/Modes/Arena.set_disabled(true)
+			$Screens/GameSelection/Modes/Back.set_disabled(true)
+			# Credits screen
+			$Screens/Credits/VBoxContainer/Back.set_disabled(false)
 
 func move_camera_to(new_cam_pos: Vector2):
 	if new_cam_pos != cur_camTween_targetpos:

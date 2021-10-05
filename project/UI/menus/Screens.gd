@@ -6,14 +6,17 @@ onready var mainMenu = get_tree().current_scene.get_node(".")
 
 #--- GENERAL ---#
 func return_to_main_menu():
+	mainMenu.current_menu = mainMenu.MENUS.MAIN
 	mainMenu.move_camera_to(mainMenu.CAM_POSITIONS["MAIN"])
-
-func _on_ButCredits_pressed():
-	mainMenu.move_camera_to(mainMenu.CAM_POSITIONS["CREDITS"])
 
 #--- MAIN ---#
 func _on_ButPlay_pressed():
+	mainMenu.current_menu = mainMenu.MENUS.PLAY
 	mainMenu.move_camera_to(mainMenu.CAM_POSITIONS["GAME_SELECTION"])
+
+func _on_ButCredits_pressed():
+	mainMenu.current_menu = mainMenu.MENUS.CREDITS
+	mainMenu.move_camera_to(mainMenu.CAM_POSITIONS["CREDITS"])
 
 
 #--- GAME SELECTION ---#

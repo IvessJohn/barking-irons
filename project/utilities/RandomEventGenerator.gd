@@ -76,14 +76,16 @@ func pick_random_event(chances_dictionary: Dictionary):
 		
 		# 2. Generate a random number
 		var rand_num = randi() % total_sum
+		print("rand num: " + str(rand_num))
 		
 		# 3. Pick a value
 		var offset: int = 0
 		var chosen_value
 		
 		for event in chances_dictionary.keys():
-			if chances_dictionary[event] + offset < rand_num:
+			if rand_num < chances_dictionary[event] + offset:
 				chosen_value = event
+				break
 			else:
 				offset += chances_dictionary[event]
 		
