@@ -105,6 +105,17 @@ position = Vector2( 128, 64 )
 
 [node name="SandstormHandler" parent="." instance=ExtResource( 3 )]
 
+[node name="WeakSandstorm" parent="SandstormHandler" index="0"]
+amount = 1024
+color = Color( 0.517647, 0.482353, 0.231373, 1 )
+
+[node name="ColorRect" parent="SandstormHandler/WeakSandstorm/Control" index="0"]
+margin_left = -16.0
+margin_top = -14.0
+margin_right = 848.0
+margin_bottom = 434.0
+color = Color( 0.729412, 0.533333, 0.121569, 1 )
+
 [node name="StrongSandstorm" parent="SandstormHandler" index="1"]
 visible = false
 

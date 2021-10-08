@@ -14,7 +14,7 @@ export(AudioStream) var BREAK_SOUND: AudioStream = null
 func pick_up(picker):
 	emit_signal("picked", picker)
 	
-	get_tree().call_group("Enemy", "null_revolverItem")
+	get_tree().call_group("Enemy", "null_weaponItem")
 	SfxPlayer.play_sfx(PICK_SOUND, get_tree().current_scene, Vector2(1.0,1.0), 1.0, PAUSE_MODE_PROCESS)
 	#Pickup VFX
 	

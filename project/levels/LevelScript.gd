@@ -61,6 +61,7 @@ func _ready():
 #			sandstormHandler.get_child(0).show()
 #			sandstormHandler.get_child(0).emitting = true
 	
+	Global.current_game_mode = game_mode
 	match (game_mode):
 		Global.GAME_MODES.CASUAL_DUEL:
 			spawn_enemy(enemySpawnPositionsArr[0].global_position)
@@ -82,14 +83,13 @@ func connect_ui_elements():
 
 
 func _on_RevolverItem_picked(picker_object: Node2D):
-#	match (level_type):
-#		LEVEL_TYPES.LEVEL_DUEL:
-	var picker_name: String = ""
-	if picker_object.is_in_group("Player"):
-		picker_name = "Player"
-	elif picker_object.is_in_group("Enemy"):
-		picker_name = "Enemy"
-	messageShower.show_message("ROD CLAIMED", "by " + picker_name)
+	if Global.current_game_mode == Global.GAME_MODES.CASUAL_DUEL:
+		var picker_name: String = ""
+		if picker_object.is_in_group("Player"):
+			picker_name = "Player"
+		elif picker_object.is_in_group("Enemy"):
+			picker_name = "Enemy"
+		messageShower.show_message("ROD CLAIMED", "by " + picker_name)
 
 func game_end():
 	game_finished = true
@@ -102,10 +102,6 @@ func game_end():
 	for o in stopped_objects:
 		o.set_deferred("can_move", false)
 #	randomEventGenerator.stop_generating_events()
-
-#func _on_Player_shot_himself():
-#	finalScreen.show_screen(finalScreen.FINAL_POSSIBILITY.DEFEAT, "You have just shot yourself. Genius.")
-#	game_end()
 
 func _on_Player_died(_player):
 	if !game_finished:
@@ -127,20 +123,22 @@ func _on_Player_died(_player):
 
 func _on_CheatBorders_body_entered(body):
 	if !game_finished:
+		var message: String = ""
 		if body.is_in_group("Player"):
-			finalScreen.show_screen(finalScreen.FINAL_POSSIBILITY.VICTORY, "You have fled from the battlefield - not a bug, it's a feature.")
+			message = "You have fled from the battlefield - not a bug, it's a feature."
+			finalScreen.show_screen(finalScreen.FINAL_POSSIBILITY.VICTORY, message)
 			game_end()
-		elif body.is_in_group("Enemy"):
-			finalScreen.show_screen(finalScreen.FINAL_POSSIBILITY.VICTORY, "You have literally pushed him out!")
-			game_end()
-
+		elif game_mode != Global.GAME_MODES.ARENA:
+			if body.is_in_group("Enemy") and body.is_spawned:
+				message = "You have literally pushed him out!"
+				finalScreen.show_screen(finalScreen.FINAL_POSSIBILITY.VICTORY, message)
+				game_end()
 
 func _on_RevolverItem_destroyed():
 	match (game_mode):
 		Global.GAME_MODES.CASUAL_DUEL:
 			finalScreen.show_screen(finalScreen.FINAL_POSSIBILITY.VICTORY, "Gun broken. No gun - no fight.")
 			game_end()
-
 
 func _on_EnemyBase_died(enemy_object: KinematicBody2D):
 	if !game_finished:
@@ -152,9 +150,11 @@ func _on_EnemyBase_died(enemy_object: KinematicBody2D):
 					finalScreen.show_screen(finalScreen.FINAL_POSSIBILITY.VICTORY, "You didn't control time, did you?")
 				game_end()
 			Global.GAME_MODES.ARENA:
-				$EnemySpawnTimer.start()
+				if $EnemySpawnTimer.is_stopped():
+					$EnemySpawnTimer.start()
 		
 		enemy_object.disconnect("died", self, "_on_EnemyBase_died")
+
 
 func start_new_level():
 	randomize()
@@ -181,6 +181,7 @@ func spawn_enemy(pos: Vector2 = enemySpawnPositionsArr[randi() % enemySpawnPosit
 		
 		add_child(enemy)
 		enemy.global_position = pos
+		enemy.is_spawned = true
 
 
 func _on_EnemySpawnTimer_timeout():
@@ -189,19 +190,17 @@ func _on_EnemySpawnTimer_timeout():
 func return_player():
 	return player
 
-func return_revolverItem():
-	return get_tree().get_nodes_in_group("RevolverItem")[0]
-
 func get_aim_deviation_sandstorm() -> int:
 	var aim_deviation: int = 0
 	
 	return aim_deviation
 
 func _on_RandomEventGenerator_event_happened(event_num):
-	print("event happdened: " + str(event_num))
+	print("event happened: " + str(event_num))
 	yield(get_tree(), "idle_frame")
 	match event_num:
-		"TUMBLEWEED":
+#		"TUMBLEWEED":
+		randomEventGenerator.EVENTS.TUMBLEWEED:
 			var tumbleweed = TUMBLEWEED.instance()
 			var spawn_position = Vector2(0, rand_range(20,260))
 			
@@ -213,7 +212,8 @@ func _on_RandomEventGenerator_event_happened(event_num):
 			
 			tumbleweed.global_position = spawn_position
 		
-		"EAGLE_SCREAMING":
+#		"EAGLE_SCREAMING":
+		randomEventGenerator.EVENTS.EAGLE_SCREAMING:
 			var eagle = randomEventGenerator.EAGLE.instance()
 			var spawn_position = Vector2(-10, rand_range(40,260))
 			
@@ -225,7 +225,8 @@ func _on_RandomEventGenerator_event_happened(event_num):
 			
 			eagle.global_position = spawn_position
 		
-		"HORSE_RUNNING":
+#		"HORSE_RUNNING":
+		randomEventGenerator.EVENTS.HORSE_RUNNING:
 			var horse = randomEventGenerator.HORSE.instance()
 			var spawn_position = Vector2(0, rand_range(20,260))
 			
@@ -237,9 +238,11 @@ func _on_RandomEventGenerator_event_happened(event_num):
 				horse.RUNNING_DIR = Vector2.LEFT
 			
 			horse.global_position = spawn_position
-		"SANDSTORM_WEAK":
+#		"SANDSTORM_WEAK":
+		randomEventGenerator.EVENTS.SANDSTORM_WEAK:
 			messageShower.show_message("Weak sandstorm started")
-		"SANDSTORM_STRONG":
+#		"SANDSTORM_STRONG":
+		randomEventGenerator.EVENTS.SANDSTORM_STRONG:
 			messageShower.show_message("Strong sandstorm started!")
 			
 			var affected_objects = []

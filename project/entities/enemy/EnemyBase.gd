@@ -1,8 +1,9 @@
 extends "res://project/entities/EntityBase.gd"
 
+var is_spawned = false # A variable for understanding if an enemy is fully spawned
 
 var player: KinematicBody2D = null
-var revolverItem: Node2D = null
+var weaponItem: Node2D = null
 
 export(bool) var FOLLOWS_PATH: bool = true
 
@@ -32,7 +33,7 @@ func _ready():
 	var tree_cur_scene = get_tree().current_scene
 	if tree_cur_scene.is_in_group("Level"):	
 		player = tree_cur_scene.return_player()
-		revolverItem = tree_cur_scene.return_revolverItem()
+		weaponItem = find_closest_weapon()
 		if get_tree().has_group("LevelNavigation"):
 			pathfinder.levelNav = get_tree().get_nodes_in_group("LevelNavigation")[0]
 	
@@ -42,9 +43,9 @@ func _ready():
 func _physics_process(_delta):
 	# Generating paths to either the revolver or the player
 	if FOLLOWS_PATH and pathfinder:
-		if CHOSEN_BEHAVIOR != BEHAVIORS.BERSERK and revolverItem and current_armed_state != ARMED_STATES.REVOLVER:
+		if CHOSEN_BEHAVIOR != BEHAVIORS.BERSERK and is_instance_valid(weaponItem) and current_armed_state != ARMED_STATES.REVOLVER:
 			# If the revolver is available on the map
-			cur_target = revolverItem
+			cur_target = weaponItem
 		else:
 			cur_target = player
 		
@@ -81,9 +82,26 @@ func check_player_in_detection(wanted_los: RayCast2D) -> bool:
 		return true
 	return false
 
-func null_revolverItem():
-	revolverItem = null
+func null_weaponItem():
+	weaponItem = null
 
+func find_closest_weapon(check_revolvers: bool = true, check_torches: bool = false):
+	var weaponitems_list: Array = []
+	var closest_weapon = null
+	var closest_dist = -1
+	
+	if check_revolvers:
+		weaponitems_list.append_array(get_tree().get_nodes_in_group("RevolverItem"))
+	if check_torches:
+		weaponitems_list.append_array(get_tree().get_nodes_in_group("TorchItem"))
+	
+	for item in weaponitems_list:
+		var dist_to_item = global_position.distance_squared_to(item.global_position)
+		if dist_to_item < closest_dist or closest_dist < 0:
+			closest_weapon = item
+			closest_dist = dist_to_item
+	
+	return closest_weapon
 
 func _on_WeaponDetectionArea_area_entered(area):
 	if area.is_in_group("WeaponItem"):
