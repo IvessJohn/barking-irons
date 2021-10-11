@@ -1,8 +1,13 @@
 extends Node
 
+var update_frame: bool = true
+
 var levelNav: Navigation2D = null
 var path: Array = []
 
+
+func _ready():
+	update_frame = randi() % 2 == 0
 
 func navigate():	# Define the next position to go to
 	if path.size() > 0:
@@ -19,8 +24,11 @@ func get_path_to_target(target: Node2D):	# It's obvious
 
 func generate_path_to_target(target: Node2D):	# It's obvious
 	if levelNav and target:
-		path = levelNav.get_simple_path(get_parent().global_position, target.global_position, false)
-#		line2d.points = path
+#		if update_frame:
+		if true:
+			path = levelNav.get_simple_path(get_parent().global_position, target.global_position, false)
+	#		line2d.points = path
+		update_frame = !update_frame
 
 func set_path_to_target(target: Node2D):
 	var new_path = null
