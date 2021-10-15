@@ -22,9 +22,10 @@ func pick_up(picker):
 	queue_free()
 
 
-func _on_Hurtbox_area_entered(_area):
-	emit_signal("destroyed")
-	
-	SfxPlayer.play_sfx(BREAK_SOUND)
-	
-	queue_free()
+func _on_Hurtbox_area_entered(area):
+	if area.is_in_group("Projectile") and !area.is_in_group("Torch"):
+		emit_signal("destroyed")
+		
+		SfxPlayer.play_sfx(BREAK_SOUND)
+		
+		queue_free()

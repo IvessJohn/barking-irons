@@ -84,7 +84,7 @@ visible = false
 position = Vector2( 1, -2 )
 texture = ExtResource( 12 )
 region_enabled = true
-region_rect = Rect2( 240, 96, 16, 16 )
+region_rect = Rect2( 240, 128, 16, 16 )
 
 [node name="WeaponBases" type="Node2D" parent="."]
 

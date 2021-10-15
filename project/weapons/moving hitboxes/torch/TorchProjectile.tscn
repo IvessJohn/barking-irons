@@ -8,11 +8,13 @@
 radius = 3.0
 height = 2.0
 
-[node name="TorchProjectile" instance=ExtResource( 2 )]
+[node name="TorchProjectile" groups=[
+"Torch",
+] instance=ExtResource( 2 )]
 collision_mask = 3
 script = ExtResource( 3 )
-SPEED = 140
-ANGULAR_SPEED = 150
+SPEED = 190
+ANGULAR_SPEED = 190
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 1 )

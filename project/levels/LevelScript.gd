@@ -241,6 +241,7 @@ func _on_RandomEventGenerator_event_happened(event_num):
 #		"SANDSTORM_WEAK":
 		randomEventGenerator.EVENTS.SANDSTORM_WEAK:
 			messageShower.show_message("Weak sandstorm started")
+			$SandstormHandler.start_sandstorm($SandstormHandler.SANDSTORMS.WEAK)
 #		"SANDSTORM_STRONG":
 		randomEventGenerator.EVENTS.SANDSTORM_STRONG:
 			messageShower.show_message("Strong sandstorm started!")
@@ -256,5 +257,5 @@ func _on_BordersTurnOnTimer_timeout():
 	$CheatBorders.monitoring = true
 
 
-func _on_AceTimeController_acetime_active_changed(new_acetime):
+func _on_AceTimeController_acetime_active_changed(_new_acetime):
 	pass # Replace with function body.

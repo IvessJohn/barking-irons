@@ -119,9 +119,6 @@ margin_right = 848.0
 margin_bottom = 434.0
 color = Color( 0.729412, 0.533333, 0.121569, 1 )
 
-[node name="StrongSandstorm" parent="SandstormHandler" index="1"]
-visible = false
-
 [node name="CheatBorders" type="Area2D" parent="."]
 monitoring = false
 monitorable = false

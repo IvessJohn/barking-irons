@@ -22,7 +22,7 @@ position = Vector2( 376, 120 )
 [node name="Position2D4" type="Position2D" parent="EnemySpawnPositions" index="3"]
 position = Vector2( 288, 216 )
 
-[node name="EnemySpawnTimer" parent="." index="8"]
+[node name="EnemySpawnTimer" parent="." index="9"]
 wait_time = 1.0
 one_shot = false
 

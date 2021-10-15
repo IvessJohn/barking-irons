@@ -20,7 +20,7 @@ export(AudioStream) var HIT_SOUND: AudioStream = null
 export(AudioStream) var DEATH_SOUND: AudioStream = null
 
 export(bool) var can_move: bool = true
-export(int) var SPEED: int = 40
+export(int) var SPEED: int = 55
 export(float) var SPEED_MODIFIER: float = 1.0
 var velocity: Vector2 = Vector2.ZERO
 
@@ -31,6 +31,8 @@ export(int) var STRONG_WIND_STRENGTH: int = 15
 export(bool) var receives_knockback: bool = true
 export(float) var knockback_modifier: float = 17
 var current_knockback: Vector2 = Vector2.ZERO
+
+export(bool) var can_pick_up_items: bool = true
 
 enum ARMED_STATES {
 	UNARMED,
@@ -156,7 +158,7 @@ func _on_Hurtbox_area_entered(hitbox):
 
 
 func _on_PickupArea_area_entered(item):
-	if item.is_in_group("Pickable"):
+	if can_pick_up_items and item.is_in_group("Pickable"):
 		match item.PICKABLE_TYPE:
 			"revolver":
 				current_armed_state = ARMED_STATES.REVOLVER
