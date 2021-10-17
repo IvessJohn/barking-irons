@@ -13,10 +13,12 @@ height = 2.00001
 [node name="Cacti" groups=[
 "Cacti",
 ] instance=ExtResource( 1 )]
+variate_texture = true
+texture_variations = 4
 
 [node name="Sprite" parent="." index="0"]
 position = Vector2( -1, -3 )
-region_rect = Rect2( 320, 32, 16, 16 )
+region_rect = Rect2( 352, 32, 16, 16 )
 
 [node name="CollisionShape2D" parent="." index="2"]
 position = Vector2( 0, -1.5 )

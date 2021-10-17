@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://project/objects/structures/StructureBase.tscn" type="PackedScene" id=1]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 3.0
+height = 2.00001
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 3.3
+height = 2.00001
+
+[node name="Signpost" groups=[
+"Cacti",
+] instance=ExtResource( 1 )]
+texture_variations = 1
+
+[node name="Sprite" parent="." index="0"]
+position = Vector2( -1, -3 )
+region_rect = Rect2( 320, 16, 16, 16 )
+
+[node name="CollisionShape2D" parent="." index="2"]
+position = Vector2( 0, -1.5 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2( 0, -1.5 )
+shape = SubResource( 2 )
+
+[node name="CatchFireArea" parent="." index="5"]
+position = Vector2( 0, -3 )
+
+[editable path="Hurtbox"]

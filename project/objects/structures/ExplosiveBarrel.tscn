@@ -13,6 +13,7 @@ colors = PoolColorArray( 0.966309, 0.712479, 0.135887, 1, 1, 0.410156, 0.410156,
 script = ExtResource( 1 )
 hp_max = 50
 hp = 50
+texture_variations = 1
 
 [node name="Sprite" parent="." index="0"]
 position = Vector2( -0.5, -3 )

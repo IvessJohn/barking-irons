@@ -10,19 +10,18 @@ height = 2.00001
 radius = 3.3
 height = 2.00001
 
-[node name="Cacti" groups=[
+[node name="Bones" groups=[
 "Cacti",
 ] instance=ExtResource( 1 )]
+variate_texture = true
 
 [node name="Sprite" parent="." index="0"]
-region_rect = Rect2( 352, 32, 16, 16 )
+position = Vector2( -1, -3 )
+region_rect = Rect2( 304, 32, 16, 16 )
 
 [node name="CollisionShape2D" parent="." index="2"]
 position = Vector2( 0, -1.5 )
 shape = SubResource( 1 )
-
-[node name="Hurtbox" parent="." index="3"]
-position = Vector2( 0, -1 )
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 position = Vector2( 0, -1.5 )

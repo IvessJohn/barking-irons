@@ -7,7 +7,7 @@ enum {
 	CACTI = 14,
 	EXPLOSIVES = 15,
 	BONES = 10,
-	OTHER_BUILDINGS = 21,	#
+	DECOR_BUILDINGS = 21,	#
 	TOMBSTONES = 16,
 	BARRELS = 20,	# Barrels
 	SIGNPOST = 19	# Wooden signpost
@@ -15,21 +15,21 @@ enum {
 
 var OBJECTS_DICT: Dictionary = {
 	BUILDINGS: 
-		[],
+		["res://project/objects/structures/Building.tscn"],
 	CACTI: 
-		[],
+		["res://project/objects/structures/Cacti.tscn"],
 	EXPLOSIVES: 
-		[],
+		["res://project/objects/structures/ExplosiveBarrel.tscn"],
 	BONES: 
-		[],
-	OTHER_BUILDINGS: 
-		[],
+		["res://project/objects/structures/Bones.tscn"],
+	DECOR_BUILDINGS: 
+		["res://project/objects/structures/DecorBuilding.tscn"],
 	TOMBSTONES: 
-		[],
+		["res://project/objects/structures/Tombstone.tscn"],
 	BARRELS: 
-		[],
+		["res://project/objects/structures/Barrel.tscn"],
 	SIGNPOST: 
-		[]
+		["res://project/objects/structures/Signpost.tscn"]
 }
 
 

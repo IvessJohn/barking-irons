@@ -17,6 +17,10 @@ export(int) var hp: int = 100 setget set_hp, get_hp
 export(bool) var invincible: bool = false
 var is_dead: bool = false
 
+export(bool) var variate_texture: bool = false
+export(int) var texture_variations: int = 3
+
+onready var sprite = $Sprite
 onready var statusEffectHandler = $StatusEffectHandler
 onready var firePosition = $FirePosition
 onready var hurtbox = $Hurtbox
@@ -47,6 +51,10 @@ func get_hp():
 
 
 ### FUNCTIONS
+
+func _ready():
+	if variate_texture:
+		sprite.region_rect.position.x += (randi() % texture_variations) * 16
 
 func destroy(free_self: bool = true):
 	Global.spawn_object_at_position(DESTROY_EFFECT, global_position)
