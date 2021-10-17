@@ -20,11 +20,11 @@ enum EVENTS {
 	SANDSTORM_STRONG,
 	NOTHING
 }
-export(Dictionary) var CASUAL_EVENTS_CHANCES: Dictionary = {
+export(Dictionary) var EVENTS_CHANCES: Dictionary = {
 	EVENTS.TUMBLEWEED: 5,
 	EVENTS.HORSE_RUNNING: 1,
 	EVENTS.EAGLE_SCREAMING: 1,
-	EVENTS.SANDSTORM_WEAK: 0,
+	EVENTS.SANDSTORM_WEAK: 1,
 	EVENTS.SANDSTORM_STRONG: 0,
 	EVENTS.NOTHING: 20
 }
@@ -53,7 +53,7 @@ func _ready():
 
 
 func generate_event(game_mode_number):
-	var chances_dictionary: Dictionary = CASUAL_EVENTS_CHANCES
+	var chances_dictionary: Dictionary = EVENTS_CHANCES
 	match (game_mode_number):
 		Global.GAME_MODES.ARENA:
 			pass

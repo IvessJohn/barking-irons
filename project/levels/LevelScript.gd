@@ -13,7 +13,7 @@ var LEVEL_ARRAYS_DICT: Dictionary = {
 
 enum LEVEL_TYPES {
 	LEVEL_DUEL,		# 1v1 battle
-	ARCADE_ARENA	# Every kill or gun pickup spawns a new enemy
+	ARCADE_ARENA	# Survival mode
 }
 export(Global.GAME_MODES) var game_mode: int = Global.GAME_MODES.CASUAL_DUEL
 var game_finished: bool = false
@@ -64,7 +64,7 @@ func _ready():
 	Global.current_game_mode = game_mode
 	match (game_mode):
 		Global.GAME_MODES.CASUAL_DUEL:
-			spawn_enemy(enemySpawnPositionsArr[0].global_position)
+			spawn_enemy(enemySpawnPositionsArr[0].global_position, 1 * 0.01)
 		Global.GAME_MODES.ARENA:
 			$EnemySpawnTimer.start()
 	
@@ -173,8 +173,10 @@ func start_new_level():
 func _on_FinalScreen_request_new_level():
 	start_new_level()
 
-func spawn_enemy(pos: Vector2 = enemySpawnPositionsArr[randi() % enemySpawnPositionsArr.size()].global_position):
+func spawn_enemy(pos: Vector2 = enemySpawnPositionsArr[randi() % enemySpawnPositionsArr.size()].global_position, delay: float = 0):
 	if !enemies_disabled and ENEMY_SCENE:
+		if delay > 0:
+			yield(get_tree().create_timer(delay), "timeout")
 		var enemy = ENEMY_SCENE.instance()
 		
 		enemy.connect("died", self, "_on_EnemyBase_died")
@@ -242,6 +244,8 @@ func _on_RandomEventGenerator_event_happened(event_num):
 		randomEventGenerator.EVENTS.SANDSTORM_WEAK:
 			messageShower.show_message("Weak sandstorm started")
 			$SandstormHandler.start_sandstorm($SandstormHandler.SANDSTORMS.WEAK)
+			# Remove the possibility of respawning the sandstorm while it's still active
+			randomEventGenerator.EVENTS_CHANCES[event_num] = 0
 #		"SANDSTORM_STRONG":
 		randomEventGenerator.EVENTS.SANDSTORM_STRONG:
 			messageShower.show_message("Strong sandstorm started!")

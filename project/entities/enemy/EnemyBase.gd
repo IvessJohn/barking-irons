@@ -187,19 +187,19 @@ func find_closest_weapon(check_revolvers: bool = true, check_torches: bool = fal
 
 
 func _on_WeaponDetectionArea_area_entered(area):
-	if area.is_in_group("WeaponItem") and !(str(area) in enemyNetwork.claimed_weapons.keys()):
+	if area.is_in_group("WeaponItem") and !(str(area) in enemyNetwork.claimed_weaponItems.keys()):
 		weapons_nearby += 1
 		var path_to_the_weapon = pathfinder.get_path_to_target(area)
 		var path_dist = pathfinder.calculate_path_distance(path_to_the_weapon)
 #		print("Distance to the weapon " + area.name + ": " + str(path_dist))
 
 func _on_WeaponDetectionArea_area_exited(area):
-	if area.is_in_group("WeaponItem") and !(str(area) in enemyNetwork.claimed_weapons.keys()):
+	if area.is_in_group("WeaponItem") and !(str(area) in enemyNetwork.claimed_weaponItems.keys()):
 		weapons_nearby -= 1
 
 
 func claim_weapon(weapon):
-	if weapon != null and is_instance_valid(enemyNetwork) and !(str(weapon) in enemyNetwork.claimed_weapons.keys()):
+	if weapon != null and is_instance_valid(enemyNetwork) and !(str(weapon) in enemyNetwork.claimed_weaponItems.keys()):
 		enemyNetwork.claimed_weaponItems[str(weapon)] = self
 
 func erase_claimed_weapon():
