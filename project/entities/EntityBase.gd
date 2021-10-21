@@ -18,19 +18,21 @@ export(PackedScene) var DEATH_EFFECT: PackedScene = null
 
 export(AudioStream) var HIT_SOUND: AudioStream = null
 export(AudioStream) var DEATH_SOUND: AudioStream = null
+export(AudioStream) var WILHELM_CRY: AudioStream = preload("res://project/sounds/wilhelm_scream.ogg")
+export(float, 0.0, 1.0) var WILHELM_CRY_CHANCE: float = 0.1
 
 export(bool) var can_move: bool = true
 export(int) var SPEED: int = 55
 export(float) var SPEED_MODIFIER: float = 1.0
 var velocity: Vector2 = Vector2.ZERO
 
-export(float) var SPEED_MOD_IN_WATER: float = 0.65
-export(Vector2) var current_wind_dir: Vector2 = Vector2.ZERO
-export(int) var STRONG_WIND_STRENGTH: int = 15
-
 export(bool) var receives_knockback: bool = true
 export(float) var knockback_modifier: float = 17
 var current_knockback: Vector2 = Vector2.ZERO
+
+export(float) var SPEED_MOD_IN_WATER: float = 0.65
+export(Vector2) var current_wind_dir: Vector2 = Vector2.ZERO
+export(int) var STRONG_WIND_STRENGTH: int = 15
 
 export(bool) var can_pick_up_items: bool = true
 
@@ -60,6 +62,7 @@ onready var effectPlayer = $EffectPlayer
 onready var projSpawn = $ProjSpawnPivot/ProjectileSpawn
 onready var statusEffectHandler = $StatusEffectHandler
 onready var firePosition = $FirePosition
+onready var deathCircumstances = $DeathCircumstances
 
 
 ### SETTERS AND GETTERS
@@ -115,8 +118,13 @@ func die(free_self: bool = true):
 	if firePosition.remote_path != "":
 		get_node(firePosition.remote_path).extinguishable = statusEffectHandler.fire_extinguishable
 	
+	var death_sound = DEATH_SOUND
+	if deathCircumstances.death_reason == deathCircumstances.ALL_DEATH_REASONS.FELL:
+		if randf() < WILHELM_CRY_CHANCE:
+			death_sound = WILHELM_CRY
+	
 	Global.spawn_object_at_position(DEATH_EFFECT, global_position)
-	SfxPlayer.play_sfx(DEATH_SOUND)
+	SfxPlayer.play_sfx(death_sound)
 	if free_self:
 		queue_free()
 
@@ -202,7 +210,7 @@ func _on_EntityBase_died(_entity):
 
 
 func _on_EntityStatusEffectHandler_received_fire_damage(fire_damage):
-	print("FIRE DAMAGE! FIRE DAMAGE!")
+	print(name + ": FIRE DAMAGE! FIRE DAMAGE!")
 	ignite_self()
 	receive_damage(fire_damage)
 
@@ -245,6 +253,7 @@ func ignite_self():
 			get_node(firePosition.remote_path).extinguishTimer.start()
 
 func fall_off_a_cliff():
+	deathCircumstances.death_reason = deathCircumstances.ALL_DEATH_REASONS.FELL
 	die()
 
 func _on_EntityStatusEffectHandler_wet_changed(wet):
@@ -268,4 +277,4 @@ func _on_GetWetArea_body_exited(body):
 
 func _on_CliffDetectionArea_body_entered(body):
 	if body.is_in_group("Cliff"):
-		die()
+		fall_off_a_cliff()

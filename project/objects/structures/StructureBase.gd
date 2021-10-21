@@ -20,6 +20,9 @@ var is_dead: bool = false
 export(bool) var variate_texture: bool = false
 export(int) var texture_variations: int = 3
 
+export(PackedScene) var ORDINARY_RUINS: PackedScene = null
+export(PackedScene) var BURNED_RUINS: PackedScene = null
+
 onready var sprite = $Sprite
 onready var statusEffectHandler = $StatusEffectHandler
 onready var firePosition = $FirePosition
@@ -59,8 +62,15 @@ func _ready():
 func destroy(free_self: bool = true):
 	Global.spawn_object_at_position(DESTROY_EFFECT, global_position)
 	SfxPlayer.play_sfx(DESTROY_SOUND)
-	if free_self:
-		queue_free()
+	spawn_ruins()
+
+func spawn_ruins():
+	var ruins_scene = ORDINARY_RUINS
+	if firePosition.remote_path == "":
+		ruins_scene = BURNED_RUINS
+	
+	var ruins = Global.spawn_object_at_position(ruins_scene, global_position, get_parent())
+	queue_free()
 
 func receive_damage(received_damage):
 	print("Structure " + name + " got " + str(received_damage) + " damage!")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://project/entities/EntityBase.gd" type="Script" id=1]
 [ext_resource path="res://project/entities/cowboy_Remaster.png" type="Texture" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://project/weapons/weapon bases/TorchBase.tscn" type="PackedScene" id=11]
 [ext_resource path="res://project/graphics/tileset.png" type="Texture" id=12]
 [ext_resource path="res://project/entities/EntityAnimPlayer.gd" type="Script" id=13]
+[ext_resource path="res://project/entities/DeathCircumstances.gd" type="Script" id=14]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 5.3
@@ -47,6 +48,7 @@ collision_mask = 11
 script = ExtResource( 1 )
 HIT_SOUND = ExtResource( 8 )
 DEATH_SOUND = ExtResource( 9 )
+WILHELM_CRY_CHANCE = 0.0
 HIT_SCENE = ExtResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -143,6 +145,9 @@ collision_mask = 64
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CliffDetectionArea"]
 rotation = 1.5708
 shape = SubResource( 7 )
+
+[node name="DeathCircumstances" type="Node" parent="."]
+script = ExtResource( 14 )
 
 [connection signal="died" from="." to="." method="_on_EntityBase_died"]
 [connection signal="magazine_emptied" from="WeaponBases/RevolverBase" to="." method="_on_weapon_magazine_emptied"]

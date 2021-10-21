@@ -10,7 +10,7 @@
 [ext_resource path="res://project/objects/structures/Bones.tscn" type="PackedScene" id=8]
 [ext_resource path="res://project/objects/structures/Cacti.tscn" type="PackedScene" id=9]
 [ext_resource path="res://project/levels/scenery/Tilemap.tscn" type="PackedScene" id=10]
-[ext_resource path="res://project/weapons/WeaponSpawnPoint.tscn" type="PackedScene" id=11]
+[ext_resource path="res://project/weapons/WeaponSpawner.tscn" type="PackedScene" id=11]
 [ext_resource path="res://project/objects/structures/Building.tscn" type="PackedScene" id=12]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -66,6 +66,7 @@ wait_time = 3.0
 position = Vector2( 32, 120 )
 hp_max = 50
 hp = 50
+WILHELM_CRY_CHANCE = 1.0
 
 [node name="Fire" parent="." index="11" instance=ExtResource( 2 )]
 position = Vector2( 80, 104 )
@@ -95,17 +96,26 @@ shape = SubResource( 1 )
 [node name="Right" parent="CheatBorders" index="3"]
 shape = SubResource( 2 )
 
-[node name="WeaponSpawnPoint" parent="." index="20" instance=ExtResource( 11 )]
+[node name="WeaponSpawner" parent="." index="20" instance=ExtResource( 11 )]
 position = Vector2( 72, 88 )
+respawn_time = 20.0
 
-[node name="Cacti" parent="." index="21" instance=ExtResource( 9 )]
+[node name="WeaponSpawner2" parent="." index="21" instance=ExtResource( 11 )]
+position = Vector2( 24, 72 )
+respawn_time = 8.0
+
+[node name="WeaponSpawner3" parent="." index="22" instance=ExtResource( 11 )]
+position = Vector2( 16, 48 )
+respawn_time = 4.0
+
+[node name="Cacti" parent="." index="23" instance=ExtResource( 9 )]
 position = Vector2( 64, 48 )
 
-[node name="Cacti" parent="Cacti" index="6" instance=ExtResource( 8 )]
-position = Vector2( 8, -16 )
+[node name="Cacti2" parent="." index="24" instance=ExtResource( 8 )]
+position = Vector2( 72, 32 )
 
-[node name="Building" parent="Cacti" index="7" instance=ExtResource( 12 )]
-position = Vector2( -16, -8 )
+[node name="Building" parent="." index="25" instance=ExtResource( 12 )]
+position = Vector2( 48, 40 )
 
 [editable path="RandomEventGenerator"]
 [editable path="SandstormHandler"]

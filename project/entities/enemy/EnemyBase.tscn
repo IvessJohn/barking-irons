@@ -16,6 +16,7 @@ radius = 63.0
 "Enemy",
 ] instance=ExtResource( 1 )]
 script = ExtResource( 3 )
+WILHELM_CRY_CHANCE = 0.1
 HIT_DAMAGE = 13
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]

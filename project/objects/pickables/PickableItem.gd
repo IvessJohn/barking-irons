@@ -1,5 +1,6 @@
 extends Area2D
 
+signal removed
 signal picked(picker)
 signal destroyed
 
@@ -12,6 +13,7 @@ export(AudioStream) var BREAK_SOUND: AudioStream = null
 
 
 func pick_up(picker):
+	emit_signal("removed")
 	emit_signal("picked", picker)
 	if picker.is_in_group("Enemy"):
 		picker.null_weaponItem()
@@ -24,6 +26,7 @@ func pick_up(picker):
 
 func _on_Hurtbox_area_entered(area):
 	if area.is_in_group("Projectile") and !area.is_in_group("Torch"):
+		emit_signal("removed")
 		emit_signal("destroyed")
 		
 		SfxPlayer.play_sfx(BREAK_SOUND)
