@@ -2,11 +2,13 @@ extends Node
 
 enum THEMES {
 	MAIN_MENU,
-	BATTLE
+	BATTLE,
+	INTERMISSION
 }
 var TRACKS = {
 	THEMES.MAIN_MENU: [preload("res://project/soundtracks/lassolady.ogg")],
-	THEMES.BATTLE: [preload("res://project/soundtracks/City of Backstreet.ogg")]
+	THEMES.BATTLE: [preload("res://project/soundtracks/City of Backstreet.ogg")],
+	THEMES.INTERMISSION: []
 }
 
 var current_theme: int = THEMES.MAIN_MENU

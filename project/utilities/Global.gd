@@ -13,16 +13,23 @@ enum GAME_MODES {
 }
 var current_game_mode = GAME_MODES.MENU setget set_game_mode
 
-var LEVEL_ARRAYS_DICT: Dictionary = {
-	GAME_MODES.CASUAL_DUEL: [
-		"res://project/levels/small_maps/SmallDesert.tscn",
-		"res://project/levels/small_maps/SmallTown.tscn",
-		"res://project/levels/small_maps/ATonOfExplosives.tscn"
-	],
-	GAME_MODES.ARENA: [
-		
-	]
+#var LEVEL_ARRAYS_DICT: Dictionary = {
+#	GAME_MODES.CASUAL_DUEL: [
+#		"res://project/levels/small_maps/SmallDesert.tscn",
+#		"res://project/levels/small_maps/SmallTown.tscn",
+#		"res://project/levels/small_maps/ATonOfExplosives.tscn"
+#	],
+#	GAME_MODES.ARENA: [
+#
+#	]
+#}
+
+enum FACTIONS {
+	OUTLAW,
+	OFFICER
 }
+
+var badges_collected_max: int = 0
 
 export(PackedScene) var FIRE_SCENE: PackedScene = preload("res://project/objects/Fire.tscn")
 

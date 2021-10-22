@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://project/graphics/tileset.png" type="Texture" id=1]
+[ext_resource path="res://project/objects/pickables/PickableItem.tscn" type="PackedScene" id=2]
+[ext_resource path="res://project/objects/pickables/collectibles/BadgeItem.gd" type="Script" id=3]
+[ext_resource path="res://project/graphics/palette5x.png" type="Texture" id=4]
+
+[node name="BadgeItem" groups=[
+"BadgeItem",
+] instance=ExtResource( 2 )]
+script = ExtResource( 3 )
+OUTLAW_BADGE_TEXTURE = ExtResource( 1 )
+OFFICER_BADGE_TEXTURE = ExtResource( 4 )
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 256, 96, 16, 16 )
+
+[connection signal="picked" from="." to="." method="_on_BadgeItem_picked"]

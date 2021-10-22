@@ -21,13 +21,12 @@ __meta__ = {
 [node name="RevolverDrum" type="TextureRect" parent="." groups=[
 "RevolverDrumUI",
 ]]
-visible = false
 margin_left = 15.0
 margin_top = 15.0
-margin_right = 47.0
-margin_bottom = 47.0
-rect_min_size = Vector2( 32, 32 )
-rect_pivot_offset = Vector2( 16, 16 )
+margin_right = 79.0
+margin_bottom = 79.0
+rect_min_size = Vector2( 64, 64 )
+rect_pivot_offset = Vector2( 32, 32 )
 size_flags_horizontal = 2
 size_flags_vertical = 2
 texture = ExtResource( 1 )
@@ -41,98 +40,98 @@ SOUND_SPIN = ExtResource( 5 )
 [node name="Tween" type="Tween" parent="RevolverDrum"]
 
 [node name="Ammo" type="Control" parent="RevolverDrum"]
-margin_right = 40.0
-margin_bottom = 40.0
+margin_right = 60.0
+rect_min_size = Vector2( 63, 63 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Bullet1" type="TextureRect" parent="RevolverDrum/Ammo"]
-margin_left = 13.0
-margin_top = 3.0
-margin_right = 19.0
-margin_bottom = 9.0
-rect_min_size = Vector2( 6, 6 )
+margin_left = 26.0
+margin_top = 6.0
+margin_right = 38.0
+margin_bottom = 18.0
+rect_min_size = Vector2( 12, 12 )
 size_flags_horizontal = 2
 size_flags_vertical = 2
 texture = ExtResource( 3 )
 expand = true
-stretch_mode = 3
+stretch_mode = 5
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Bullet2" type="TextureRect" parent="RevolverDrum/Ammo"]
-margin_left = 22.0
-margin_top = 8.0
-margin_right = 28.0
-margin_bottom = 14.0
-rect_min_size = Vector2( 6, 6 )
+margin_left = 44.0
+margin_top = 16.0
+margin_right = 56.0
+margin_bottom = 28.0
+rect_min_size = Vector2( 12, 12 )
 size_flags_horizontal = 2
 size_flags_vertical = 2
 texture = ExtResource( 3 )
 expand = true
-stretch_mode = 3
+stretch_mode = 5
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Bullet3" type="TextureRect" parent="RevolverDrum/Ammo"]
-margin_left = 22.0
-margin_top = 18.0
-margin_right = 28.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 6, 6 )
+margin_left = 44.0
+margin_top = 36.0
+margin_right = 56.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 12, 12 )
 size_flags_horizontal = 2
 size_flags_vertical = 2
 texture = ExtResource( 3 )
 expand = true
-stretch_mode = 3
+stretch_mode = 5
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Bullet4" type="TextureRect" parent="RevolverDrum/Ammo"]
-margin_left = 13.0
-margin_top = 23.0
-margin_right = 19.0
-margin_bottom = 29.0
-rect_min_size = Vector2( 6, 6 )
+margin_left = 26.0
+margin_top = 46.0
+margin_right = 38.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 12, 12 )
 size_flags_horizontal = 2
 size_flags_vertical = 2
 texture = ExtResource( 3 )
 expand = true
-stretch_mode = 3
+stretch_mode = 5
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Bullet5" type="TextureRect" parent="RevolverDrum/Ammo"]
-margin_left = 4.0
-margin_top = 18.0
-margin_right = 10.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 6, 6 )
+margin_left = 8.0
+margin_top = 36.0
+margin_right = 20.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 12, 12 )
 size_flags_horizontal = 2
 size_flags_vertical = 2
 texture = ExtResource( 3 )
 expand = true
-stretch_mode = 3
+stretch_mode = 5
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Bullet6" type="TextureRect" parent="RevolverDrum/Ammo"]
-margin_left = 4.0
-margin_top = 8.0
-margin_right = 10.0
-margin_bottom = 14.0
-rect_min_size = Vector2( 6, 6 )
+margin_left = 8.0
+margin_top = 16.0
+margin_right = 20.0
+margin_bottom = 28.0
+rect_min_size = Vector2( 12, 12 )
 size_flags_horizontal = 2
 size_flags_vertical = 2
 texture = ExtResource( 3 )
 expand = true
-stretch_mode = 3
+stretch_mode = 5
 __meta__ = {
 "_edit_use_anchors_": false
 }

@@ -21,6 +21,9 @@ func spin_once():
 	
 	yield(get_tree().create_timer(0.025), "timeout")
 	SfxPlayer.play_sfx(SOUND_SPIN)
+	if bullets == 0:
+		yield($Tween, "tween_all_completed")
+		hide()
 
 func shot():
 	self.bullets -= 1

@@ -51,6 +51,8 @@ func show_wait_menu():
 func sequence_launch():
 	cur_menu_state = MENU_STATES.ACTIVE
 	animPlayer.play("launch")
+	yield(get_tree().create_timer(animPlayer.current_animation_length - 0.4), "timeout")
+	SoundtrackPlayer.play_soundtrack(SoundtrackPlayer.THEMES.MAIN_MENU)
 
 func start_game(gamemode: int):
 	var levels_array: Array = []

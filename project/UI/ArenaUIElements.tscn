@@ -1,0 +1,47 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://project/UI/THEME/FONT/title_font.tres" type="DynamicFont" id=1]
+
+[node name="ArenaUIElements" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 15
+custom_constants/margin_top = 15
+custom_constants/margin_left = 15
+custom_constants/margin_bottom = 15
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="EnemiesLeft" type="Label" parent="."]
+margin_left = 15.0
+margin_top = 15.0
+margin_right = 508.0
+margin_bottom = 35.0
+rect_min_size = Vector2( 0, 20 )
+size_flags_vertical = 2
+text = "OUTLAWS LEFT: 20"
+align = 1
+valign = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 15.0
+margin_top = 127.0
+margin_right = 508.0
+margin_bottom = 161.0
+size_flags_vertical = 4
+
+[node name="Wave" type="Label" parent="VBoxContainer"]
+margin_right = 493.0
+margin_bottom = 20.0
+custom_fonts/font = ExtResource( 1 )
+text = "WAVE 1"
+align = 1
+
+[node name="EnemiesIncoming" type="Label" parent="VBoxContainer"]
+margin_top = 24.0
+margin_right = 493.0
+margin_bottom = 34.0
+text = "ENEMIES ON THIS WAVE: 10"
+align = 1

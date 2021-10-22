@@ -11,6 +11,9 @@ export(AudioStream) var PICK_SOUND: AudioStream = null
 export(PackedScene) var PICK_EFFECT: PackedScene = null
 export(AudioStream) var BREAK_SOUND: AudioStream = null
 
+onready var sprite = $Sprite
+onready var animPlayer = $AnimationPlayer
+
 
 func pick_up(picker):
 	emit_signal("removed")

@@ -150,8 +150,7 @@ func _on_EnemyBase_died(enemy_object: KinematicBody2D):
 					finalScreen.show_screen(finalScreen.FINAL_POSSIBILITY.VICTORY, "You didn't control time, did you?")
 				game_end()
 			Global.GAME_MODES.ARENA:
-				if $EnemySpawnTimer.is_stopped():
-					$EnemySpawnTimer.start()
+				$ArenaWaveController.enemy_died()
 		
 		enemy_object.disconnect("died", self, "_on_EnemyBase_died")
 
