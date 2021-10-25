@@ -43,7 +43,7 @@ func _ready():
 				var scene: PackedScene = null
 				var scene_siblings_amount: int = OBJECTS_DICT[tile_id].size()
 				if scene_siblings_amount > 0:
-					scene = OBJECTS_DICT[tile_id][randi() % scene_siblings_amount]
+					scene = load(OBJECTS_DICT[tile_id][randi() % scene_siblings_amount])
 				
 				if scene != null:
 					# Get the local position of the tile

@@ -80,6 +80,7 @@ position = Vector2( 128, 264 )
 [node name="Right" parent="CheatBorders" index="3"]
 position = Vector2( 432, 80 )
 
+[connection signal="timeout" from="ArenaController/IntermissionTimer" to="ArenaController" method="_on_IntermissionTimer_timeout"]
 [connection signal="timeout" from="ArenaController/EnemySpawnTimer" to="ArenaController" method="_on_EnemySpawnTimer_timeout"]
 
 [editable path="RandomEventGenerator"]

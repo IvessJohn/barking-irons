@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://project/levels/DuelLevelBase.tscn" type="PackedScene" id=1]
 [ext_resource path="res://project/objects/Fire.tscn" type="PackedScene" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://project/levels/scenery/Tilemap.tscn" type="PackedScene" id=10]
 [ext_resource path="res://project/weapons/WeaponSpawner.tscn" type="PackedScene" id=11]
 [ext_resource path="res://project/objects/structures/Building.tscn" type="PackedScene" id=12]
+[ext_resource path="res://project/objects/pickables/SawedOffItem.tscn" type="PackedScene" id=13]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 304, 40 )
@@ -116,6 +117,9 @@ position = Vector2( 72, 32 )
 
 [node name="Building" parent="." index="25" instance=ExtResource( 12 )]
 position = Vector2( 48, 40 )
+
+[node name="SawedOffItem" parent="." index="26" instance=ExtResource( 13 )]
+position = Vector2( 72, 128 )
 
 [editable path="RandomEventGenerator"]
 [editable path="SandstormHandler"]

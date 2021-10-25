@@ -45,14 +45,15 @@ func _ready():
 	$IntermissionTimer.start()
 
 func start_battle():
-	SoundtrackPlayer.pause_soundtrack()
+	print("battle start!")
+#	SoundtrackPlayer.pause_soundtrack()
 	get_tree().call_group("BadgeItem", "queue_free")
 	badges_picked_this_wave = 0
 	
 	self.current_phase = PHASES.BATTLE
 	wave_num += 1
 	enemies_this_wave += int(rand_range(0, 4))
-	enemies_this_wave = min(enemies_this_wave, 25)
+	enemies_this_wave = clamp(enemies_this_wave, 3, 25)
 	enemies_left_to_spawn = enemies_this_wave
 	enemies_total += enemies_this_wave
 	
@@ -60,9 +61,9 @@ func start_battle():
 	
 #	enemies_left_to_spawn = levelStats.next_wave_enemies_amount
 	$EnemySpawnTimer.start()
-	$UI/BattleUI/HBoxContainer/TimeLeft.hide()
-	$UI/BattleUI/HBoxContainer/EnemiesLeft.show()
-	$UI/BattleUI/HBoxContainer/EnemiesLeft/Number.text = str(enemies_left_to_spawn)
+#	$UI/BattleUI/HBoxContainer/TimeLeft.hide()
+#	$UI/BattleUI/HBoxContainer/EnemiesLeft.show()
+#	$UI/BattleUI/HBoxContainer/EnemiesLeft/Number.text = str(enemies_left_to_spawn)
 	
 	var wave_sound: AudioStreamPlayer = SfxPlayer.play_sfx(SFX_WAVE_START)
 	if wave_sound:
@@ -70,14 +71,15 @@ func start_battle():
 	SoundtrackPlayer.play_soundtrack(SoundtrackPlayer.THEMES.BATTLE)
 
 func start_intermission():
-	SoundtrackPlayer.pause_soundtrack()
+	print("intermission start!")
+#	SoundtrackPlayer.pause_soundtrack()
 	
 	self.current_phase = PHASES.INTERMISSION
 	emit_signal("wave_ended")
 	
 	$IntermissionTimer.start()
-	$UI/BattleUI/HBoxContainer/EnemiesLeft.hide()
-	$UI/BattleUI/HBoxContainer/TimeLeft.show()
+#	$UI/BattleUI/HBoxContainer/EnemiesLeft.hide()
+#	$UI/BattleUI/HBoxContainer/TimeLeft.show()
 	
 	var wave_sound: AudioStreamPlayer = SfxPlayer.play_sfx(SFX_WAVE_END)
 	if wave_sound:
@@ -120,3 +122,10 @@ func badge_picked():
 
 func enemy_died(pos: Vector2):
 	enemy_death_positions.append(pos)
+	
+	if get_tree().get_nodes_in_group("Enemy").size() < 1:
+		start_intermission()
+
+
+func _on_IntermissionTimer_timeout():
+	start_battle()

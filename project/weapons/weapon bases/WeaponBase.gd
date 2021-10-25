@@ -7,7 +7,8 @@ signal ammo_changed(new_ammo)
 
 enum WEAPON_TYPES {
 	REVOLVER,
-	TORCH
+	TORCH,
+	SAWED_OFF
 }
 export(WEAPON_TYPES) var WEAPON_TYPE
 
@@ -16,6 +17,8 @@ export(PackedScene) var PROJ_CRITICAL: PackedScene = null
 
 export(int) var AMMO_DEFAULT: int = 6
 export(int) var ammo: int = 6 setget set_ammo
+export(int) var BULLETS_CAST: int = 1
+export(int) var DISPERSION_ANGLE: int = 3
 
 export(bool) var shake_camera_when_shot: bool = true
 
@@ -37,12 +40,13 @@ func shoot_in_direction(direction: Vector2, spawn_pos: Vector2 = $ProjectilePos.
 	if ammo > 0:
 #		print("shot successful")
 		if proj_scene:
-			var projectile: Node2D = proj_scene.instance()
-			get_tree().current_scene.add_child(projectile)
-			projectile.global_position = spawn_pos
-			projectile.rotation = direction.angle()
-			
-			projectile.hit_owner = get_parent()
+			for i in BULLETS_CAST:
+				var projectile: Node2D = proj_scene.instance()
+				get_tree().current_scene.add_child(projectile)
+				projectile.global_position = spawn_pos
+				projectile.rotation = direction.angle() + deg2rad(rand_range(-DISPERSION_ANGLE, +DISPERSION_ANGLE))
+				
+				projectile.hit_owner = get_parent()
 		
 		self.ammo -= 1
 		emit_signal("shot")

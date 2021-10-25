@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://project/weapons/moving hitboxes/bullets/BulletBase.tscn" type="PackedScene" id=1]
+
+[node name="SawedOffBullet" instance=ExtResource( 1 )]
+damage = 10
+SPEED = 200
+
+[node name="Sprite" parent="." index="0"]
+scale = Vector2( 0.4, 1 )
+
+[node name="AutoFreeTimer" parent="." index="3"]
+wait_time = 0.2

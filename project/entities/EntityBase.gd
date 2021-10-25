@@ -39,7 +39,8 @@ export(bool) var can_pick_up_items: bool = true
 enum ARMED_STATES {
 	UNARMED,
 	REVOLVER,
-	TORCH
+	TORCH,
+	SAWED_OFF
 }
 export(ARMED_STATES) var current_armed_state = ARMED_STATES.UNARMED
 var picked_weapons_by_self: int = 0
@@ -56,13 +57,15 @@ onready var collShape = $CollisionShape2D
 onready var hurtbox = $Hurtbox
 onready var weapons: Dictionary = {
 	ARMED_STATES.REVOLVER: $WeaponBases/RevolverBase,
-	ARMED_STATES.TORCH: $WeaponBases/TorchBase
+	ARMED_STATES.TORCH: $WeaponBases/TorchBase,
+	ARMED_STATES.SAWED_OFF: $WeaponBases/SawedOffBase
 }
 onready var effectPlayer = $EffectPlayer
 onready var projSpawn = $ProjSpawnPivot/ProjectileSpawn
 onready var statusEffectHandler = $StatusEffectHandler
 onready var firePosition = $FirePosition
 onready var deathCircumstances = $DeathCircumstances
+onready var healthBar = $HealthBar
 
 
 ### SETTERS AND GETTERS
@@ -70,7 +73,10 @@ func set_hp_max(value):
 	if hp_max != value:
 # warning-ignore:narrowing_conversion
 		hp_max = max(0, value)
+		if is_instance_valid(healthBar):
+			healthBar.max_value = hp_max
 		self.hp = hp
+		
 		emit_signal("hp_max_changed", hp_max)
 
 func set_hp(value):
@@ -79,6 +85,9 @@ func set_hp(value):
 		emit_signal("got_hit", hp - value)
 	
 	hp = clamp(value, 0, hp_max)
+	if is_instance_valid(healthBar):
+		healthBar.value = hp
+	
 	emit_signal("hp_changed", hp)
 	if hp <= 0:
 		is_dead = true
@@ -130,7 +139,7 @@ func die(free_self: bool = true):
 
 func hit(hit_dir: Vector2):
 	if HIT_SCENE:
-		var hit_object = Global.spawn_object_at_position(HIT_SCENE, projSpawn.global_position)
+		var hit_object = Global.spawn_object_at_position(HIT_SCENE, projSpawn.global_position + Vector2(-3,0))
 		hit_object.rotation = hit_dir.angle()
 		hit_object.damage = HIT_DAMAGE
 		hit_object.hit_owner = self
@@ -172,16 +181,28 @@ func _on_PickupArea_area_entered(item):
 				current_armed_state = ARMED_STATES.REVOLVER
 				$ProjSpawnPivot/ProjectileSpawn/RevolverSprite.show()
 				
+				$ProjSpawnPivot/ProjectileSpawn/SawedOffSprite.hide()
 				$ProjSpawnPivot/ProjectileSpawn/TorchSprite.hide()
 				
 				weapons[ARMED_STATES.REVOLVER].ammo = weapons[ARMED_STATES.REVOLVER].AMMO_DEFAULT
 				picked_weapons_by_self += 1
 				emit_signal("picked_revolver")
+			"sawed_off":
+				current_armed_state = ARMED_STATES.SAWED_OFF
+				$ProjSpawnPivot/ProjectileSpawn/SawedOffSprite.show()
+				
+				$ProjSpawnPivot/ProjectileSpawn/TorchSprite.hide()
+				$ProjSpawnPivot/ProjectileSpawn/RevolverSprite.hide()
+				
+				weapons[ARMED_STATES.SAWED_OFF].ammo = weapons[ARMED_STATES.SAWED_OFF].AMMO_DEFAULT
+				picked_weapons_by_self += 1
+#				emit_signal("picked_revolver")
 			"torch":
 				current_armed_state = ARMED_STATES.TORCH
 				$ProjSpawnPivot/ProjectileSpawn/TorchSprite.show()
 				
 				$ProjSpawnPivot/ProjectileSpawn/RevolverSprite.hide()
+				$ProjSpawnPivot/ProjectileSpawn/SawedOffSprite.hide()
 				
 				weapons[ARMED_STATES.TORCH].ammo = weapons[ARMED_STATES.TORCH].AMMO_DEFAULT
 				picked_weapons_by_self += 1
@@ -202,6 +223,8 @@ func _on_weapon_magazine_emptied(weapon_type):
 			$ProjSpawnPivot/ProjectileSpawn/RevolverSprite.hide()
 		weapon_types_enum.TORCH:
 			$ProjSpawnPivot/ProjectileSpawn/TorchSprite.hide()
+		weapon_types_enum.SAWED_OFF:
+			$ProjSpawnPivot/ProjectileSpawn/SawedOffSprite.hide()
 
 
 func _on_EntityBase_died(_entity):

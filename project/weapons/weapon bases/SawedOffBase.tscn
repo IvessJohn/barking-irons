@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://project/weapons/weapon bases/WeaponBase.tscn" type="PackedScene" id=1]
+[ext_resource path="res://project/weapons/moving hitboxes/bullets/SawedOffBullet.tscn" type="PackedScene" id=2]
+
+[node name="SawedOffBase" instance=ExtResource( 1 )]
+WEAPON_TYPE = 2
+PROJ_BASIC = ExtResource( 2 )
+BULLETS_CAST = 7
+DISPERSION_ANGLE = 20
