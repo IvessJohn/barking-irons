@@ -11,10 +11,21 @@ func _ready():
 	$SparkAutoDamageTimer.stop()
 	$SparkParticles.hide()
 
-func _on_ExplosionBarrel_destroyed(_self):
+func explode():
 	var explosion_position = global_position
 	destroy()
 	Global.call_deferred("spawn_object_at_position", EXPLOSION, explosion_position)
+	
+	if get_tree().has_group("LevelCamera"):
+		get_tree().get_nodes_in_group("LevelCamera")[0].start_new_shake(4, 0.1)
+
+func spawn_ruins():
+	# Explosive barrels should leave nothing
+	pass
+
+
+func _on_ExplosionBarrel_destroyed(_self):
+	explode()
 
 func _on_ExplosiveBarrel_got_hit(damage):
 	if !is_sparking:

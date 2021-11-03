@@ -53,6 +53,14 @@ func _ready():
 	SoundtrackPlayer.play_soundtrack(SoundtrackPlayer.THEMES.BATTLE)
 	SoundtrackPlayer.streamPlayer.volume_db = 0
 	
+	# This piece of code became obsolete since you can just manually disconnect
+	#  the signals rather than make everything based on code
+#	var all_weapons: Array = get_tree().get_nodes_in_group("WeaponItem")
+#	if all_weapons.size() == 1 and all_weapons[0].is_in_group("RevolverItem"):
+#		if get_tree().get_nodes_in_group("WeaponSpawner").size() == 0:
+#			all_weapons[0].connect("_on_RevolverItem_destroyed")
+#			all_weapons[0].connect("_on_RevolverItem_picked")
+	
 #	if show_additional_vfx:
 #		var sandstormHandler = $SandstormHandler
 #		sandstormHandler.rotation_degrees = rand_range(0, 360)
@@ -94,13 +102,15 @@ func _on_RevolverItem_picked(picker_object: Node2D):
 func game_end():
 	game_finished = true
 	
+	$EnemySpawnTimer.paused = true
+	
 	var stopped_objects = []
 	stopped_objects.append_array(get_tree().get_nodes_in_group("Cowboy"))
 #	stopped_objects.append_array(get_tree().get_nodes_in_group("Entity"))
 #	stopped_objects.append_array(get_tree().get_nodes_in_group("Tumbleweed"))
 	
 	for o in stopped_objects:
-		o.set_deferred("can_move", false)
+		o.set_deferred("active", false)
 #	randomEventGenerator.stop_generating_events()
 
 func _on_Player_died(_player):
@@ -150,7 +160,7 @@ func _on_EnemyBase_died(enemy_object: KinematicBody2D):
 					finalScreen.show_screen(finalScreen.FINAL_POSSIBILITY.VICTORY, "You didn't control time, did you?")
 				game_end()
 			Global.GAME_MODES.ARENA:
-				$ArenaWaveController.enemy_died()
+				$ArenaController.enemy_died(enemy_object)
 		
 		enemy_object.disconnect("died", self, "_on_EnemyBase_died")
 

@@ -23,28 +23,28 @@ height = 0.0
 [sub_resource type="Animation" id=2]
 resource_name = "walk"
 
-[sub_resource type="StreamTexture" id=9]
+[sub_resource type="StreamTexture" id=3]
 load_path = "res://.import/tileset.png-9e4ac3d96b8d851b5f74da9e5e818b32.stex"
 
-[sub_resource type="CapsuleShape2D" id=3]
+[sub_resource type="CapsuleShape2D" id=4]
 radius = 5.0
 height = 2.0
 
-[sub_resource type="CircleShape2D" id=4]
+[sub_resource type="CircleShape2D" id=5]
 radius = 5.0
 
-[sub_resource type="CapsuleShape2D" id=5]
+[sub_resource type="CapsuleShape2D" id=6]
 radius = 5.0
 height = 4.0
 
-[sub_resource type="CircleShape2D" id=6]
+[sub_resource type="CircleShape2D" id=7]
 radius = 7.0
 
-[sub_resource type="CapsuleShape2D" id=7]
+[sub_resource type="CapsuleShape2D" id=8]
 radius = 1.0
 height = 6.0
 
-[sub_resource type="StyleBoxFlat" id=8]
+[sub_resource type="StyleBoxFlat" id=9]
 bg_color = Color( 0.32549, 0.690196, 0.117647, 1 )
 
 [node name="EntityBase" type="KinematicBody2D" groups=[
@@ -97,7 +97,7 @@ region_rect = Rect2( 240, 128, 16, 16 )
 
 [node name="SawedOffSprite" type="Sprite" parent="ProjSpawnPivot/ProjectileSpawn"]
 position = Vector2( 1, -2 )
-texture = SubResource( 9 )
+texture = SubResource( 3 )
 region_enabled = true
 region_rect = Rect2( 240, 64, 16, 16 )
 
@@ -115,7 +115,7 @@ position = Vector2( 0, -4 )
 collision_mask = 4
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 
 [node name="AttackTimer" type="Timer" parent="."]
 wait_time = 0.15
@@ -125,7 +125,7 @@ one_shot = true
 visible = false
 
 [node name="CollisionShape2D" parent="PickupArea" index="0"]
-shape = SubResource( 4 )
+shape = SubResource( 5 )
 
 [node name="StatusEffectHandler" parent="." instance=ExtResource( 7 )]
 
@@ -139,7 +139,7 @@ collision_layer = 2
 collision_mask = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CatchFireArea"]
-shape = SubResource( 5 )
+shape = SubResource( 6 )
 
 [node name="GetWetArea" type="Area2D" parent="."]
 visible = false
@@ -149,7 +149,7 @@ collision_layer = 0
 collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GetWetArea"]
-shape = SubResource( 6 )
+shape = SubResource( 7 )
 
 [node name="CliffDetectionArea" type="Area2D" parent="."]
 position = Vector2( 0, 1.5 )
@@ -159,7 +159,7 @@ collision_mask = 64
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CliffDetectionArea"]
 rotation = 1.5708
-shape = SubResource( 7 )
+shape = SubResource( 8 )
 
 [node name="DeathCircumstances" type="Node" parent="."]
 script = ExtResource( 14 )
@@ -170,7 +170,7 @@ margin_top = -16.0
 margin_right = 24.0
 margin_bottom = -6.0
 rect_scale = Vector2( 0.3, 0.3 )
-custom_styles/fg = SubResource( 8 )
+custom_styles/fg = SubResource( 9 )
 max_value = 50.0
 percent_visible = false
 __meta__ = {

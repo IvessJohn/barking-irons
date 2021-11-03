@@ -21,6 +21,8 @@ export(AudioStream) var DEATH_SOUND: AudioStream = null
 export(AudioStream) var WILHELM_CRY: AudioStream = preload("res://project/sounds/wilhelm_scream.ogg")
 export(float, 0.0, 1.0) var WILHELM_CRY_CHANCE: float = 0.1
 
+export(bool) var active: bool = true
+
 export(bool) var can_move: bool = true
 export(int) var SPEED: int = 55
 export(float) var SPEED_MODIFIER: float = 1.0
@@ -128,7 +130,7 @@ func die(free_self: bool = true):
 		get_node(firePosition.remote_path).extinguishable = statusEffectHandler.fire_extinguishable
 	
 	var death_sound = DEATH_SOUND
-	if deathCircumstances.death_reason == deathCircumstances.ALL_DEATH_REASONS.FELL:
+	if deathCircumstances.death_reason == deathCircumstances.DEATH_REASONS.FELL:
 		if randf() < WILHELM_CRY_CHANCE:
 			death_sound = WILHELM_CRY
 	
@@ -231,7 +233,6 @@ func _on_EntityBase_died(_entity):
 	die()
 
 
-
 func _on_EntityStatusEffectHandler_received_fire_damage(fire_damage):
 	print(name + ": FIRE DAMAGE! FIRE DAMAGE!")
 	ignite_self()
@@ -276,7 +277,7 @@ func ignite_self():
 			get_node(firePosition.remote_path).extinguishTimer.start()
 
 func fall_off_a_cliff():
-	deathCircumstances.death_reason = deathCircumstances.ALL_DEATH_REASONS.FELL
+	deathCircumstances.death_reason = deathCircumstances.DEATH_REASONS.FELL
 	die()
 
 func _on_EntityStatusEffectHandler_wet_changed(wet):

@@ -117,11 +117,11 @@ func badge_picked():
 	badges_picked_total += 1
 	
 	if badges_picked_this_wave == enemies_this_wave:
-		# Show a notification that all the badges were collected
+		# Show a notification that all the badges of this round were collected
 		pass
 
-func enemy_died(pos: Vector2):
-	enemy_death_positions.append(pos)
+func enemy_died(enemy: KinematicBody2D):
+	enemy_death_positions.append(enemy.global_position)
 	
 	if get_tree().get_nodes_in_group("Enemy").size() < 1:
 		start_intermission()
