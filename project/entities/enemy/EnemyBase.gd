@@ -3,8 +3,9 @@ extends "res://project/entities/EntityBase.gd"
 var is_spawned = false # A variable for understanding if an enemy is fully spawned
 
 var player: KinematicBody2D = null
-var weaponItem: Node2D = null
+var chosen_weaponItem: Node2D = null
 var weapons_nearby: int = 0
+
 
 export(bool) var FOLLOWS_PATH: bool = true
 
@@ -42,9 +43,9 @@ func _ready():
 		CHOSEN_BEHAVIOR = BEHAVIORS.values()[randi() % BEHAVIORS.size()]
 	
 	
-#	CHOSEN_BEHAVIOR = BEHAVIORS.NORMAL
+	CHOSEN_BEHAVIOR = BEHAVIORS.NORMAL
 #	CHOSEN_BEHAVIOR = BEHAVIORS.BERSERK
-	CHOSEN_BEHAVIOR = BEHAVIORS.COWARD
+#	CHOSEN_BEHAVIOR = BEHAVIORS.COWARD
 #	CHOSEN_BEHAVIOR = BEHAVIORS.FIGHTER
 
 	match CHOSEN_BEHAVIOR:
@@ -57,22 +58,41 @@ func _ready():
 		BEHAVIORS.FIGHTER:
 			can_pick_up_items = false
 
+func _should_chase_player():
+	if CHOSEN_BEHAVIOR == BEHAVIORS.FIGHTER:
+		return true
+	if CHOSEN_BEHAVIOR == BEHAVIORS.BERSERK and weapons_nearby == 0:
+		return true
+
+func _should_look_for_weapon():
+	if CHOSEN_BEHAVIOR == BEHAVIORS.FIGHTER or CHOSEN_BEHAVIOR == BEHAVIORS.BERSERK:
+		return false
+	else:
+		if CHOSEN_BEHAVIOR == BEHAVIORS.COWARD:
+			return current_armed_state == ARMED_STATES.UNARMED
+		else:
+			# BEHAVIORS.NORMAL
+			return (weapons_picked == 0 or weapons_nearby > 0)
+
+func _should_chase_weapon():
+	return chosenweapon_exists()
+
+func chosenweapon_exists():
+	return is_instance_valid(chosen_weaponItem)
 
 func _physics_process(_delta):
 	if active:
 		# Generating paths to either the revolver or the player
 		if FOLLOWS_PATH and pathfinder:
 			behave_as(CHOSEN_BEHAVIOR)
-	#		if CHOSEN_BEHAVIOR != BEHAVIORS.BERSERK and is_instance_valid(weaponItem) and current_armed_state != ARMED_STATES.REVOLVER:
+	#		if CHOSEN_BEHAVIOR != BEHAVIORS.BERSERK and is_instance_valid(chosen_weaponItem) and current_armed_state != ARMED_STATES.REVOLVER:
 	#			# If the revolver is available on the map
-	#			cur_target = weaponItem
+	#			cur_target = chosen_weaponItem
 	#		else:
 	#			cur_target = player
 			
 	#		pathfinder.set_deferred("path", pathfinder.get_path_to_target(cur_target))
-			pathfinder.generate_path_to_target(cur_target)
-	#		pathfinder.request_path()
-			pathfinder.navigate()
+			go_to(cur_target)
 		
 		# Attacking
 		if can_move and is_instance_valid(player):
@@ -95,8 +115,12 @@ func _physics_process(_delta):
 	apply_and_decrease_knockback()
 	move()
 
+func go_to(target):
+	pathfinder.generate_path_to_target(target)
+	pathfinder.navigate()
+
 func behave_as(behavior = CHOSEN_BEHAVIOR):
-	# EXPLANATION: weaponItem contains a reference to the weapon item that
+	# EXPLANATION: chosen_weaponItem contains a reference to the weapon item that
 	# the enemy aims to pick up. When it's null, it means that the enemy
 	# is currently not looking for a weapon
 	
@@ -105,13 +129,13 @@ func behave_as(behavior = CHOSEN_BEHAVIOR):
 			# Doesn't care for more weapons, unless they are very close and it's 
 			# no big deal going to them
 			
-			if (picked_weapons_by_self < 1 or weapons_nearby > 0) and !is_instance_valid(weaponItem):
-				var weaponItem = find_closest_weapon(true, true)
-				if is_instance_valid(weaponItem):
-					cur_target = weaponItem
+			if (weapons_picked < 1 or weapons_nearby > 0) and !is_instance_valid(chosen_weaponItem):
+				var chosen_weaponItem = find_closest_weapon(true, true)
+				if is_instance_valid(chosen_weaponItem):
+					cur_target = chosen_weaponItem
 				return
-			elif is_instance_valid(weaponItem) and cur_target.is_in_group("Pickables"):
-				# No need to update cur_target because it is still weaponItem
+			elif is_instance_valid(chosen_weaponItem) and cur_target.is_in_group("Pickables"):
+				# No need to update cur_target because it is still chosen_weaponItem
 				return
 			
 			# Already has or had a weapon
@@ -120,13 +144,13 @@ func behave_as(behavior = CHOSEN_BEHAVIOR):
 		BEHAVIORS.BERSERK: #  The main target is the player. Doesn't care for weapons, 
 			# unless they are very close and it's no big deal going to them
 			
-			if weapons_nearby > 0 and !is_instance_valid(weaponItem):
-				var weaponItem = find_closest_weapon(true, true)
-				if is_instance_valid(weaponItem):
-					cur_target = weaponItem
+			if weapons_nearby > 0 and !is_instance_valid(chosen_weaponItem):
+				var chosen_weaponItem = find_closest_weapon(true, true)
+				if is_instance_valid(chosen_weaponItem):
+					cur_target = chosen_weaponItem
 					return
-#			elif cur_target.is_in_group("Pickables") and is_instance_valid(weaponItem):
-#				# No need to update cur_target because it is still weaponItem
+#			elif cur_target.is_in_group("Pickables") and is_instance_valid(chosen_weaponItem):
+#				# No need to update cur_target because it is still chosen_weaponItem
 #				pass
 			
 			# Already has or had a weapon
@@ -136,13 +160,13 @@ func behave_as(behavior = CHOSEN_BEHAVIOR):
 			# If there are no weapons, only then directly goes to the player and 
 			# fights melee
 			
-			if enemyNetwork.count_unclaimed_weapons() > 0 and !is_instance_valid(weaponItem):
-				var weaponItem = find_closest_weapon(true, true)
-				if is_instance_valid(weaponItem):
-					cur_target = weaponItem
+			if enemyNetwork.count_unclaimed_weapons() > 0 and !is_instance_valid(chosen_weaponItem):
+				var chosen_weaponItem = find_closest_weapon(true, true)
+				if is_instance_valid(chosen_weaponItem):
+					cur_target = chosen_weaponItem
 				return
-			elif is_instance_valid(weaponItem) and cur_target.is_in_group("Pickables"):
-				# No need to update cur_target because it is still weaponItem
+			elif is_instance_valid(chosen_weaponItem) and cur_target.is_in_group("Pickables"):
+				# No need to update cur_target because it is still chosen_weaponItem
 				return
 			
 			# Already has a weapon or there are none available
@@ -160,30 +184,30 @@ func check_player_in_detection(wanted_los: RayCast2D) -> bool:
 	return false
 
 
-func null_weaponItem():
-	weaponItem = null
+func null_chosen_weaponItem():
+	chosen_weaponItem = null
 	erase_claimed_weapon()
 
 func find_closest_weapon(check_revolvers: bool = true, check_torches: bool = false, check_sawedoffs: bool = true):
-	var weaponitems_list: Array = []
+	var chosen_weaponItems_list: Array = []
 	var closest_weapon = null
 	var closest_dist = -1
 	
 	if check_revolvers:
-		weaponitems_list.append_array(get_tree().get_nodes_in_group("RevolverItem"))
+		chosen_weaponItems_list.append_array(get_tree().get_nodes_in_group("RevolverItem"))
 	if check_torches:
-		weaponitems_list.append_array(get_tree().get_nodes_in_group("TorchItem"))
+		chosen_weaponItems_list.append_array(get_tree().get_nodes_in_group("TorchItem"))
 	if check_sawedoffs:
-		weaponitems_list.append_array(get_tree().get_nodes_in_group("SawedOffItem"))
+		chosen_weaponItems_list.append_array(get_tree().get_nodes_in_group("SawedOffItem"))
 	
-	for weaponitem in weaponitems_list:
+	for chosen_weaponItem in chosen_weaponItems_list:
 		if is_instance_valid(enemyNetwork):
-			if str(weaponitem) in enemyNetwork.claimed_weaponItems.keys():
+			if str(chosen_weaponItem) in enemyNetwork.claimed_weaponItems.keys():
 				continue
 		
-		var dist_to_item = global_position.distance_squared_to(weaponitem.global_position)
+		var dist_to_item = global_position.distance_squared_to(chosen_weaponItem.global_position)
 		if dist_to_item < closest_dist or closest_dist < 0:
-			closest_weapon = weaponitem
+			closest_weapon = chosen_weaponItem
 			closest_dist = dist_to_item
 	
 	claim_weapon(closest_weapon)
@@ -196,18 +220,18 @@ func claim_weapon(weapon):
 
 
 func _on_WeaponDetectionArea_area_entered(area):
-	if area.is_in_group("WeaponItem") and !(str(area) in enemyNetwork.claimed_weaponItems.keys()):
+	if area.is_in_group("chosen_weaponItem") and !(str(area) in enemyNetwork.claimed_weaponItems.keys()):
 		weapons_nearby += 1
 		var path_to_the_weapon = pathfinder.get_path_to_target(area)
 		var path_dist = pathfinder.calculate_path_distance(path_to_the_weapon)
 #		print("Distance to the weapon " + area.name + ": " + str(path_dist))
 
 func _on_WeaponDetectionArea_area_exited(area):
-	if area.is_in_group("WeaponItem") and !(str(area) in enemyNetwork.claimed_weaponItems.keys()):
+	if area.is_in_group("chosen_weaponItem") and !(str(area) in enemyNetwork.claimed_weaponItems.keys()):
 		weapons_nearby -= 1
 
 func erase_claimed_weapon():
 	if is_instance_valid(enemyNetwork):
-		if str(weaponItem) in enemyNetwork.claimed_weaponItems.keys():
-			enemyNetwork.claimed_weaponItems.erase(str(weaponItem))
+		if str(chosen_weaponItem) in enemyNetwork.claimed_weaponItems.keys():
+			enemyNetwork.claimed_weaponItems.erase(str(chosen_weaponItem))
 

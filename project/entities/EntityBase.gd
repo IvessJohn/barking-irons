@@ -45,7 +45,7 @@ enum ARMED_STATES {
 	SAWED_OFF
 }
 export(ARMED_STATES) var current_armed_state = ARMED_STATES.UNARMED
-var picked_weapons_by_self: int = 0
+var weapons_picked: int = 0
 
 export(PackedScene) var HIT_SCENE: PackedScene = null
 export(int) var HIT_DAMAGE: int = 10
@@ -187,7 +187,7 @@ func _on_PickupArea_area_entered(item):
 				$ProjSpawnPivot/ProjectileSpawn/TorchSprite.hide()
 				
 				weapons[ARMED_STATES.REVOLVER].ammo = weapons[ARMED_STATES.REVOLVER].AMMO_DEFAULT
-				picked_weapons_by_self += 1
+				weapons_picked += 1
 				emit_signal("picked_revolver")
 			"sawed_off":
 				current_armed_state = ARMED_STATES.SAWED_OFF
@@ -197,7 +197,7 @@ func _on_PickupArea_area_entered(item):
 				$ProjSpawnPivot/ProjectileSpawn/RevolverSprite.hide()
 				
 				weapons[ARMED_STATES.SAWED_OFF].ammo = weapons[ARMED_STATES.SAWED_OFF].AMMO_DEFAULT
-				picked_weapons_by_self += 1
+				weapons_picked += 1
 #				emit_signal("picked_revolver")
 			"torch":
 				current_armed_state = ARMED_STATES.TORCH
@@ -207,7 +207,7 @@ func _on_PickupArea_area_entered(item):
 				$ProjSpawnPivot/ProjectileSpawn/SawedOffSprite.hide()
 				
 				weapons[ARMED_STATES.TORCH].ammo = weapons[ARMED_STATES.TORCH].AMMO_DEFAULT
-				picked_weapons_by_self += 1
+				weapons_picked += 1
 #				emit_signal("picked_revolver")
 		
 		if self.is_in_group("Enemy"):

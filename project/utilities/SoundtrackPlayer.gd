@@ -33,8 +33,9 @@ func play_soundtrack(theme: int, repeat_themes: bool = true):
 			streamPlayer.play()
 
 func replay_theme():
-	streamPlayer.stream = TRACKS[current_theme][0]
-	streamPlayer.play()
+	if TRACKS[current_theme].size() > 0:
+		streamPlayer.stream = TRACKS[current_theme][0]
+		streamPlayer.play()
 
 func _on_AudioStreamPlayer_finished():
 	if is_repeating:

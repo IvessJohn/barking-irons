@@ -110,6 +110,7 @@ func game_end():
 #	stopped_objects.append_array(get_tree().get_nodes_in_group("Tumbleweed"))
 	
 	for o in stopped_objects:
+		o.set_deferred("can_move", false)
 		o.set_deferred("active", false)
 #	randomEventGenerator.stop_generating_events()
 

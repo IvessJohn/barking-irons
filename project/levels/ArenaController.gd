@@ -16,6 +16,7 @@ var ENEMIES: Array = [
 var enemies_total: int = 0
 var enemies_this_wave: int = 0
 var enemies_left_to_spawn: int = 0
+var enemies_alive: int = 0
 
 var current_player_faction: int = Global.FACTIONS.OUTLAW
 
@@ -52,8 +53,8 @@ func start_battle():
 	
 	self.current_phase = PHASES.BATTLE
 	wave_num += 1
-	enemies_this_wave += int(rand_range(0, 4))
-	enemies_this_wave = clamp(enemies_this_wave, 3, 25)
+	enemies_this_wave += int(rand_range(0, 3))
+	enemies_this_wave = clamp(enemies_this_wave, 3, 15)
 	enemies_left_to_spawn = enemies_this_wave
 	enemies_total += enemies_this_wave
 	
@@ -92,6 +93,7 @@ func spawn_enemy():
 	
 	# Spawn an enemy
 	get_parent().spawn_enemy()
+	enemies_alive += 1
 	
 	if enemies_left_to_spawn > 0:
 		$EnemySpawnTimer.start()
@@ -122,8 +124,9 @@ func badge_picked():
 
 func enemy_died(enemy: KinematicBody2D):
 	enemy_death_positions.append(enemy.global_position)
+	enemies_alive -= 1
 	
-	if get_tree().get_nodes_in_group("Enemy").size() < 1:
+	if enemies_alive < 1:
 		start_intermission()
 
 
