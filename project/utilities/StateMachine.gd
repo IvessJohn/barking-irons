@@ -1,7 +1,7 @@
 extends Node
 class_name StateMachine
 
-var state = null
+var state = ""
 var previous_state = null
 
 var states: Dictionary = {}
@@ -19,6 +19,7 @@ func _physics_process(delta):
 func _state_logic(delta):
 	pass
 
+# This method returns the state the parent should switch to, if he needs to at all
 func _get_transition(delta):
 	return null
 

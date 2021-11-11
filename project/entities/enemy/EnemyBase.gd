@@ -80,44 +80,16 @@ func _should_chase_weapon():
 func chosenweapon_exists():
 	return is_instance_valid(chosen_weaponItem)
 
-func _physics_process(_delta):
-	if active:
-		# Generating paths to either the revolver or the player
-		if FOLLOWS_PATH and pathfinder:
-			behave_as(CHOSEN_BEHAVIOR)
-	#		if CHOSEN_BEHAVIOR != BEHAVIORS.BERSERK and is_instance_valid(chosen_weaponItem) and current_armed_state != ARMED_STATES.REVOLVER:
-	#			# If the revolver is available on the map
-	#			cur_target = chosen_weaponItem
-	#		else:
-	#			cur_target = player
-			
-	#		pathfinder.set_deferred("path", pathfinder.get_path_to_target(cur_target))
-			go_to(cur_target)
-		
-		# Attacking
-		if can_move and is_instance_valid(player):
-			var direction_to_player = global_position.direction_to(player.global_position)
-			hitlos.rotation = direction_to_player.angle()
-			shootlos.rotation = hitlos.rotation
-			throwlos.rotation = hitlos.rotation
-			$ProjSpawnPivot.rotation = direction_to_player.angle()
-			
-			if check_player_in_detection(hitlos):
-				attack_in_direction(direction_to_player, true)
-			elif current_armed_state != ARMED_STATES.UNARMED:
-				var checking_los: RayCast2D = shootlos
-				if current_armed_state == ARMED_STATES.TORCH:
-					checking_los = throwlos
-					
-				if check_player_in_detection(checking_los):
-					attack_in_direction(direction_to_player, false)
-	
-	apply_and_decrease_knockback()
-	move()
 
 func go_to(target):
-	pathfinder.generate_path_to_target(target)
-	pathfinder.navigate()
+	if is_instance_valid(target):
+		pathfinder.generate_path_to_target(target)
+		pathfinder.navigate()
+	else:
+		stop_navigation()
+
+func stop_navigation():
+	pathfinder.path = []
 
 func behave_as(behavior = CHOSEN_BEHAVIOR):
 	# EXPLANATION: chosen_weaponItem contains a reference to the weapon item that

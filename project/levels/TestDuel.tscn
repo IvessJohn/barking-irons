@@ -21,7 +21,6 @@ extents = Vector2( 304, 40 )
 extents = Vector2( 40, 200 )
 
 [node name="TestDuel" instance=ExtResource( 1 )]
-enemies_disabled = true
 
 [node name="PauseController" parent="." index="1"]
 pause_allowed = false

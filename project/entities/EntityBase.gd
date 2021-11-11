@@ -63,6 +63,7 @@ onready var weapons: Dictionary = {
 	ARMED_STATES.SAWED_OFF: $WeaponBases/SawedOffBase
 }
 onready var effectPlayer = $EffectPlayer
+onready var projSpawnPivot = $ProjSpawnPivot
 onready var projSpawn = $ProjSpawnPivot/ProjectileSpawn
 onready var statusEffectHandler = $StatusEffectHandler
 onready var firePosition = $FirePosition
