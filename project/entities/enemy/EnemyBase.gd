@@ -11,7 +11,7 @@ export(bool) var FOLLOWS_PATH: bool = true
 
 enum BEHAVIORS {
 	NORMAL,		# Tries to reach a weapon first
-	BERSERK,	# Attacks the player right away in melee combat
+	BERSERK,	# Attacks the player right away in melee combat, though doesn't mind weapons
 	COWARD,		# Always tries to pick weapons
 	FIGHTER		# ONLY melee
 }
@@ -43,8 +43,8 @@ func _ready():
 		CHOSEN_BEHAVIOR = BEHAVIORS.values()[randi() % BEHAVIORS.size()]
 	
 	
-	CHOSEN_BEHAVIOR = BEHAVIORS.NORMAL
-#	CHOSEN_BEHAVIOR = BEHAVIORS.BERSERK
+#	CHOSEN_BEHAVIOR = BEHAVIORS.NORMAL
+	CHOSEN_BEHAVIOR = BEHAVIORS.BERSERK
 #	CHOSEN_BEHAVIOR = BEHAVIORS.COWARD
 #	CHOSEN_BEHAVIOR = BEHAVIORS.FIGHTER
 
@@ -59,23 +59,36 @@ func _ready():
 			can_pick_up_items = false
 
 func _should_chase_player():
-	if CHOSEN_BEHAVIOR == BEHAVIORS.FIGHTER:
-		return true
-	if CHOSEN_BEHAVIOR == BEHAVIORS.BERSERK and weapons_nearby == 0:
-		return true
+	match CHOSEN_BEHAVIOR:
+		BEHAVIORS.FIGHTER:
+			return true
+		BEHAVIORS.BERSERK:
+			return true
+		BEHAVIORS.NORMAL:
+			return (weapons_picked == 0 or weapons_nearby > 0)
+		BEHAVIORS.COWARD:
+			return (current_armed_state != ARMED_STATES.UNARMED)
 
 func _should_look_for_weapon():
-	if CHOSEN_BEHAVIOR == BEHAVIORS.FIGHTER or CHOSEN_BEHAVIOR == BEHAVIORS.BERSERK:
-		return false
-	else:
-		if CHOSEN_BEHAVIOR == BEHAVIORS.COWARD:
+	match CHOSEN_BEHAVIOR:
+		BEHAVIORS.FIGHTER:
+			return false
+		BEHAVIORS.BERSERK:
+			return (current_armed_state == ARMED_STATES.UNARMED and weapons_nearby > 0)
+		BEHAVIORS.NORMAL:
+			return (weapons_picked == 0 or (current_armed_state == ARMED_STATES.UNARMED and weapons_nearby > 0))
+		BEHAVIORS.COWARD:
 			return current_armed_state == ARMED_STATES.UNARMED
-		else:
-			# BEHAVIORS.NORMAL
-			return (weapons_picked == 0 or weapons_nearby > 0)
 
 func _should_chase_weapon():
-	return chosenweapon_exists()
+	match CHOSEN_BEHAVIOR:
+		BEHAVIORS.FIGHTER:
+			return false
+		BEHAVIORS.BERSERK:
+			return weapons_nearby == 0
+#			return false
+		BEHAVIORS.NORMAL, BEHAVIORS.COWARD:
+			return chosenweapon_exists()
 
 func chosenweapon_exists():
 	return is_instance_valid(chosen_weaponItem)

@@ -7,7 +7,6 @@ func _ready():
 	call_deferred("set_state", states.chase_player)
 
 func _state_logic(delta):
-	
 	if parent.active:
 		# Generating paths to either the revolver or the player
 		if parent.FOLLOWS_PATH and parent.pathfinder:
